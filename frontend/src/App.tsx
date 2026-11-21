@@ -3,6 +3,12 @@ import type { Incident } from './types';
 import { fetchIncidents } from './services/api';
 import { AlertCircle, Search, Filter, RefreshCw, ShieldAlert, Clock } from 'lucide-react';
 
+function getFetchErrorMessage(err: unknown): string {
+  return err instanceof Error && err.message
+    ? err.message
+    : 'An unexpected error occurred while connecting to the backend.';
+}
+
 export default function App() {
   const [incidents, setIncidents] = useState<Incident[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -19,15 +25,35 @@ export default function App() {
     try {
       const data = await fetchIncidents();
       setIncidents(data);
-    } catch (err: any) {
-      setError(err.message || 'An unexpected error occurred while connecting to the backend.');
+    } catch (err: unknown) {
+      setError(getFetchErrorMessage(err));
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    loadData();
+    let active = true;
+    fetchIncidents()
+      .then((data) => {
+        if (active) {
+          setIncidents(data);
+        }
+      })
+      .catch((err: unknown) => {
+        if (active) {
+          setError(getFetchErrorMessage(err));
+        }
+      })
+      .finally(() => {
+        if (active) {
+          setLoading(false);
+        }
+      });
+
+    return () => {
+      active = false;
+    };
   }, []);
 
   // Filter logic (F1)
