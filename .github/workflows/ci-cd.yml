@@ -75,5 +75,8 @@ jobs:
       - name: Lint frontend
         run: npm run lint
 
+      - name: Test frontend states
+        run: npm run test
+
       - name: Build production bundle
         run: npm run build
