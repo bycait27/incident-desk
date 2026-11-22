@@ -14,6 +14,7 @@ import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
 import org.springframework.util.Assert;
 
 @Configuration
@@ -58,5 +59,11 @@ public class GoogleOAuth2ClientConfig {
             }
             return delegate.loadUser(request);
         };
+    }
+
+    @Bean
+    public GrantedAuthoritiesMapper googleAuthoritiesMapper(
+            @Value("${app.oauth.google.operator-subject:}") String operatorSubject) {
+        return new GoogleRoleAuthoritiesMapper(operatorSubject);
     }
 }

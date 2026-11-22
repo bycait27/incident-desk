@@ -1,0 +1,94 @@
+package com.incidentdesk.controllers;
+
+import com.incidentdesk.config.SecurityConfig;
+import com.incidentdesk.config.GoogleOAuth2ClientConfig;
+import com.incidentdesk.entities.Incident;
+import com.incidentdesk.services.IncidentService;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
+import org.springframework.http.MediaType;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.context.TestPropertySource;
+
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oidcLogin;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+@WebMvcTest({IncidentController.class, CurrentUserController.class})
+@Import({SecurityConfig.class, GoogleOAuth2ClientConfig.class})
+@TestPropertySource(properties = {
+        "app.oauth.google.enabled=true",
+        "app.oauth.google.client-id=synthetic-client",
+        "app.oauth.google.client-secret=synthetic-secret",
+        "app.oauth.google.operator-subject=operator-subject"
+})
+class IncidentAuthorizationTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockBean
+    private IncidentService incidentService;
+
+    @Test
+    void rejectsAnonymousWriteWithUnauthorized() throws Exception {
+        mockMvc.perform(post("/api/incidents")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{}"))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void rejectsViewerWriteWithForbidden() throws Exception {
+        mockMvc.perform(post("/api/incidents")
+                        .with(user("viewer").roles("VIEWER"))
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{}"))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    void operatorCanWriteAndActorComesFromOidcClaims() throws Exception {
+        Incident created = new Incident();
+        when(incidentService.createIncident(any(Incident.class), eq("operator@example.test")))
+                .thenReturn(created);
+
+        mockMvc.perform(post("/api/incidents")
+                        .with(oidcLogin()
+                                .idToken(token -> token
+                                        .claim("sub", "operator-subject")
+                                        .claim("email", "operator@example.test"))
+                                .authorities(new SimpleGrantedAuthority("ROLE_OPERATOR")))
+                        .with(csrf())
+                        .header("X-User-Email", "attacker@example.test")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{}"))
+                .andExpect(status().isOk());
+
+        verify(incidentService).createIncident(any(Incident.class), eq("operator@example.test"));
+    }
+
+    @Test
+    void authenticatedUserCanSeeSubjectAndAssignedRole() throws Exception {
+        mockMvc.perform(get("/api/auth/me")
+                        .with(oidcLogin()
+                                .idToken(token -> token.claim("sub", "viewer-subject"))
+                                .authorities(new SimpleGrantedAuthority("ROLE_VIEWER"))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.subject").value("viewer-subject"))
+                .andExpect(jsonPath("$.roles[0]").value("ROLE_VIEWER"));
+    }
+}
