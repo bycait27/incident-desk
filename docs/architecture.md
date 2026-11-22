@@ -76,3 +76,5 @@ key, so the audit trail can remain append-only independently of resource
 lifecycle. The V4 index `idx_incidents_visibility_created_at` begins with the
 publication/archive filters and orders by creation time, supporting the
 public and operator active-incident queries without sorting the whole table.
+V5 adds `idx_audit_logs_resource_history` to support a resource's audit timeline;
+it can be dropped without changing stored audit records.
