@@ -1,7 +1,7 @@
-package main.java.com.incidentdesk.services;
+package com.incidentdesk.services;
 
-import main.java.com.incidentdesk.entities.Incident;
-import main.java.com.incidentdesk.repositories.IncidentRepository;
+import com.incidentdesk.entities.Incident;
+import com.incidentdesk.repositories.IncidentRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;

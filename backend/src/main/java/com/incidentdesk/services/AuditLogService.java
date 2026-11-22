@@ -1,7 +1,7 @@
-package main.java.com.incidentdesk.services;
+package com.incidentdesk.services;
 
-import main.java.com.incidentdesk.entities.AuditLog;
-import main.java.com.incidentdesk.repositories.AuditLogRepository;
+import com.incidentdesk.entities.AuditLog;
+import com.incidentdesk.repositories.AuditLogRepository;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -1,4 +1,4 @@
-package main.java.com.incidentdesk.entities;
+package com.incidentdesk.entities;
 
 import jakarta.persistence.*;
 import java.time.OffsetDateTime;

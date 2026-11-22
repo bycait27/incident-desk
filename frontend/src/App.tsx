@@ -3,6 +3,11 @@ import type { Incident } from './types';
 import { fetchIncidents } from './services/api';
 import { AlertCircle, Search, Filter, RefreshCw, ShieldAlert, Clock } from 'lucide-react';
 
+const googleOAuthEnabled = import.meta.env.VITE_GOOGLE_OAUTH_ENABLED === 'true';
+const googleLoginUrl =
+  import.meta.env.VITE_GOOGLE_LOGIN_URL ??
+  'http://localhost:8080/oauth2/authorization/google';
+
 function getFetchErrorMessage(err: unknown): string {
   return err instanceof Error && err.message
     ? err.message
@@ -18,6 +23,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [statusFilter, setStatusFilter] = useState<string>('ALL');
   const [severityFilter, setSeverityFilter] = useState<string>('ALL');
+  const loginComplete = new URLSearchParams(window.location.search).get('login') === 'success';
 
   const loadData = async () => {
     setLoading(true);
@@ -83,13 +89,29 @@ export default function App() {
             </h1>
             <p className="text-slate-400 text-sm mt-1">Campus IT Service-Status & Incident Tracking Dashboard</p>
           </div>
-          <button 
-            onClick={loadData}
-            className="self-start md:self-auto flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2 rounded-lg text-sm font-medium transition border border-slate-700"
-          >
-            <RefreshCw className="w-4 h-4" /> Refresh Data
-          </button>
+            <div className="flex items-center gap-3">
+              {googleOAuthEnabled && (
+                <a
+                  href={googleLoginUrl}
+                  className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition"
+                >
+                  Sign in with Google
+                </a>
+              )}
+              <button
+                onClick={loadData}
+                className="self-start md:self-auto flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2 rounded-lg text-sm font-medium transition border border-slate-700"
+              >
+                <RefreshCw className="w-4 h-4" /> Refresh Data
+              </button>
+            </div>
         </header>
+
+        {loginComplete && (
+            <p role="status" className="text-sm text-emerald-300">
+              Google sign-in completed.
+            </p>
+        )}
 
         {/* Controls: Search & Filters (F1) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-900 p-4 rounded-xl border border-slate-800">

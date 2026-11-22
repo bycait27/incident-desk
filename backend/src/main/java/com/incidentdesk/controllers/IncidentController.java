@@ -1,7 +1,7 @@
-package main.java.com.incidentdesk.controllers;
+package com.incidentdesk.controllers;
 
-import main.java.com.incidentdesk.entities.Incident;
-import main.java.com.incidentdesk.services.IncidentService;
+import com.incidentdesk.entities.Incident;
+import com.incidentdesk.services.IncidentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
