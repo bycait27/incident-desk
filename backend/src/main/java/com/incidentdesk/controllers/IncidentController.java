@@ -1,7 +1,9 @@
 package com.incidentdesk.controllers;
 
 import com.incidentdesk.entities.Incident;
+import com.incidentdesk.services.IncidentNotFoundException;
 import com.incidentdesk.services.IncidentService;
+import com.incidentdesk.services.IncidentService.IncidentSnapshot;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
@@ -10,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/incidents")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", exposedHeaders = "X-Incident-Event-Cursor")
 public class IncidentController {
 
     private final IncidentService incidentService;
@@ -20,8 +22,11 @@ public class IncidentController {
     }
 
     @GetMapping
-    public List<Incident> getAllIncidents() {
-        return incidentService.getAllIncidents();
+    public ResponseEntity<List<Incident>> getAllIncidents() {
+        IncidentSnapshot snapshot = incidentService.getIncidentSnapshot();
+        return ResponseEntity.ok()
+                .header("X-Incident-Event-Cursor", Long.toString(snapshot.eventCursor()))
+                .body(snapshot.incidents());
     }
 
     @GetMapping("/{id}")
@@ -46,7 +51,7 @@ public class IncidentController {
         try {
             Incident updated = incidentService.updateIncident(id, incidentDetails, user.getEmail());
             return ResponseEntity.ok(updated);
-        } catch (RuntimeException e) {
+        } catch (IncidentNotFoundException e) {
             return ResponseEntity.notFound().build();
         }
     }

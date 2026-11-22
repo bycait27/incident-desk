@@ -7,8 +7,8 @@ export interface Incident {
   description: string;
   status: IncidentStatus;
   severity: IncidentSeverity;
-  reporterId?: number;
-  assignedTo?: number;
+  reporterId?: number | null;
+  assignedTo?: number | null;
   createdAt: string;
   updatedAt: string;
 }
@@ -27,4 +27,14 @@ export interface UptimeMonitorResponse {
   observedAt: string | null;
   message: string | null;
   monitors: UptimeMonitor[];
+}
+
+export interface IncidentSnapshot {
+  incidents: Incident[];
+  eventCursor: string;
+}
+
+export interface IncidentEventPayload {
+  eventType: 'CREATED' | 'UPDATED';
+  incident: Incident;
 }

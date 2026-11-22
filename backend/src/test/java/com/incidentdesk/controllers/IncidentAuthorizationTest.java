@@ -5,7 +5,9 @@ import com.incidentdesk.config.GoogleOAuth2ClientConfig;
 import com.incidentdesk.services.BetterStackMonitorService;
 import com.incidentdesk.services.BetterStackMonitorService.MonitorStatusResponse;
 import com.incidentdesk.entities.Incident;
+import com.incidentdesk.services.IncidentEventStreamService;
 import com.incidentdesk.services.IncidentService;
+import com.incidentdesk.services.IncidentService.IncidentSnapshot;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -15,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.List;
 
@@ -23,14 +26,22 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.hamcrest.Matchers.containsString;
 
-@WebMvcTest({IncidentController.class, CurrentUserController.class, BetterStackMonitorController.class})
+@WebMvcTest({
+        IncidentController.class,
+        CurrentUserController.class,
+        BetterStackMonitorController.class,
+        IncidentEventStreamController.class
+})
 @Import({SecurityConfig.class, GoogleOAuth2ClientConfig.class})
 @TestPropertySource(properties = {
         "app.oauth.google.enabled=true",
@@ -48,6 +59,34 @@ class IncidentAuthorizationTest {
 
     @MockBean
     private BetterStackMonitorService betterStackMonitorService;
+
+    @MockBean
+    private IncidentEventStreamService incidentEventStreamService;
+
+    @Test
+    void incidentSnapshotExposesCursorForSseResume() throws Exception {
+        when(incidentService.getIncidentSnapshot())
+                .thenReturn(new IncidentSnapshot(List.of(), 12L));
+
+        mockMvc.perform(get("/api/incidents"))
+                .andExpect(status().isOk())
+                .andExpect(header().string("X-Incident-Event-Cursor", "12"));
+    }
+
+    @Test
+    void publicEventStreamResumesFromLastEventIdHeader() throws Exception {
+        when(incidentEventStreamService.subscribe(13L)).thenReturn(new SseEmitter());
+
+        mockMvc.perform(get("/api/incidents/events")
+                        .param("after", "12")
+                        .header("Last-Event-ID", "13")
+                        .accept(MediaType.TEXT_EVENT_STREAM))
+                .andExpect(status().isOk())
+                .andExpect(header().string("Cache-Control", containsString("no-store")))
+                .andExpect(request().asyncStarted());
+
+        verify(incidentEventStreamService).subscribe(13L);
+    }
 
     @Test
     void publicMonitoringEndpointReturnsGracefulDegradationWithoutLogin() throws Exception {

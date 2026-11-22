@@ -1,6 +1,7 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Incident } from './types';
-import { fetchIncidents } from './services/api';
+import { API_BASE_URL, fetchIncidentSnapshot } from './services/api';
+import { parseIncidentEvent, upsertIncident } from './incidentLiveUpdates';
 import UptimePanel from './UptimePanel';
 import { AlertCircle, Search, Filter, RefreshCw, ShieldAlert, Clock } from 'lucide-react';
 
@@ -19,6 +20,10 @@ export default function App() {
   const [incidents, setIncidents] = useState<Incident[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [eventCursor, setEventCursor] = useState<string | null>(null);
+  const [liveUpdateStatus, setLiveUpdateStatus] =
+    useState<'connecting' | 'connected' | 'reconnecting' | 'unavailable'>('connecting');
+  const lastSeenEventId = useRef('0');
 
   // Search & Filter state (F1)
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -30,10 +35,16 @@ export default function App() {
     setLoading(true);
     setError(null);
     try {
-      const data = await fetchIncidents();
-      setIncidents(data);
+      const snapshot = await fetchIncidentSnapshot();
+      setIncidents(snapshot.incidents);
+      if (BigInt(snapshot.eventCursor) > BigInt(lastSeenEventId.current)) {
+        lastSeenEventId.current = snapshot.eventCursor;
+      }
+      setEventCursor(snapshot.eventCursor);
+      setLiveUpdateStatus('connecting');
     } catch (err: unknown) {
       setError(getFetchErrorMessage(err));
+      setLiveUpdateStatus('unavailable');
     } finally {
       setLoading(false);
     }
@@ -41,15 +52,21 @@ export default function App() {
 
   useEffect(() => {
     let active = true;
-    fetchIncidents()
-      .then((data) => {
+    fetchIncidentSnapshot()
+      .then((snapshot) => {
         if (active) {
-          setIncidents(data);
+          setIncidents(snapshot.incidents);
+          if (BigInt(snapshot.eventCursor) > BigInt(lastSeenEventId.current)) {
+            lastSeenEventId.current = snapshot.eventCursor;
+          }
+          setEventCursor(snapshot.eventCursor);
+          setLiveUpdateStatus('connecting');
         }
       })
       .catch((err: unknown) => {
         if (active) {
           setError(getFetchErrorMessage(err));
+          setLiveUpdateStatus('unavailable');
         }
       })
       .finally(() => {
@@ -62,6 +79,34 @@ export default function App() {
       active = false;
     };
   }, []);
+
+  useEffect(() => {
+    if (eventCursor === null) {
+      return;
+    }
+
+    const eventSource = new EventSource(`${API_BASE_URL}/incidents/events?after=${eventCursor}`);
+    eventSource.onopen = () => setLiveUpdateStatus('connected');
+    eventSource.onerror = () => setLiveUpdateStatus('reconnecting');
+    eventSource.addEventListener('incident', (event: Event) => {
+      const message = event as MessageEvent<string>;
+      let parsed;
+      try {
+        parsed = parseIncidentEvent(message.lastEventId, message.data, lastSeenEventId.current);
+      } catch {
+        setLiveUpdateStatus('unavailable');
+        return;
+      }
+      if (!parsed) {
+        return;
+      }
+      setLiveUpdateStatus('connected');
+      lastSeenEventId.current = parsed.eventId;
+      setIncidents((current) => upsertIncident(current, parsed.payload.incident));
+    });
+
+    return () => eventSource.close();
+  }, [eventCursor]);
 
   // Filter logic (F1)
   const filteredIncidents = useMemo(() => {
@@ -89,6 +134,9 @@ export default function App() {
               IncidentDesk
             </h1>
             <p className="text-slate-400 text-sm mt-1">Campus IT Service-Status & Incident Tracking Dashboard</p>
+            <p role="status" aria-live="polite" className="text-xs text-slate-500 mt-1">
+              Live updates: {liveUpdateStatus}
+            </p>
           </div>
             <div className="flex items-center gap-3">
               {googleOAuthEnabled && (

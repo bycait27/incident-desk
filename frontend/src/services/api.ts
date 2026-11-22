@@ -1,13 +1,21 @@
-import type { Incident, UptimeMonitorResponse } from '../types';
+import type { Incident, IncidentSnapshot, UptimeMonitorResponse } from '../types';
 
-const API_BASE_URL = 'http://localhost:8080/api';
+export const API_BASE_URL = 'http://localhost:8080/api';
 
 export async function fetchIncidents(): Promise<Incident[]> {
+  return (await fetchIncidentSnapshot()).incidents;
+}
+
+export async function fetchIncidentSnapshot(): Promise<IncidentSnapshot> {
   const response = await fetch(`${API_BASE_URL}/incidents`);
   if (!response.ok) {
     throw new Error(`Failed to fetch incidents: ${response.statusText}`);
   }
-  return response.json();
+  const cursorHeader = response.headers.get('X-Incident-Event-Cursor');
+  if (!cursorHeader || !/^\d+$/.test(cursorHeader)) {
+    throw new Error('The backend did not return a valid incident event cursor.');
+  }
+  return { incidents: await response.json(), eventCursor: cursorHeader };
 }
 
 export async function fetchUptimeMonitors(): Promise<UptimeMonitorResponse> {
