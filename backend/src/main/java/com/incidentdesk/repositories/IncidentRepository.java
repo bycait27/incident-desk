@@ -9,4 +9,8 @@ import java.util.List;
 public interface IncidentRepository extends JpaRepository<Incident, Long> {
     List<Incident> findByStatus(String status);
     List<Incident> findBySeverity(String severity);
+    List<Incident> findByPublishedTrueAndArchivedFalseOrderByCreatedAtDesc();
+    List<Incident> findByArchivedFalseOrderByCreatedAtDesc();
+    java.util.Optional<Incident> findByIdAndPublishedTrueAndArchivedFalse(Long id);
+    java.util.Optional<Incident> findByIdAndArchivedFalse(Long id);
 }

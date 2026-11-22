@@ -1,6 +1,17 @@
-import { useEffect, useState, useMemo } from 'react';
-import type { Incident } from './types';
-import { fetchIncidents } from './services/api';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import type { CurrentUser, Incident } from './types';
+import {
+  API_BASE_URL,
+  archiveIncident,
+  createIncident,
+  fetchCurrentUser,
+  fetchIncidentSnapshot,
+  publishIncident,
+  updateIncident,
+} from './services/api';
+import { parseIncidentEvent, upsertIncident } from './incidentLiveUpdates';
+import IncidentSubmissionForm from './IncidentSubmissionForm';
+import OperatorIncidentControls from './OperatorIncidentControls';
 import UptimePanel from './UptimePanel';
 import { AlertCircle, Search, Filter, RefreshCw, ShieldAlert, Clock } from 'lucide-react';
 
@@ -17,8 +28,17 @@ function getFetchErrorMessage(err: unknown): string {
 
 export default function App() {
   const [incidents, setIncidents] = useState<Incident[]>([]);
+  const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [authLoading, setAuthLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [authError, setAuthError] = useState<string | null>(null);
+  const [actionMessage, setActionMessage] = useState<string | null>(null);
+  const [eventCursor, setEventCursor] = useState<string | null>(null);
+  const [liveUpdateStatus, setLiveUpdateStatus] =
+    useState<'connecting' | 'connected' | 'reconnecting' | 'unavailable'>('connecting');
+  const lastSeenEventId = useRef('0');
+  const isOperator = currentUser?.roles.includes('ROLE_OPERATOR') ?? false;
 
   // Search & Filter state (F1)
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -30,26 +50,67 @@ export default function App() {
     setLoading(true);
     setError(null);
     try {
-      const data = await fetchIncidents();
-      setIncidents(data);
+      const snapshot = await fetchIncidentSnapshot();
+      setIncidents(snapshot.incidents);
+      if (BigInt(snapshot.eventCursor) > BigInt(lastSeenEventId.current)) {
+        lastSeenEventId.current = snapshot.eventCursor;
+      }
+      setEventCursor(snapshot.eventCursor);
+      setLiveUpdateStatus('connecting');
     } catch (err: unknown) {
       setError(getFetchErrorMessage(err));
+      setLiveUpdateStatus('unavailable');
     } finally {
       setLoading(false);
     }
   };
 
+  async function handleSubmitIncident(submission: { title: string; description: string }) {
+    const created = await createIncident(submission);
+    if (isOperator) {
+      setIncidents((current) => upsertIncident(current, created));
+    }
+    setActionMessage('Your report was submitted privately for IT review.');
+  }
+
+  async function handleUpdateIncident(
+    id: number,
+    update: Pick<Incident, 'title' | 'description' | 'status' | 'severity' | 'assignedTo'>,
+  ) {
+    const updated = await updateIncident(id, update);
+    setIncidents((current) => upsertIncident(current, updated));
+    setActionMessage(`Incident INC-${id} was updated.`);
+  }
+
+  async function handlePublishIncident(id: number) {
+    const published = await publishIncident(id);
+    setIncidents((current) => upsertIncident(current, published));
+    setActionMessage(`Incident INC-${id} is now public.`);
+  }
+
+  async function handleArchiveIncident(id: number) {
+    await archiveIncident(id);
+    setIncidents((current) => current.filter((incident) => incident.id !== id));
+    setActionMessage(`Incident INC-${id} was archived; its audit history was retained.`);
+  }
+
   useEffect(() => {
     let active = true;
-    fetchIncidents()
-      .then((data) => {
+    fetchIncidentSnapshot()
+      .then((snapshot) => {
         if (active) {
-          setIncidents(data);
+          setIncidents(snapshot.incidents);
+          if (BigInt(snapshot.eventCursor) > BigInt(lastSeenEventId.current)) {
+            lastSeenEventId.current = snapshot.eventCursor;
+          }
+          setEventCursor(snapshot.eventCursor);
+          setLiveUpdateStatus('connecting');
         }
       })
       .catch((err: unknown) => {
         if (active) {
           setError(getFetchErrorMessage(err));
+          setLiveUpdateStatus('unavailable');
         }
       })
       .finally(() => {
@@ -57,11 +118,58 @@ export default function App() {
           setLoading(false);
         }
       });
+    fetchCurrentUser()
+      .then((user) => {
+        if (active) {
+          setCurrentUser(user);
+          setAuthError(null);
+        }
+      })
+      .catch((authFetchError: unknown) => {
+        if (active) {
+          setAuthError(getFetchErrorMessage(authFetchError));
+        }
+      })
+      .finally(() => {
+        if (active) {
+          setAuthLoading(false);
+        }
+      });
 
     return () => {
       active = false;
     };
   }, []);
+
+  useEffect(() => {
+    if (eventCursor === null) {
+      return;
+    }
+
+    const eventSource = new EventSource(`${API_BASE_URL}/incidents/events?after=${eventCursor}`, {
+      withCredentials: true,
+    });
+    eventSource.onopen = () => setLiveUpdateStatus('connected');
+    eventSource.onerror = () => setLiveUpdateStatus('reconnecting');
+    eventSource.addEventListener('incident', (event: Event) => {
+      const message = event as MessageEvent<string>;
+      let parsed;
+      try {
+        parsed = parseIncidentEvent(message.lastEventId, message.data, lastSeenEventId.current);
+      } catch {
+        setLiveUpdateStatus('unavailable');
+        return;
+      }
+      if (!parsed) {
+        return;
+      }
+      setLiveUpdateStatus('connected');
+      lastSeenEventId.current = parsed.eventId;
+      setIncidents((current) => upsertIncident(current, parsed.payload.incident));
+    });
+
+    return () => eventSource.close();
+  }, [eventCursor]);
 
   // Filter logic (F1)
   const filteredIncidents = useMemo(() => {
@@ -89,6 +197,9 @@ export default function App() {
               IncidentDesk
             </h1>
             <p className="text-slate-400 text-sm mt-1">Campus IT Service-Status & Incident Tracking Dashboard</p>
+            <p role="status" aria-live="polite" className="text-xs text-slate-500 mt-1">
+              Live updates: {liveUpdateStatus}
+            </p>
           </div>
             <div className="flex items-center gap-3">
               {googleOAuthEnabled && (
@@ -113,6 +224,25 @@ export default function App() {
               Google sign-in completed.
             </p>
         )}
+
+        {authError && (
+          <p role="alert" className="text-sm text-red-300">
+            Sign-in status is unavailable: {authError}
+          </p>
+        )}
+        {authLoading && <p role="status" className="text-sm text-slate-400">Checking sign-in status…</p>}
+        {currentUser && (
+          <p role="status" className="text-sm text-slate-400">
+            Signed in as {currentUser.email} · {isOperator ? 'IT operator' : 'reporter'}
+          </p>
+        )}
+        {actionMessage && (
+          <p role="status" className="rounded-lg border border-emerald-800 bg-emerald-950/50 p-3 text-sm text-emerald-200">
+            {actionMessage}
+          </p>
+        )}
+
+        {currentUser && <IncidentSubmissionForm onSubmit={handleSubmitIncident} />}
 
         <UptimePanel />
 
@@ -200,6 +330,11 @@ export default function App() {
                   <div>
                     <span className="text-xs font-mono text-indigo-400">INC-{incident.id}</span>
                     <h2 className="text-lg font-semibold text-white mt-0.5">{incident.title}</h2>
+                    {isOperator && !incident.published && (
+                      <span className="mt-1 inline-block text-xs font-semibold uppercase tracking-wide text-amber-300">
+                        Private · awaiting review
+                      </span>
+                    )}
                   </div>
                   <div className="flex items-center gap-2">
                     <span className={`px-2.5 py-1 rounded-full text-xs font-medium uppercase tracking-wide ${
@@ -223,6 +358,15 @@ export default function App() {
                   <span>Created: {new Date(incident.createdAt).toLocaleString()}</span>
                   <span>Last Updated: {new Date(incident.updatedAt).toLocaleString()}</span>
                 </div>
+                {isOperator && (
+                  <OperatorIncidentControls
+                    key={`${incident.id}-${incident.updatedAt}-${incident.title}-${incident.status}-${incident.severity}`}
+                    incident={incident}
+                    onSave={(update) => handleUpdateIncident(incident.id, update)}
+                    onPublish={() => handlePublishIncident(incident.id)}
+                    onArchive={() => handleArchiveIncident(incident.id)}
+                  />
+                )}
               </div>
             ))}
           </div>
