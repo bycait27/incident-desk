@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 
 @RestController
 @RequestMapping("/api/incidents/events")
-@CrossOrigin(origins = "*")
 public class IncidentEventStreamController {
 
     private final IncidentEventStreamService eventStreamService;
@@ -29,12 +31,20 @@ public class IncidentEventStreamController {
     @GetMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public ResponseEntity<SseEmitter> stream(
             @RequestHeader(name = "Last-Event-ID", required = false) String lastEventId,
-            @RequestParam(required = false) Long after) {
+            @RequestParam(required = false) Long after,
+            @AuthenticationPrincipal OidcUser user) {
         return ResponseEntity.ok()
                 .contentType(MediaType.TEXT_EVENT_STREAM)
                 .header(HttpHeaders.CACHE_CONTROL, "no-cache, no-store, no-transform")
                 .header("X-Accel-Buffering", "no")
-                .body(eventStreamService.subscribe(resolveCursor(lastEventId, after)));
+                .body(eventStreamService.subscribe(
+                        resolveCursor(lastEventId, after), isOperator(user)));
+    }
+
+    private boolean isOperator(OidcUser user) {
+        return user != null && user.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .anyMatch("ROLE_OPERATOR"::equals);
     }
 
     private long resolveCursor(String lastEventId, Long after) {

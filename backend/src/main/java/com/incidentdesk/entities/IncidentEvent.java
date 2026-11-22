@@ -27,16 +27,24 @@ public class IncidentEvent {
     @Column(name = "payload_json", nullable = false, columnDefinition = "TEXT")
     private String payloadJson;
 
+    @Column(nullable = false)
+    private boolean published;
+
+    @Column(nullable = false)
+    private boolean archived;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private OffsetDateTime createdAt;
 
     protected IncidentEvent() {
     }
 
-    public IncidentEvent(Long incidentId, String eventType, String payloadJson) {
+    public IncidentEvent(Long incidentId, String eventType, String payloadJson, boolean published, boolean archived) {
         this.incidentId = incidentId;
         this.eventType = eventType;
         this.payloadJson = payloadJson;
+        this.published = published;
+        this.archived = archived;
     }
 
     @PrePersist
@@ -64,6 +72,14 @@ public class IncidentEvent {
 
     public String getPayloadJson() {
         return payloadJson;
+    }
+
+    public boolean isPublished() {
+        return published;
+    }
+
+    public boolean isArchived() {
+        return archived;
     }
 
     public OffsetDateTime getCreatedAt() {

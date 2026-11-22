@@ -8,6 +8,8 @@ const incident: Incident = {
   description: 'SSE test incident.',
   status: 'OPEN',
   severity: 'LOW',
+  published: true,
+  archived: false,
   createdAt: '2026-11-22T19:00:00Z',
   updatedAt: '2026-11-22T19:00:00Z',
 };
@@ -24,6 +26,21 @@ describe('incident live-update handling', () => {
       eventId: '13',
       payload: { eventType: 'CREATED', incident },
     });
+  });
+
+  it('accepts a publish event and normalizes pre-visibility event snapshots', () => {
+    const legacyIncident: Partial<Incident> = { ...incident };
+    delete legacyIncident.published;
+    delete legacyIncident.archived;
+
+    const result = parseIncidentEvent(
+      '13',
+      JSON.stringify({ eventType: 'PUBLISHED', incident: legacyIncident }),
+      '12',
+    );
+
+    expect(result?.payload.incident.published).toBe(true);
+    expect(result?.payload.incident.archived).toBe(false);
   });
 
   it('ignores repeated or out-of-order event IDs', () => {
@@ -43,5 +60,9 @@ describe('incident live-update handling', () => {
 
     expect(upsertIncident([incident], changedIncident)).toEqual([changedIncident]);
     expect(upsertIncident([], incident)).toEqual([incident]);
+  });
+
+  it('removes archived incidents from the active list', () => {
+    expect(upsertIncident([incident], { ...incident, archived: true })).toEqual([]);
   });
 });

@@ -9,8 +9,16 @@ export interface Incident {
   severity: IncidentSeverity;
   reporterId?: number | null;
   assignedTo?: number | null;
+  published: boolean;
+  archived: boolean;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface CurrentUser {
+  subject: string;
+  email: string;
+  roles: string[];
 }
 
 export interface UptimeMonitor {
@@ -35,6 +43,6 @@ export interface IncidentSnapshot {
 }
 
 export interface IncidentEventPayload {
-  eventType: 'CREATED' | 'UPDATED';
+  eventType: 'CREATED' | 'UPDATED' | 'PUBLISHED' | 'ARCHIVED';
   incident: Incident;
 }

@@ -1,16 +1,30 @@
-import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/vitest';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import type { Incident, IncidentSnapshot, UptimeMonitorResponse } from './types';
-import { fetchIncidentSnapshot, fetchUptimeMonitors } from './services/api';
+import type { CurrentUser, Incident, IncidentSnapshot, UptimeMonitorResponse } from './types';
+import {
+  archiveIncident,
+  createIncident,
+  fetchCurrentUser,
+  fetchIncidentSnapshot,
+  fetchUptimeMonitors,
+  publishIncident,
+  updateIncident,
+} from './services/api';
 import App from './App';
 
 vi.mock('./services/api', () => ({
   API_BASE_URL: 'http://localhost:8080/api',
+  archiveIncident: vi.fn(),
+  createIncident: vi.fn(),
+  fetchCurrentUser: vi.fn(),
   fetchIncidentSnapshot: vi.fn(),
   fetchUptimeMonitors: vi.fn(),
+  publishIncident: vi.fn(),
+  updateIncident: vi.fn(),
 }));
 
+const fetchCurrentUserMock = vi.mocked(fetchCurrentUser);
 const fetchIncidentSnapshotMock = vi.mocked(fetchIncidentSnapshot);
 const fetchUptimeMonitorsMock = vi.mocked(fetchUptimeMonitors);
 const emptyMonitoringResponse: UptimeMonitorResponse = {
@@ -60,6 +74,7 @@ describe('incident fetch states', () => {
   beforeEach(() => {
     FakeEventSource.instances = [];
     vi.stubGlobal('EventSource', FakeEventSource);
+    fetchCurrentUserMock.mockResolvedValue(null);
     fetchUptimeMonitorsMock.mockResolvedValue(emptyMonitoringResponse);
   });
 
@@ -111,6 +126,8 @@ describe('incident fetch states', () => {
       severity: 'LOW',
       reporterId: null,
       assignedTo: null,
+      published: true,
+      archived: false,
       createdAt: '2026-11-22T19:00:00Z',
       updatedAt: '2026-11-22T19:00:00Z',
     };
@@ -119,6 +136,7 @@ describe('incident fetch states', () => {
       id: 9,
       title: 'New synthetic incident',
       description: 'Published over SSE',
+      published: true,
       createdAt: '2026-11-22T19:01:00Z',
       updatedAt: '2026-11-22T19:01:00Z',
     };
@@ -146,5 +164,88 @@ describe('incident fetch states', () => {
 
     expect(await screen.findByText('New synthetic incident')).toBeInTheDocument();
     expect(screen.getAllByText('New synthetic incident')).toHaveLength(1);
+  });
+
+  it('lets a signed-in viewer submit a private incident without exposing it on the public board', async () => {
+    const viewer: CurrentUser = {
+      subject: 'viewer-subject',
+      email: 'viewer@example.test',
+      roles: ['ROLE_VIEWER'],
+    };
+    const privateIncident: Incident = {
+      id: 21,
+      title: 'Private synthetic report',
+      description: 'Awaiting IT review',
+      status: 'OPEN',
+      severity: 'LOW',
+      published: false,
+      archived: false,
+      createdAt: '2026-11-22T19:00:00Z',
+      updatedAt: '2026-11-22T19:00:00Z',
+    };
+    fetchCurrentUserMock.mockResolvedValue(viewer);
+    fetchIncidentSnapshotMock.mockResolvedValue({ incidents: [], eventCursor: '0' });
+    vi.mocked(createIncident).mockResolvedValue(privateIncident);
+
+    render(<App />);
+
+    const form = await screen.findByRole('form', { name: 'Submit an incident' });
+    fireEvent.change(screen.getByLabelText('Title'), { target: { value: privateIncident.title } });
+    fireEvent.change(screen.getByLabelText('Description'), { target: { value: privateIncident.description } });
+    fireEvent.submit(form);
+
+    expect(await screen.findByText('Your report was submitted privately for IT review.')).toBeInTheDocument();
+    expect(screen.queryByText('Private synthetic report')).not.toBeInTheDocument();
+    expect(createIncident).toHaveBeenCalledWith({
+      title: 'Private synthetic report',
+      description: 'Awaiting IT review',
+    });
+  });
+
+  it('shows operator publish and archive controls for unpublished synthetic reports', async () => {
+    const operator: CurrentUser = {
+      subject: 'operator-subject',
+      email: 'operator@example.test',
+      roles: ['ROLE_OPERATOR'],
+    };
+    const pendingIncident: Incident = {
+      id: 22,
+      title: 'Awaiting review',
+      description: 'Synthetic report for moderation.',
+      status: 'OPEN',
+      severity: 'LOW',
+      published: false,
+      archived: false,
+      createdAt: '2026-11-22T19:00:00Z',
+      updatedAt: '2026-11-22T19:00:00Z',
+    };
+    fetchCurrentUserMock.mockResolvedValue(operator);
+    fetchIncidentSnapshotMock.mockResolvedValue({ incidents: [pendingIncident], eventCursor: '0' });
+    vi.mocked(publishIncident).mockResolvedValue({ ...pendingIncident, published: true });
+    vi.mocked(updateIncident).mockResolvedValue({ ...pendingIncident, title: 'Edited incident' });
+    vi.mocked(archiveIncident).mockResolvedValue(undefined);
+    vi.stubGlobal('confirm', vi.fn(() => true));
+
+    render(<App />);
+
+    expect(await screen.findByText('Awaiting review')).toBeInTheDocument();
+    fireEvent.change(screen.getByLabelText('Edit title'), { target: { value: 'Edited incident' } });
+    fireEvent.submit(screen.getByRole('form', { name: 'Update incident 22' }));
+    await waitFor(() => {
+      expect(updateIncident).toHaveBeenCalledWith(22, expect.objectContaining({ title: 'Edited incident' }));
+    });
+
+    fireEvent.click(screen.getByRole('button', { name: 'Publish' }));
+
+    await waitFor(() => {
+      expect(publishIncident).toHaveBeenCalledWith(22);
+    });
+    expect(await screen.findByText('Incident INC-22 is now public.')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Archive' }));
+    await waitFor(() => {
+      expect(archiveIncident).toHaveBeenCalledWith(22);
+    });
+    expect(await screen.findByText('Incident INC-22 was archived; its audit history was retained.')).toBeInTheDocument();
+    expect(screen.queryByText('Edited incident')).not.toBeInTheDocument();
   });
 });

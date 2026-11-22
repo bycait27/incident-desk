@@ -29,6 +29,12 @@ public class Incident {
     @Column(name = "assigned_to")
     private Long assignedTo;
 
+    @Column(nullable = false)
+    private boolean published = true;
+
+    @Column(nullable = false)
+    private boolean archived;
+
     @Column(name = "created_at", updatable = false)
     private OffsetDateTime createdAt;
 
@@ -62,6 +68,10 @@ public class Incident {
     public void setReporterId(Long reporterId) { this.reporterId = reporterId; }
     public Long getAssignedTo() { return assignedTo; }
     public void setAssignedTo(Long assignedTo) { this.assignedTo = assignedTo; }
+    public boolean isPublished() { return published; }
+    public void setPublished(boolean published) { this.published = published; }
+    public boolean isArchived() { return archived; }
+    public void setArchived(boolean archived) { this.archived = archived; }
     public OffsetDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(OffsetDateTime createdAt) { this.createdAt = createdAt; }
     public OffsetDateTime getUpdatedAt() { return updatedAt; }

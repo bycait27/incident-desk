@@ -24,10 +24,10 @@ public class IncidentEventStreamService {
         this.eventRepository = eventRepository;
     }
 
-    public SseEmitter subscribe(long lastEventId) {
+    public SseEmitter subscribe(long lastEventId, boolean operator) {
         SseEmitter emitter = new SseEmitter();
         UUID subscriptionId = UUID.randomUUID();
-        Subscription subscription = new Subscription(emitter, lastEventId);
+        Subscription subscription = new Subscription(emitter, lastEventId, operator);
         subscriptions.put(subscriptionId, subscription);
 
         emitter.onCompletion(() -> subscriptions.remove(subscriptionId));
@@ -65,10 +65,12 @@ public class IncidentEventStreamService {
             }
 
             for (IncidentEvent event : events) {
-                subscription.emitter.send(SseEmitter.event()
-                        .id(Long.toString(event.getId()))
-                        .name("incident")
-                        .data(event.getPayloadJson()));
+                if (subscription.operator || event.isPublished()) {
+                    subscription.emitter.send(SseEmitter.event()
+                            .id(Long.toString(event.getId()))
+                            .name("incident")
+                            .data(event.getPayloadJson()));
+                }
                 subscription.lastEventId = event.getId();
             }
             subscription.pollsWithoutEvents = 0;
@@ -82,12 +84,14 @@ public class IncidentEventStreamService {
 
     private static final class Subscription {
         private final SseEmitter emitter;
+        private final boolean operator;
         private volatile long lastEventId;
         private int pollsWithoutEvents;
 
-        private Subscription(SseEmitter emitter, long lastEventId) {
+        private Subscription(SseEmitter emitter, long lastEventId, boolean operator) {
             this.emitter = emitter;
             this.lastEventId = lastEventId;
+            this.operator = operator;
         }
     }
 }
