@@ -2,6 +2,8 @@ package com.incidentdesk.controllers;
 
 import com.incidentdesk.config.SecurityConfig;
 import com.incidentdesk.config.GoogleOAuth2ClientConfig;
+import com.incidentdesk.services.BetterStackMonitorService;
+import com.incidentdesk.services.BetterStackMonitorService.MonitorStatusResponse;
 import com.incidentdesk.entities.Incident;
 import com.incidentdesk.services.IncidentService;
 import org.junit.jupiter.api.Test;
@@ -13,6 +15,8 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.context.TestPropertySource;
+
+import java.util.List;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oidcLogin;
@@ -26,7 +30,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@WebMvcTest({IncidentController.class, CurrentUserController.class})
+@WebMvcTest({IncidentController.class, CurrentUserController.class, BetterStackMonitorController.class})
 @Import({SecurityConfig.class, GoogleOAuth2ClientConfig.class})
 @TestPropertySource(properties = {
         "app.oauth.google.enabled=true",
@@ -41,6 +45,21 @@ class IncidentAuthorizationTest {
 
     @MockBean
     private IncidentService incidentService;
+
+    @MockBean
+    private BetterStackMonitorService betterStackMonitorService;
+
+    @Test
+    void publicMonitoringEndpointReturnsGracefulDegradationWithoutLogin() throws Exception {
+        when(betterStackMonitorService.getMonitors()).thenReturn(
+                new MonitorStatusResponse(false, false, null,
+                        "Monitoring data is temporarily unavailable.", List.of()));
+
+        mockMvc.perform(get("/api/uptime/monitors"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.available").value(false))
+                .andExpect(jsonPath("$.monitors").isEmpty());
+    }
 
     @Test
     void rejectsAnonymousWriteWithUnauthorized() throws Exception {

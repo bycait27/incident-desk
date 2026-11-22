@@ -55,6 +55,7 @@ public class SecurityConfig {
                     }))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.GET, "/api/incidents/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/uptime/**").permitAll()
                 .requestMatchers("/api/incidents/**").hasRole("OPERATOR")
                 .requestMatchers("/oauth2/**", "/login/**").permitAll()
                 .anyRequest().authenticated()
