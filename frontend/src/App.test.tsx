@@ -1,15 +1,24 @@
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/vitest';
-import { afterEach, describe, expect, it, vi } from 'vitest';
-import type { Incident } from './types';
-import { fetchIncidents } from './services/api';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import type { Incident, UptimeMonitorResponse } from './types';
+import { fetchIncidents, fetchUptimeMonitors } from './services/api';
 import App from './App';
 
 vi.mock('./services/api', () => ({
   fetchIncidents: vi.fn(),
+  fetchUptimeMonitors: vi.fn(),
 }));
 
 const fetchIncidentsMock = vi.mocked(fetchIncidents);
+const fetchUptimeMonitorsMock = vi.mocked(fetchUptimeMonitors);
+const emptyMonitoringResponse: UptimeMonitorResponse = {
+  available: true,
+  stale: false,
+  observedAt: '2025-01-02T03:04:05Z',
+  message: null,
+  monitors: [],
+};
 
 afterEach(() => {
   cleanup();
@@ -17,6 +26,10 @@ afterEach(() => {
 });
 
 describe('incident fetch states', () => {
+  beforeEach(() => {
+    fetchUptimeMonitorsMock.mockResolvedValue(emptyMonitoringResponse);
+  });
+
   it('shows loading while the request is pending, then the empty state', async () => {
     let resolveFetch!: (incidents: Incident[]) => void;
     fetchIncidentsMock.mockImplementation(

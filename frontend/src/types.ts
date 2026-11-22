@@ -12,3 +12,19 @@ export interface Incident {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface UptimeMonitor {
+  id: string;
+  name: string;
+  url: string;
+  status: string;
+  lastCheckedAt: string | null;
+}
+
+export interface UptimeMonitorResponse {
+  available: boolean;
+  stale: boolean;
+  observedAt: string | null;
+  message: string | null;
+  monitors: UptimeMonitor[];
+}

@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from 'react';
 import type { Incident } from './types';
 import { fetchIncidents } from './services/api';
+import UptimePanel from './UptimePanel';
 import { AlertCircle, Search, Filter, RefreshCw, ShieldAlert, Clock } from 'lucide-react';
 
 const googleOAuthEnabled = import.meta.env.VITE_GOOGLE_OAUTH_ENABLED === 'true';
@@ -112,6 +113,8 @@ export default function App() {
               Google sign-in completed.
             </p>
         )}
+
+        <UptimePanel />
 
         {/* Controls: Search & Filters (F1) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-900 p-4 rounded-xl border border-slate-800">
