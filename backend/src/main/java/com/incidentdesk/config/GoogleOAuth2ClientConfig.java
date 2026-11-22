@@ -4,11 +4,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
+import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
 import org.springframework.util.Assert;
 
 @Configuration
@@ -39,5 +45,25 @@ public class GoogleOAuth2ClientConfig {
                 .build();
 
         return new InMemoryClientRegistrationRepository(google);
+    }
+
+    @Bean
+    public OAuth2UserService<OidcUserRequest, OidcUser> googleOidcUserService() {
+        OidcUserService delegate = new OidcUserService();
+        delegate.setAccessibleScopes(GoogleGrantedScopesValidator.ACCESSIBLE_SCOPES);
+        GoogleGrantedScopesValidator scopesValidator = new GoogleGrantedScopesValidator();
+        return request -> {
+            var validation = scopesValidator.validate(request.getAccessToken());
+            if (validation.hasErrors()) {
+                throw new OAuth2AuthenticationException(validation.getErrors().iterator().next());
+            }
+            return delegate.loadUser(request);
+        };
+    }
+
+    @Bean
+    public GrantedAuthoritiesMapper googleAuthoritiesMapper(
+            @Value("${app.oauth.google.operator-subject:}") String operatorSubject) {
+        return new GoogleRoleAuthoritiesMapper(operatorSubject);
     }
 }

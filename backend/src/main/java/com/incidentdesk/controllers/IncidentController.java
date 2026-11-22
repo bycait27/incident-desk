@@ -3,6 +3,8 @@ package com.incidentdesk.controllers;
 import com.incidentdesk.entities.Incident;
 import com.incidentdesk.services.IncidentService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -32,17 +34,17 @@ public class IncidentController {
     @PostMapping
     public Incident createIncident(
             @RequestBody Incident incident,
-            @RequestHeader(value = "X-User-Email", defaultValue = "analyst@corp.internal") String actorEmail) {
-        return incidentService.createIncident(incident, actorEmail);
+            @AuthenticationPrincipal OidcUser user) {
+        return incidentService.createIncident(incident, user.getEmail());
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Incident> updateIncident(
             @PathVariable Long id,
             @RequestBody Incident incidentDetails,
-            @RequestHeader(value = "X-User-Email", defaultValue = "analyst@corp.internal") String actorEmail) {
+            @AuthenticationPrincipal OidcUser user) {
         try {
-            Incident updated = incidentService.updateIncident(id, incidentDetails, actorEmail);
+            Incident updated = incidentService.updateIncident(id, incidentDetails, user.getEmail());
             return ResponseEntity.ok(updated);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
