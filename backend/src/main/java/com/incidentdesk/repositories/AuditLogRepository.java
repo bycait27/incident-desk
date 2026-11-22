@@ -1,6 +1,6 @@
-package main.java.com.incidentdesk.repositories;
+package com.incidentdesk.repositories;
 
-import main.java.com.incidentdesk.entities.AuditLog;
+import com.incidentdesk.entities.AuditLog;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
