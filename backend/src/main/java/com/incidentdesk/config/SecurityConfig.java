@@ -10,6 +10,9 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizationRequestResolver;
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestCustomizers;
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestResolver;
+import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.beans.factory.ObjectProvider;
 
@@ -21,6 +24,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(
             HttpSecurity http,
             ObjectProvider<ClientRegistrationRepository> clientRegistrations,
+            ObjectProvider<OAuth2UserService<OidcUserRequest, OidcUser>> oidcUserServices,
             @Value("${app.oauth.google.enabled:false}") boolean googleLoginEnabled,
             @Value("${app.oauth.google.success-url:http://localhost:5173/?login=success}") String successUrl)
             throws Exception {
@@ -38,6 +42,8 @@ public class SecurityConfig {
             http.oauth2Login(oauth2 -> oauth2
                     .authorizationEndpoint(endpoint -> endpoint
                             .authorizationRequestResolver(authorizationRequestResolver))
+                    .userInfoEndpoint(userInfo ->
+                            userInfo.oidcUserService(oidcUserServices.getObject()))
                     .defaultSuccessUrl(successUrl, true));
         }
 
