@@ -6,6 +6,9 @@ flowchart LR
   DB[("PostgreSQL")]
   BetterStack["Better Stack API"]
   OIDC["Google OIDC"]
+  AS["CampusPulse OAuth issuer"]
+  MCP["MCP server / Streamable HTTP"]
+  MCPApp["React/TypeScript MCP App"]
 
   Browser -->|"OIDC login / session"| OIDC
   Browser -->|"REST reads and CSRF-protected writes"| API
@@ -13,6 +16,10 @@ flowchart LR
   API --> DB
   SSE --> DB
   API -->|"server-side HTTPS, timeout, bounded retry, cache"| BetterStack
+  MCPApp <-->|"MCP App host bridge"| MCP
+  MCP -->|"Bearer token: signature, issuer, audience, expiry, scope"| AS
+  MCP -->|"Scoped bearer API calls and tool audit"| API
+  AS -->|"Google OIDC login; app-issued PKCE tokens"| OIDC
 ```
 
 ## Incident visibility and event flow
@@ -22,8 +29,11 @@ are stored as unpublished; only operators can see the pending queue and
 publish, edit, or archive reports. Public incident reads and streams include
 published reports only. Archiving hides a report from active views but retains
 the incident, audit entry, and event history. Audit actors come from the
-validated OIDC identity. All writes use the REST API with a session CSRF token;
-the browser's SSE connection is read-only.
+validated identity. Browser writes use the REST API with a session CSRF token;
+the browser's SSE connection is read-only. MCP requests use short-lived
+audience-bound bearer tokens issued after Google OIDC login. MCP tools enforce
+per-tool scopes at both the MCP server and backend, and incident submission
+requires user confirmation before creating a private report.
 
 ```mermaid
 erDiagram
