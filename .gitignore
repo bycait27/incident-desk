@@ -47,6 +47,14 @@ frontend/yarn-debug.log*
 frontend/yarn-error.log*
 frontend/pnpm-debug.log*
 
+# MCP server and bundled MCP App
+mcp/node_modules/
+mcp/dist/
+mcp/.env
+mcp/.env.*
+!mcp/.env.example
+mcp/npm-debug.log*
+
 # ==========================================
 # INFRASTRUCTURE & ENVIRONMENT SECRETS
 # ==========================================

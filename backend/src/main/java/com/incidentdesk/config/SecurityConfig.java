@@ -90,7 +90,7 @@ public class SecurityConfig {
                     .userInfoEndpoint(userInfo ->
                             userInfo.oidcUserService(oidcUserServices.getObject())
                                     .userAuthoritiesMapper(authoritiesMappers.getObject()))
-                    .defaultSuccessUrl(successUrl, true));
+                    .defaultSuccessUrl(successUrl, false));
         }
 
         return http.build();
@@ -109,11 +109,15 @@ public class SecurityConfig {
 
     @Bean
     CorsConfigurationSource corsConfigurationSource(
-            @Value("${app.cors.allowed-origin:http://localhost:5173}") String allowedOrigin) {
+            @Value("${app.cors.allowed-origin:http://localhost:5173}") String allowedOrigin,
+            @Value("${app.mcp.oauth.client-origin:}") String mcpClientOrigin) {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of(allowedOrigin));
+        configuration.setAllowedOrigins(List.of(allowedOrigin, mcpClientOrigin).stream()
+                .filter(origin -> origin != null && !origin.isBlank())
+                .distinct()
+                .toList());
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("Content-Type", "X-CSRF-TOKEN", "Last-Event-ID"));
+        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "X-CSRF-TOKEN", "Last-Event-ID"));
         configuration.setExposedHeaders(List.of("X-Incident-Event-Cursor"));
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);
