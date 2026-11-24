@@ -172,7 +172,7 @@ jobs:
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
           RAILWAY_PROJECT_ID: ${{ vars.RAILWAY_PROJECT_ID }}
-        run: railway up "$GITHUB_WORKSPACE/mcp" --ci --project "$RAILWAY_PROJECT_ID" --environment staging --service incident-desk-mcp --message "github-sha=$GITHUB_SHA"
+        run: railway up "$GITHUB_WORKSPACE/mcp" --path-as-root --ci --project "$RAILWAY_PROJECT_ID" --environment staging --service incident-desk-mcp --message "github-sha=$GITHUB_SHA"
 
       - name: Verify staging health
         env:
@@ -221,7 +221,7 @@ jobs:
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
           RAILWAY_PROJECT_ID: ${{ vars.RAILWAY_PROJECT_ID }}
-        run: railway up "$GITHUB_WORKSPACE/mcp" --ci --project "$RAILWAY_PROJECT_ID" --environment production --service incident-desk-mcp --message "github-sha=$GITHUB_SHA"
+        run: railway up "$GITHUB_WORKSPACE/mcp" --path-as-root --ci --project "$RAILWAY_PROJECT_ID" --environment production --service incident-desk-mcp --message "github-sha=$GITHUB_SHA"
 
       - name: Verify production health
         env:
