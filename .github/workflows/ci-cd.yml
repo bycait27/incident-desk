@@ -166,13 +166,13 @@ jobs:
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
           RAILWAY_PROJECT_ID: ${{ vars.RAILWAY_PROJECT_ID }}
-        run: railway up . --ci --project "$RAILWAY_PROJECT_ID" --environment staging --service incident-desk-app --message "github-sha=$GITHUB_SHA"
+        run: railway up "$GITHUB_WORKSPACE" --ci --project "$RAILWAY_PROJECT_ID" --environment staging --service incident-desk-app --message "github-sha=$GITHUB_SHA"
 
       - name: Deploy MCP service to staging
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
           RAILWAY_PROJECT_ID: ${{ vars.RAILWAY_PROJECT_ID }}
-        run: railway up mcp --ci --project "$RAILWAY_PROJECT_ID" --environment staging --service incident-desk-mcp --message "github-sha=$GITHUB_SHA"
+        run: railway up "$GITHUB_WORKSPACE/mcp" --ci --project "$RAILWAY_PROJECT_ID" --environment staging --service incident-desk-mcp --message "github-sha=$GITHUB_SHA"
 
       - name: Verify staging health
         env:
@@ -215,13 +215,13 @@ jobs:
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
           RAILWAY_PROJECT_ID: ${{ vars.RAILWAY_PROJECT_ID }}
-        run: railway up . --ci --project "$RAILWAY_PROJECT_ID" --environment production --service incident-desk-app --message "github-sha=$GITHUB_SHA"
+        run: railway up "$GITHUB_WORKSPACE" --ci --project "$RAILWAY_PROJECT_ID" --environment production --service incident-desk-app --message "github-sha=$GITHUB_SHA"
 
       - name: Deploy MCP service to production
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
           RAILWAY_PROJECT_ID: ${{ vars.RAILWAY_PROJECT_ID }}
-        run: railway up mcp --ci --project "$RAILWAY_PROJECT_ID" --environment production --service incident-desk-mcp --message "github-sha=$GITHUB_SHA"
+        run: railway up "$GITHUB_WORKSPACE/mcp" --ci --project "$RAILWAY_PROJECT_ID" --environment production --service incident-desk-mcp --message "github-sha=$GITHUB_SHA"
 
       - name: Verify production health
         env:
