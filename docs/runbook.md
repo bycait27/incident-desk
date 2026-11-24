@@ -83,3 +83,27 @@ Record impact, detection, timeline, cause, recovery, and follow-up actions in
 the Game Day postmortem or incident record. Include links to redacted logs and
 deployment IDs where appropriate. Record only observed facts and mark unknowns
 as unknown.
+
+## Certificate expiry alerts
+
+The GitHub Actions **Certificate expiry monitor** checks both production
+public endpoints daily. It opens an issue when a certificate has 14 days or
+less remaining, or when the TLS certificate cannot be validated. Check the
+latest workflow run for current details; an existing open issue prevents
+duplicates and is not automatically closed. Confirm the certificate and
+Railway/Cloudflare renewal status, correct the problem, then close the issue.
+The workflow itself also fails on a real alert. Configure GitHub repository
+watching for issues and Actions failures if email notifications are desired;
+issue creation alone does not establish email delivery.
+
+To exercise the expiry alert without changing certificates, run the workflow
+from the default branch and select `exercise: true`. This uses a deliberately
+high 365-day threshold for the production app certificate and creates an
+issue labeled `[Exercise]` in its title if its actual expiry is within that
+window. Close the exercise issue afterward. A TLS validation failure during
+the exercise creates a normal alert instead. Scheduled runs and normal manual
+runs continue to use 14 days for both production hosts. The workflow must be
+present on the default branch for its schedule to run. GitHub may delay
+scheduled runs or disable them after repository inactivity; check Actions
+periodically because this workflow cannot alert if GitHub Actions stops
+running it.

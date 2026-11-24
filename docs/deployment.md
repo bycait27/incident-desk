@@ -108,6 +108,11 @@ Railway domains and will be recorded after setup.
 Set Cloudflare SSL/TLS mode to **Full (strict)**. Do not enable HSTS until both
 production and staging HTTPS endpoints work correctly.
 
+The GitHub Actions certificate monitor checks both production public
+certificates daily and raises a GitHub issue at 14 days remaining or on TLS
+validation failure. See the [runbook](runbook.md#certificate-expiry-alerts)
+for notification setup and the safe expiry-alert exercise.
+
 ## Build and health checks
 
 The root `Dockerfile` builds the frontend and backend into one non-root
