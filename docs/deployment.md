@@ -51,15 +51,18 @@ domain is not a secret or a Railway variable.
    environment. Switch to `production` and repeat the plan/review/apply
    sequence there. Railway resources may incur charges; review current
    pricing before applying.
-4. The Railway configuration registers the custom domains with port `8080`:
+4. After the services exist, add their custom domains in the Railway
+   dashboard under each service's **Settings → Networking**, targeting port
+   `8080`. Custom-domain registration is not supported by Railway configuration:
 
    | Environment | App service | MCP service |
    | --- | --- | --- |
    | `staging` | `staging-status.csc436.com` | `staging-mcp.csc436.com` |
    | `production` | `status.csc436.com` | `mcp.csc436.com` |
 
-   Copy the DNS targets shown by Railway and use them in Cloudflare as
-   described below. Keep CNAME records DNS-only until verification completes.
+   Copy the DNS targets and any ownership-verification TXT records shown by
+   Railway into Cloudflare as described below. Keep CNAME records DNS-only
+   until verification completes.
 5. Configure the following service variables separately in each environment
    before the first deploy. Use distinct staging and production credentials:
 
@@ -148,7 +151,11 @@ healthy deployment before retrying.
 
 The container builds, readiness endpoint, Railway environment definition,
 CI image-build checks, and gated deployment jobs are source-controlled. The
-Railway project and staging database/app/MCP resources have been provisioned;
-production resources are still pending. No Cloudflare DNS records have been
-changed. DNS, live deployments, rollback, and production HTTPS evidence are
-intentionally deferred until the deployment is configured.
+staging PostgreSQL, app, and MCP services are online, and the staging custom
+domains are verified with valid certificates. The production environment
+PostgreSQL is online; the app and MCP services were offline at the last Railway
+status check. Production custom domains and some production authentication
+variables have been configured, but verify DNS and certificates and complete
+the remaining production variables before release. CI deployments remain
+disabled until GitHub environments, tokens, health URLs, and the production
+approval rule are configured.

@@ -37,7 +37,6 @@ export default defineRailway((context) => {
       MCP_OAUTH_CLIENT_ORIGIN: preserve(),
       MCP_RESOURCE_URL: `https://${mcpDomain}/mcp`,
     },
-    domains: [{ domain: appDomain, port: 8080 }],
   });
 
   const mcp = service("incident-desk-mcp", {
@@ -48,7 +47,6 @@ export default defineRailway((context) => {
       BACKEND_API_BASE_URL: "http://${{incident-desk-app.RAILWAY_PRIVATE_DOMAIN}}:8080/api/mcp",
       MCP_ALLOWED_ORIGINS: `https://${appDomain}`,
     },
-    domains: [{ domain: mcpDomain, port: 8080 }],
   });
 
   return project("incident-desk", {
