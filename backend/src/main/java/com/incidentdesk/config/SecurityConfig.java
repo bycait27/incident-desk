@@ -16,15 +16,20 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizationRequestResolver;
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestCustomizers;
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestResolver;
+import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -36,11 +41,17 @@ import java.util.List;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    private static final String CONTENT_SECURITY_POLICY =
+            "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; "
+                    + "img-src 'self' data:; font-src 'self' data:; connect-src 'self'; "
+                    + "object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'";
+
     private static final AuthenticationTrustResolver AUTHENTICATION_TRUST_RESOLVER =
             new AuthenticationTrustResolverImpl();
 
     @Bean
     public SecurityFilterChain securityFilterChain(
+            RateLimitFilter rateLimitFilter,
             HttpSecurity http,
             ObjectProvider<ClientRegistrationRepository> clientRegistrations,
             ObjectProvider<OAuth2UserService<OidcUserRequest, OidcUser>> oidcUserServices,
@@ -51,8 +62,15 @@ public class SecurityConfig {
             throws Exception {
         http
             .cors(cors -> {})
+            .headers(headers -> headers
+                    .contentSecurityPolicy(csp -> csp.policyDirectives(CONTENT_SECURITY_POLICY))
+                    .referrerPolicy(referrer -> referrer.policy(
+                            ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN))
+                    .httpStrictTransportSecurity(hsts -> hsts.maxAgeInSeconds(31_536_000))
+                    .contentTypeOptions(Customizer.withDefaults()))
             .csrf(csrf -> csrf
                     .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler()))
+            .addFilterAfter(rateLimitFilter, AnonymousAuthenticationFilter.class)
             .logout(logout -> logout
                     .logoutSuccessHandler((request, response, authentication) ->
                             response.setStatus(HttpServletResponse.SC_NO_CONTENT)))
@@ -95,10 +113,18 @@ public class SecurityConfig {
                     .userInfoEndpoint(userInfo ->
                             userInfo.oidcUserService(oidcUserServices.getObject())
                                     .userAuthoritiesMapper(authoritiesMappers.getObject()))
-                    .defaultSuccessUrl(successUrl, false));
+                    .successHandler(appSuccessHandler(successUrl)));
         }
 
         return http.build();
+    }
+
+    static AuthenticationSuccessHandler appSuccessHandler(String successUrl) {
+        SavedRequestAwareAuthenticationSuccessHandler handler =
+                new SavedRequestAwareAuthenticationSuccessHandler();
+        handler.setDefaultTargetUrl(successUrl);
+        handler.setAlwaysUseDefaultTargetUrl(true);
+        return handler;
     }
 
     private void writeError(
@@ -140,5 +166,10 @@ public class SecurityConfig {
                         "/oauth2/authorization");
         resolver.setAuthorizationRequestCustomizer(OAuth2AuthorizationRequestCustomizers.withPkce());
         return resolver;
+    }
+
+    @Bean
+    RateLimitFilter rateLimitFilter(ObjectMapper objectMapper) {
+        return new RateLimitFilter(objectMapper, new FixedWindowRateLimiter());
     }
 }

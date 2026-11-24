@@ -94,6 +94,15 @@ class IncidentAuthorizationTest {
     }
 
     @Test
+    void secureResponsesIncludeRequiredSecurityHeaders() throws Exception {
+        mockMvc.perform(get("/api/auth/me").with(operatorLogin()).secure(true))
+                .andExpect(header().string("Content-Security-Policy", containsString("default-src 'self'")))
+                .andExpect(header().string("Strict-Transport-Security", containsString("max-age=31536000")))
+                .andExpect(header().string("X-Content-Type-Options", "nosniff"))
+                .andExpect(header().string("Referrer-Policy", "strict-origin-when-cross-origin"));
+    }
+
+    @Test
     void healthCheckFailsWhenDatabaseIsUnavailable() throws Exception {
         when(jdbcTemplate.queryForObject("SELECT 1", Integer.class))
                 .thenThrow(new org.springframework.dao.DataAccessResourceFailureException("unavailable"));
@@ -178,6 +187,33 @@ class IncidentAuthorizationTest {
                         .content("{}"))
                 .andExpect(status().isUnauthorized())
                 .andExpect(jsonPath("$.code").value("UNAUTHORIZED"));
+    }
+
+    @Test
+    void rateLimitsIncidentWritesWithRetryAfter() throws Exception {
+        for (int i = 0; i < 30; i++) {
+            mockMvc.perform(post("/api/incidents")
+                            .with(csrf())
+                            .with(request -> {
+                                request.setRemoteAddr("198.51.100.24");
+                                return request;
+                            })
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content("{}"))
+                    .andExpect(status().isUnauthorized());
+        }
+
+        mockMvc.perform(post("/api/incidents")
+                        .with(csrf())
+                        .with(request -> {
+                            request.setRemoteAddr("198.51.100.24");
+                            return request;
+                        })
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{}"))
+                .andExpect(status().is(429))
+                .andExpect(header().exists("Retry-After"))
+                .andExpect(jsonPath("$.code").value("RATE_LIMITED"));
     }
 
     @Test

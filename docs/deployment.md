@@ -147,15 +147,28 @@ health URLs after each deploy. If a deploy fails its health check, inspect
 the Railway service's deployment history and roll back to the last known
 healthy deployment before retrying.
 
+## Runtime security controls
+
+The backend sends a Content Security Policy, one-year HSTS on secure requests,
+`X-Content-Type-Options: nosniff`, and
+`Referrer-Policy: strict-origin-when-cross-origin`. CORS allows only the exact
+frontend and configured MCP OAuth client origins; it does not use a wildcard.
+The OAuth success handler always returns to the configured frontend URL rather
+than a previously saved API request.
+
+Fixed-window limits are 10 OAuth authorization starts and 10 callbacks, 30
+incident write or MCP audit requests, and 10 monitor reads per minute per
+client IP. Limited requests return the standard JSON error with code
+`RATE_LIMITED` and a `Retry-After` header. The counters are in memory per
+backend instance; use a shared limiter before scaling the backend to multiple
+instances. The IP key uses the forwarded remote address, so production must
+accept forwarded headers only from the trusted Railway proxy and ensure
+client-supplied forwarding headers are overwritten.
+
 ## Current setup status
 
-The container builds, readiness endpoint, Railway environment definition,
-CI image-build checks, and gated deployment jobs are source-controlled. The
-staging PostgreSQL, app, and MCP services are online, and the staging custom
-domains are verified with valid certificates. The production environment
-PostgreSQL is online; the app and MCP services were offline at the last Railway
-status check. Production custom domains and some production authentication
-variables have been configured, but verify DNS and certificates and complete
-the remaining production variables before release. CI deployments remain
-disabled until GitHub environments, tokens, health URLs, and the production
-approval rule are configured.
+Staging and production PostgreSQL, app, and MCP services are deployed. Both
+environments passed the application and MCP health checks through the
+deployment workflow, and production deployment requires approval. The
+production Better Stack monitor is up. DNS, certificate, CDN, rollback, and
+other operational proof still need to be captured in the evidence dossier.
