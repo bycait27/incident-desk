@@ -18,7 +18,7 @@ on:
           - incident-desk-mcp
         required: true
       deployment_id:
-        description: ID of a previous successful deployment that Railway can roll back to
+        description: ID of a previous deployment that Railway can roll back to
         type: string
         required: true
 
@@ -40,6 +40,7 @@ jobs:
         run: npm install --global @railway/cli@5.75.0
 
       - name: Validate rollback target
+        id: target
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
           RAILWAY_PROJECT_ID: ${{ vars.RAILWAY_PROJECT_ID }}
@@ -58,7 +59,7 @@ jobs:
           esac
           test -n "$DEPLOYMENT_ID"
           TARGET_JSON=$(railway api --compact \
-            'query rollbackTarget($id: String!) { deployment(id: $id) { id projectId status canRollback service { name } environment { name } } }' \
+            'query rollbackTarget($id: String!) { deployment(id: $id) { id projectId serviceId environmentId snapshotId meta canRollback service { name } environment { name } } }' \
             --raw-var "id=$DEPLOYMENT_ID")
           echo "$TARGET_JSON" | jq -e \
             --arg id "$DEPLOYMENT_ID" \
@@ -69,10 +70,25 @@ jobs:
              | $d != null
              and $d.id == $id
              and $d.projectId == $project_id
-             and $d.status == "SUCCESS"
              and $d.canRollback
              and $d.environment.name == $environment
              and $d.service.name == $service' > /dev/null
+          SERVICE_ID=$(echo "$TARGET_JSON" | jq -er '.data.deployment.serviceId | select(type == "string" and length > 0)')
+          ENVIRONMENT_ID=$(echo "$TARGET_JSON" | jq -er '.data.deployment.environmentId | select(type == "string" and length > 0)')
+          SNAPSHOT_ID=$(echo "$TARGET_JSON" | jq -er '.data.deployment.snapshotId | select(type == "string" and length > 0)')
+          IMAGE_DIGEST=$(echo "$TARGET_JSON" | jq -er '.data.deployment.meta.imageDigest | select(type == "string" and length > 0)')
+          CURRENT_JSON=$(railway api --compact \
+            'query current($environmentId: String!, $serviceId: String!) { serviceInstance(environmentId: $environmentId, serviceId: $serviceId) { latestDeployment { id } } }' \
+            --raw-var "environmentId=$ENVIRONMENT_ID" --raw-var "serviceId=$SERVICE_ID")
+          CURRENT_ID=$(echo "$CURRENT_JSON" | jq -er '.data.serviceInstance.latestDeployment.id | select(type == "string" and length > 0)')
+          test "$CURRENT_ID" != "$DEPLOYMENT_ID"
+          {
+            echo "service_id=$SERVICE_ID"
+            echo "environment_id=$ENVIRONMENT_ID"
+            echo "snapshot_id=$SNAPSHOT_ID"
+            echo "image_digest=$IMAGE_DIGEST"
+            echo "previous_id=$CURRENT_ID"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Roll back deployment
         env:
@@ -85,15 +101,52 @@ jobs:
             --raw-var "id=$DEPLOYMENT_ID")
           echo "$RESULT" | jq -e '.data.deploymentRollback == true' > /dev/null
 
+      - name: Wait for the rolled-back deployment
+        id: verify
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+          SERVICE_ID: ${{ steps.target.outputs.service_id }}
+          ENVIRONMENT_ID: ${{ steps.target.outputs.environment_id }}
+          SNAPSHOT_ID: ${{ steps.target.outputs.snapshot_id }}
+          IMAGE_DIGEST: ${{ steps.target.outputs.image_digest }}
+          PREVIOUS_ID: ${{ steps.target.outputs.previous_id }}
+        run: |
+          set -euo pipefail
+          for attempt in {1..36}; do
+            CURRENT_JSON=$(railway api --compact \
+              'query current($environmentId: String!, $serviceId: String!) { serviceInstance(environmentId: $environmentId, serviceId: $serviceId) { latestDeployment { id status snapshotId meta } activeDeployments { id status } } }' \
+              --raw-var "environmentId=$ENVIRONMENT_ID" --raw-var "serviceId=$SERVICE_ID")
+            if echo "$CURRENT_JSON" | jq -e \
+              --arg previous "$PREVIOUS_ID" \
+              --arg snapshot "$SNAPSHOT_ID" \
+              --arg digest "$IMAGE_DIGEST" \
+              '.data.serviceInstance as $s
+               | $s.latestDeployment as $d
+               | $d.id != $previous
+               and $d.status == "SUCCESS"
+               and $d.snapshotId == $snapshot
+               and $d.meta.imageDigest == $digest
+               and ($s.activeDeployments | length == 1 and .[0].id == $d.id and .[0].status == "SUCCESS")' > /dev/null; then
+              ACTIVE_ID=$(echo "$CURRENT_JSON" | jq -r '.data.serviceInstance.latestDeployment.id')
+              echo "active_id=$ACTIVE_ID" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "::error::Timed out waiting for the selected rollback snapshot and image to become the sole active deployment."
+          exit 1
+
       - name: Verify rolled-back service health
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-          RAILWAY_PROJECT_ID: ${{ vars.RAILWAY_PROJECT_ID }}
           APP_HEALTH_URL: ${{ vars.APP_HEALTH_URL }}
           MCP_HEALTH_URL: ${{ vars.MCP_HEALTH_URL }}
           EXPECTED_ENVIRONMENT: ${{ inputs.environment }}
           EXPECTED_SERVICE: ${{ inputs.service }}
           DEPLOYMENT_ID: ${{ inputs.deployment_id }}
+          ACTIVE_DEPLOYMENT_ID: ${{ steps.verify.outputs.active_id }}
+          SERVICE_ID: ${{ steps.target.outputs.service_id }}
+          ENVIRONMENT_ID: ${{ steps.target.outputs.environment_id }}
         run: |
           set -euo pipefail
           if [[ "$EXPECTED_SERVICE" == "incident-desk-app" ]]; then
@@ -104,11 +157,14 @@ jobs:
           test -n "$HEALTH_URL"
           curl --fail --retry 12 --retry-delay 5 --retry-connrefused --retry-all-errors \
             "${HEALTH_URL%/}/healthz"
-          ACTIVE_DEPLOYMENT_ID=$(railway deployment list --json --limit 1 \
-            --service "$EXPECTED_SERVICE" \
-            --environment "$EXPECTED_ENVIRONMENT" \
-            --project "$RAILWAY_PROJECT_ID" | jq -r '.[0].id // empty')
-          test -n "$ACTIVE_DEPLOYMENT_ID"
+          CURRENT_JSON=$(railway api --compact \
+            'query current($environmentId: String!, $serviceId: String!) { serviceInstance(environmentId: $environmentId, serviceId: $serviceId) { latestDeployment { id status } activeDeployments { id status } } }' \
+            --raw-var "environmentId=$ENVIRONMENT_ID" --raw-var "serviceId=$SERVICE_ID")
+          echo "$CURRENT_JSON" | jq -e --arg id "$ACTIVE_DEPLOYMENT_ID" \
+            '.data.serviceInstance as $s
+             | $s.latestDeployment.id == $id
+             and $s.latestDeployment.status == "SUCCESS"
+             and ($s.activeDeployments | length == 1 and .[0].id == $id and .[0].status == "SUCCESS")' > /dev/null
           {
             echo "Environment: \`$EXPECTED_ENVIRONMENT\`"
             echo "Service: \`$EXPECTED_SERVICE\`"
