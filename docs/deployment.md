@@ -135,17 +135,36 @@ as a repository Actions variable. Before enabling them:
    `RAILWAY_PROJECT_ID`.
 5. Require a reviewer for the GitHub `production` environment. A push to
    `main` then deploys to staging and checks both `/healthz` endpoints before
-   the same commit can be approved for production. The workflow summary
-   records the commit SHA and both Railway deployment IDs.
+   the same commit can be approved for production. The workflow summary and
+   Railway deployment messages record the commit SHA, GitHub build ID, and
+   both Railway deployment IDs. Runs are serialized per Git ref so another
+   main-branch deployment cannot replace staging while production approval
+   for the tested commit is pending.
 6. Only after the Railway environments, Cloudflare domains, credentials, and
    GitHub environment protections are ready, set
    `RAILWAY_DEPLOY_ENABLED=true`.
 
 The workflow builds and tests the commit before deploying. Railway's own
 `/healthz` check gates traffic switching; GitHub also checks both public
-health URLs after each deploy. If a deploy fails its health check, inspect
-the Railway service's deployment history and roll back to the last known
-healthy deployment before retrying.
+health URLs after each deploy. A staging health-check failure prevents
+production promotion. If a deployed service fails its health check, use the
+rollback workflow to restore its previous healthy deployment before retrying.
+
+To roll back a single service, run **Actions → Railway rollback → Run
+workflow** from `main`. Choose the environment and service, then enter the ID
+of a prior successful deployment that Railway reports as rollback-eligible.
+Find candidate IDs in that service's Railway **Deployments** view or by
+running:
+
+```sh
+railway deployment list --limit 20 --service incident-desk-app --environment production --project "$RAILWAY_PROJECT_ID"
+```
+
+The workflow uses the token and approval rules for that environment, verifies
+the target's environment and service before rolling it back, and checks the
+selected service's `/healthz` endpoint afterward. App and MCP are rolled back
+independently; if a change requires both services to be reverted, run the
+workflow for each service and verify both health checks.
 
 ## Runtime security controls
 
