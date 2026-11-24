@@ -78,7 +78,7 @@ function AppView() {
   }
 
   useEffect(() => {
-    const app = new McpApp({ name: "CampusPulse Incident Desk", version: "1.0.0" });
+    const app = new McpApp({ name: "Incident Desk", version: "1.0.0" });
     appRef.current = app;
     let active = true;
     void app.connect().then(async () => {
@@ -144,10 +144,10 @@ function AppView() {
   return (
     <main>
       <header className="topbar">
-        <div className="brand-mark" aria-hidden="true">CP</div>
+        <div className="brand-mark" aria-hidden="true">ID</div>
         <div>
           <p className="eyebrow">CAMPUS SERVICE STATUS</p>
-          <h1>CampusPulse</h1>
+          <h1>Incident Desk</h1>
         </div>
         <span className="live-badge"><span /> Live status</span>
       </header>
@@ -269,7 +269,7 @@ function AppView() {
                 <h3>Confirm your report</h3>
                 <p><strong>{title}</strong></p>
                 <p>{description}</p>
-                <p className="muted">This report will be sent privately to CampusPulse operators for review.</p>
+                <p className="muted">This report will be sent privately to Incident Desk operators for review.</p>
                 <div className="button-row">
                   <button className="text-button" onClick={() => setReviewing(false)} disabled={submitting}>Edit</button>
                   <button className="primary-button" onClick={() => void confirmSubmission()} disabled={submitting}>
@@ -282,7 +282,7 @@ function AppView() {
           </>
         )}
       </section>
-      <footer>CampusPulse · Synthetic campus service information</footer>
+      <footer>Incident Desk · Synthetic campus service information</footer>
     </main>
   );
 }

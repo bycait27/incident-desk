@@ -1,7 +1,7 @@
 # MCP server and interactive app
 
-CampusPulse exposes a Streamable HTTP MCP server at `/mcp` and serves a bundled
-React/TypeScript MCP App as `ui://campuspulse/dashboard.html`. The app-owned
+Incident Desk exposes a Streamable HTTP MCP server at `/mcp` and serves a bundled
+React/TypeScript MCP App as `ui://incident-desk/dashboard.html`. The app-owned
 Spring Authorization Server reuses the existing Google OIDC login; it issues
 five-minute, audience-bound access tokens to the statically registered public
 MCP client. PKCE is mandatory, only HTTPS or loopback HTTP callback URLs are
@@ -22,7 +22,7 @@ and expiry.
    ```powershell
    npm --prefix mcp install
    Push-Location mcp
-   $env:MCP_SIGNING_JWK_BASE64 = node --input-type=module -e "import { generateKeyPair, exportJWK } from 'jose'; const { privateKey } = await generateKeyPair('RS256', { extractable: true }); const jwk = { ...await exportJWK(privateKey), alg: 'RS256', kid: 'campuspulse-local', use: 'sig' }; process.stdout.write(Buffer.from(JSON.stringify(jwk)).toString('base64'));"
+   $env:MCP_SIGNING_JWK_BASE64 = node --input-type=module -e "import { generateKeyPair, exportJWK } from 'jose'; const { privateKey } = await generateKeyPair('RS256', { extractable: true }); const jwk = { ...await exportJWK(privateKey), alg: 'RS256', kid: 'incident-desk-local', use: 'sig' }; process.stdout.write(Buffer.from(JSON.stringify(jwk)).toString('base64'));"
    Pop-Location
    ```
 
@@ -51,7 +51,7 @@ and expiry.
 5. In an MCP host that supports OAuth authorization code + PKCE, Streamable
    HTTP, MCP Apps, and form elicitation, connect to
    `http://localhost:3001/mcp`. Configure the public client ID
-   `campuspulse-mcp` and request these scopes:
+   `incident-desk-mcp` and request these scopes:
    `incidents:read monitoring:read incidents:submit mcp:audit`.
    If the host uses a different OAuth callback, set the exact callback in
    `MCP_OAUTH_REDIRECT_URIS` before restarting the backend.

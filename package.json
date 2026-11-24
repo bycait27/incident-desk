@@ -1,0 +1,12 @@
+{
+  "name": "incident-desk-infrastructure",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check:railway": "tsc --noEmit --target ES2022 --module NodeNext --moduleResolution NodeNext .railway/railway.ts"
+  },
+  "devDependencies": {
+    "railway": "^3.12.0",
+    "typescript": "^5.8.3"
+  }
+}

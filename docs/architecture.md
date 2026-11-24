@@ -6,7 +6,7 @@ flowchart LR
   DB[("PostgreSQL")]
   BetterStack["Better Stack API"]
   OIDC["Google OIDC"]
-  AS["CampusPulse OAuth issuer"]
+  AS["Incident Desk OAuth issuer"]
   MCP["MCP server / Streamable HTTP"]
   MCPApp["React/TypeScript MCP App"]
 

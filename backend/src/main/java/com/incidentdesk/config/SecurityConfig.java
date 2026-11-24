@@ -53,6 +53,9 @@ public class SecurityConfig {
             .cors(cors -> {})
             .csrf(csrf -> csrf
                     .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler()))
+            .logout(logout -> logout
+                    .logoutSuccessHandler((request, response, authentication) ->
+                            response.setStatus(HttpServletResponse.SC_NO_CONTENT)))
             .exceptionHandling(exception -> exception
                     .authenticationEntryPoint((request, response, authException) ->
                             writeError(response, objectMapper, HttpStatus.UNAUTHORIZED,
@@ -70,6 +73,8 @@ public class SecurityConfig {
                         }
                     }))
             .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/healthz").permitAll()
+                .requestMatchers(HttpMethod.GET, "/", "/index.html", "/assets/**", "/favicon.ico").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/incidents/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/uptime/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/incidents").hasAnyRole("VIEWER", "OPERATOR")

@@ -12,20 +12,20 @@ import { registerAppResource, registerAppTool, RESOURCE_MIME_TYPE } from "@model
 import { z } from "zod";
 import { BackendApi } from "./backend.js";
 
-const APP_RESOURCE_URI = "ui://campuspulse/dashboard.html";
+const APP_RESOURCE_URI = "ui://incident-desk/dashboard.html";
 const confirmationSchema = z.object({ confirm: z.boolean() });
 
 export async function createMcpServer(
   backend: BackendApi,
 ): Promise<McpServer> {
   const appHtml = await readFile(resolve(process.cwd(), "dist", "mcp-app.html"), "utf8");
-  const server = new McpServer({ name: "CampusPulse", version: "1.0.0" });
+  const server = new McpServer({ name: "Incident Desk", version: "1.0.0" });
 
   registerAppResource(
     server,
-    "CampusPulse Incident Desk",
+    "Incident Desk",
     APP_RESOURCE_URI,
-    { description: "Interactive campus service status and incident reporting." },
+    { description: "Interactive service status and incident reporting." },
     async () => ({
       contents: [{
         uri: APP_RESOURCE_URI,
@@ -39,7 +39,7 @@ export async function createMcpServer(
 
   const listIncidentsTool = registerAppTool(server, "list_incidents", {
     title: "List incidents",
-    description: "List visible CampusPulse incidents. Requires incidents:read.",
+    description: "List visible Incident Desk incidents. Requires incidents:read.",
     inputSchema: z.object({}),
     annotations: { readOnlyHint: true, destructiveHint: false, openWorldHint: false },
     _meta: sharedUi,
@@ -57,7 +57,7 @@ export async function createMcpServer(
 
   const getIncidentTool = registerAppTool(server, "get_incident", {
     title: "Get incident details",
-    description: "Get one visible CampusPulse incident by ID. Requires incidents:read.",
+    description: "Get one visible Incident Desk incident by ID. Requires incidents:read.",
     inputSchema: z.object({ id: z.number().int().positive() }),
     annotations: { readOnlyHint: true, destructiveHint: false, openWorldHint: false },
     _meta: sharedUi,

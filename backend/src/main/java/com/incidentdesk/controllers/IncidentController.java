@@ -11,6 +11,7 @@ import com.incidentdesk.services.IncidentService;
 import com.incidentdesk.services.IncidentService.IncidentSnapshot;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
@@ -34,8 +35,8 @@ public class IncidentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Incident>> getAllIncidents(@AuthenticationPrincipal OidcUser user) {
-        IncidentSnapshot snapshot = incidentService.getIncidentSnapshot(isOperator(user));
+    public ResponseEntity<List<Incident>> getAllIncidents(Authentication authentication) {
+        IncidentSnapshot snapshot = incidentService.getIncidentSnapshot(isOperator(authentication));
         return ResponseEntity.ok()
                 .header("X-Incident-Event-Cursor", Long.toString(snapshot.eventCursor()))
                 .body(snapshot.incidents());
@@ -44,8 +45,8 @@ public class IncidentController {
     @GetMapping("/{id}")
     public ResponseEntity<Incident> getIncidentById(
             @PathVariable Long id,
-            @AuthenticationPrincipal OidcUser user) {
-        return incidentService.getIncidentById(id, isOperator(user))
+            Authentication authentication) {
+        return incidentService.getIncidentById(id, isOperator(authentication))
                 .map(ResponseEntity::ok)
                 .orElseThrow(() -> new IncidentNotFoundException(id));
     }
@@ -82,8 +83,8 @@ public class IncidentController {
         return ResponseEntity.noContent().build();
     }
 
-    private boolean isOperator(OidcUser user) {
-        return user != null && user.getAuthorities().stream()
+    private boolean isOperator(Authentication authentication) {
+        return authentication != null && authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .anyMatch("ROLE_OPERATOR"::equals);
     }

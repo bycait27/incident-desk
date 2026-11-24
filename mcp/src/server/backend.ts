@@ -97,7 +97,7 @@ export class BackendApi {
       signal: AbortSignal.timeout(this.timeoutMs),
     });
     if (!response.ok) {
-      throw new Error(`CampusPulse API returned HTTP ${response.status}.`);
+      throw new Error(`Incident Desk API returned HTTP ${response.status}.`);
     }
     return response.json();
   }
