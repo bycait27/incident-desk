@@ -152,7 +152,8 @@ rollback workflow to restore its previous healthy deployment before retrying.
 
 To roll back a single service, run **Actions → Railway rollback → Run
 workflow** from `main`. Choose the environment and service, then enter the ID
-of a prior successful deployment that Railway reports as rollback-eligible.
+of a prior deployment that Railway reports as rollback-eligible. Railway may
+show a previous deployment's status as `REMOVED` even when it is eligible.
 Find candidate IDs in that service's Railway **Deployments** view or by
 running:
 
@@ -161,10 +162,13 @@ railway deployment list --limit 20 --service incident-desk-app --environment pro
 ```
 
 The workflow uses the token and approval rules for that environment, verifies
-the target's environment and service before rolling it back, and checks the
-selected service's `/healthz` endpoint afterward. App and MCP are rolled back
-independently; if a change requires both services to be reverted, run the
-workflow for each service and verify both health checks.
+the target's project, environment, service, and eligibility before rolling it
+back, and waits for a new active deployment with the target's snapshot and
+image digest before checking `/healthz`. It fails if the snapshot or image
+digest is unavailable or if it cannot verify the result. Railway creates a
+new deployment ID for a rollback. App and MCP are rolled back independently;
+if a change requires both services to be reverted, run the workflow for each
+service and verify both health checks.
 
 ## Runtime security controls
 
