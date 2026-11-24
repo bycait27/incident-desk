@@ -1,0 +1,30 @@
+name: Certificate expiry monitor
+
+on:
+  schedule:
+    - cron: '17 10 * * *'
+  workflow_dispatch:
+    inputs:
+      exercise:
+        description: 'Exercise the expiry alert with a 365-day threshold (production app only)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: certificate-monitor
+  cancel-in-progress: false
+
+jobs:
+  certificate-monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check production certificates and raise alerts
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await require('./.github/scripts/certificate-monitor.cjs').run({ github, context, core });

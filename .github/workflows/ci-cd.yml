@@ -136,6 +136,9 @@ jobs:
       - name: Type-check Railway infrastructure
         run: npm run check:railway
 
+      - name: Test certificate monitoring
+        run: node --test .github/scripts/certificate-monitor.test.cjs
+
   container-build:
     name: Build deployment containers
     runs-on: ubuntu-latest

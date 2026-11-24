@@ -51,8 +51,8 @@ rechecked. No deployment rollback or database operation was performed.
 - The service recovered without rebuilding or changing the database.
 - Readiness does not prove that OAuth or MCP tools work end to end. Run an
   authenticated tool check after recovery in future exercises.
-- Detection in this exercise was manual. An alert firing was not verified;
-  configure and exercise alerting separately for the observability requirement.
+- Detection in the original exercise was manual; see the later alert exercise
+  below for the separately configured Better Stack monitor.
 - The separate Railway rollback workflow was not exercised during the outage
   exercise; see the subsequent rollback exercise below.
 
@@ -78,5 +78,38 @@ Production and the database were not modified.
 The exercise used Railway's API directly, not the GitHub Actions rollback
 workflow. It exposed a workflow bug: an eligible `REMOVED` target was rejected.
 The workflow was updated locally to use Railway's eligibility field and
-to verify the new deployment's snapshot and image before checking health; the
-updated workflow has not yet been exercised on GitHub Actions.
+to verify the new deployment's snapshot and image before checking health; at
+that point, the updated workflow had not been exercised on GitHub Actions.
+
+On 2026-11-24, the merged GitHub Actions workflow was subsequently exercised
+against staging MCP. The [rollback run](https://github.com/bycait27/incident-desk/actions/runs/45453581864)
+targeted deployment `a47dbec3-b03b-4ad5-9076-20527e6728ae` and succeeded;
+Railway created deployment `c145ee80-4a92-4ffd-b4bd-c49f415be9e1`. The
+[restoration run](https://github.com/bycait27/incident-desk/actions/runs/45453694612)
+targeted pre-exercise deployment `e23dd577-de55-40a1-834e-c0acc23f86fe`
+and succeeded, creating deployment `f03a2df3-bbcd-41b7-b8eb-7a12e2fadcfb`.
+Both runs passed their deployment identity and health checks. Afterward,
+staging MCP and app readiness both returned HTTP 200. This was again a
+staging-only exercise; production and the database were not changed.
+
+## Follow-up: staging alert exercise
+
+The owner created a Better Stack monitor for the staging MCP `/healthz`
+endpoint, with email notifications enabled and a 180-second check interval.
+On 2026-11-24, after confirming the monitor was up, the owner approved an
+intentional staging-only outage of up to seven minutes:
+
+| Time (UTC) | Observation or action |
+| --- | --- |
+| 18:02:48 | Railway accepted a stop of staging MCP deployment `f03a2df3-bbcd-41b7-b8eb-7a12e2fadcfb`. |
+| 18:04:13 | Better Stack monitor `5292863` reported `down`; a restart was requested and Railway accepted it. |
+| 18:04:34 | Staging MCP `/healthz` returned HTTP 200. |
+
+Better Stack recorded incident `1057628813` as started at 18:04:10 UTC.
+Its incident timeline records an email sent at 18:04:10 UTC. Recipient
+information is intentionally omitted; the owner confirmed receiving the email.
+After its 180-second recovery validation period, the monitor returned to `up`,
+and the incident resolved at 18:07:34 UTC. Staging app readiness also
+returned HTTP 200 after the exercise. The outage used Railway's stop and
+restart API, not the rollback workflow; production and the database were not
+changed.
