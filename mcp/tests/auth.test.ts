@@ -62,7 +62,7 @@ describe("MCP access-token validation", () => {
   } = {}): Promise<string> {
     const now = Math.floor(Date.now() / 1000);
     return new SignJWT({
-      client_id: "campuspulse-mcp",
+      client_id: "incident-desk-mcp",
       scope: "incidents:read mcp:audit",
       email: "viewer@example.test",
       roles: ["ROLE_VIEWER"],

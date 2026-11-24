@@ -2,6 +2,17 @@ import type { CurrentUser, Incident, IncidentSnapshot, UptimeMonitorResponse } f
 
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8080/api';
 
+export async function logout(): Promise<void> {
+  const response = await fetch(`${API_BASE_URL.replace(/\/api\/?$/, '')}/logout`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: { 'X-CSRF-TOKEN': await getCsrfToken() },
+  });
+  if (!response.ok) {
+    throw new Error(`Failed to sign out: ${response.statusText}`);
+  }
+}
+
 export async function fetchIncidents(): Promise<Incident[]> {
   return (await fetchIncidentSnapshot()).incidents;
 }

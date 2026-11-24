@@ -19,7 +19,7 @@ describe("MCP tool scope authorization", () => {
       } satisfies JSONRPCRequest,
       authInfo: {
         token: "signed-read-only-token",
-        clientId: "campuspulse-mcp",
+        clientId: "incident-desk-mcp",
         scopes: ["incidents:read", "monitoring:read", "mcp:audit"],
       },
     };
@@ -50,7 +50,7 @@ describe("MCP tool scope authorization", () => {
       },
       authInfo: {
         token: "signed-read-token",
-        clientId: "campuspulse-mcp",
+        clientId: "incident-desk-mcp",
         scopes: ["incidents:read", "mcp:audit"],
       },
     });

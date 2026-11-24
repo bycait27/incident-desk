@@ -5,6 +5,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 
 @RestController
 @RequestMapping("/api/incidents/events")
@@ -32,17 +31,17 @@ public class IncidentEventStreamController {
     public ResponseEntity<SseEmitter> stream(
             @RequestHeader(name = "Last-Event-ID", required = false) String lastEventId,
             @RequestParam(required = false) Long after,
-            @AuthenticationPrincipal OidcUser user) {
+            Authentication authentication) {
         return ResponseEntity.ok()
                 .contentType(MediaType.TEXT_EVENT_STREAM)
                 .header(HttpHeaders.CACHE_CONTROL, "no-cache, no-store, no-transform")
                 .header("X-Accel-Buffering", "no")
                 .body(eventStreamService.subscribe(
-                        resolveCursor(lastEventId, after), isOperator(user)));
+                        resolveCursor(lastEventId, after), isOperator(authentication)));
     }
 
-    private boolean isOperator(OidcUser user) {
-        return user != null && user.getAuthorities().stream()
+    private boolean isOperator(Authentication authentication) {
+        return authentication != null && authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .anyMatch("ROLE_OPERATOR"::equals);
     }

@@ -72,5 +72,5 @@ async function handleMcpRequest(request: AuthenticatedRequest, response: Respons
 }
 
 app.listen(config.port, () => {
-  console.log(`CampusPulse MCP server listening on port ${config.port}`);
+  console.log(`Incident Desk MCP server listening on port ${config.port}`);
 });

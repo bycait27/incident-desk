@@ -48,7 +48,7 @@ export function createTokenVerifier(config: McpConfig) {
 
     const authInfo: AuthInfo = {
       token,
-      clientId: typeof payload.client_id === "string" ? payload.client_id : "campuspulse-mcp",
+      clientId: typeof payload.client_id === "string" ? payload.client_id : "incident-desk-mcp",
       scopes: tokenScopes(payload),
       expiresAt: payload.exp,
       resource: new URL(config.resourceUrl),

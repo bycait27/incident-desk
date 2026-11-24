@@ -84,7 +84,7 @@ public class McpOAuthAuthorizationServerConfig {
             @Value("${app.mcp.oauth.redirect-uris}") String redirectUris) {
         RegisteredClient.Builder client = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId(clientId)
-                .clientName("CampusPulse MCP Host")
+                .clientName("Incident Desk MCP Host")
                 .clientAuthenticationMethod(ClientAuthenticationMethod.NONE)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .clientSettings(ClientSettings.builder()

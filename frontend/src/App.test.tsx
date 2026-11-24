@@ -8,6 +8,7 @@ import {
   fetchCurrentUser,
   fetchIncidentSnapshot,
   fetchUptimeMonitors,
+  logout,
   publishIncident,
   updateIncident,
 } from './services/api';
@@ -20,6 +21,7 @@ vi.mock('./services/api', () => ({
   fetchCurrentUser: vi.fn(),
   fetchIncidentSnapshot: vi.fn(),
   fetchUptimeMonitors: vi.fn(),
+  logout: vi.fn(),
   publishIncident: vi.fn(),
   updateIncident: vi.fn(),
 }));
@@ -40,6 +42,7 @@ class FakeEventSource {
 
   onopen: ((event: Event) => void) | null = null;
   onerror: ((event: Event) => void) | null = null;
+  closed = false;
   private readonly listeners = new Map<string, EventListener[]>();
   readonly url: string;
 
@@ -55,7 +58,7 @@ class FakeEventSource {
   }
 
   close(): void {
-    // The test double has no open network connection.
+    this.closed = true;
   }
 
   emitIncident(eventId: string, data: string): void {
@@ -115,6 +118,50 @@ describe('incident fetch states', () => {
     expect(screen.getByText('Loading active incidents...')).toBeInTheDocument();
     expect(await screen.findByText('No matching incidents found')).toBeInTheDocument();
     expect(fetchIncidentSnapshotMock).toHaveBeenCalledTimes(2);
+  });
+
+  it('lets a signed-in user sign out', async () => {
+    fetchCurrentUserMock.mockResolvedValue({
+      subject: 'viewer-subject',
+      email: 'viewer@example.test',
+      roles: ['ROLE_OPERATOR'],
+    });
+    const publicIncident: Incident = {
+      id: 21,
+      title: 'Published synthetic incident',
+      description: 'Visible to everyone.',
+      status: 'OPEN',
+      severity: 'LOW',
+      published: true,
+      archived: false,
+      createdAt: '2026-11-22T19:00:00Z',
+      updatedAt: '2026-11-22T19:00:00Z',
+    };
+    const privateIncident: Incident = {
+      ...publicIncident,
+      id: 22,
+      title: 'Private synthetic incident',
+      published: false,
+    };
+    fetchIncidentSnapshotMock
+      .mockResolvedValueOnce({ incidents: [publicIncident, privateIncident], eventCursor: '2' })
+      .mockResolvedValueOnce({ incidents: [publicIncident], eventCursor: '2' });
+    vi.mocked(logout).mockResolvedValue(undefined);
+
+    render(<App />);
+
+    fireEvent.click(await screen.findByRole('button', { name: 'Sign out' }));
+
+    expect(await screen.findByText('You have signed out.')).toBeInTheDocument();
+    expect(screen.queryByText('Signed in as viewer@example.test · IT operator')).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Sign out' })).not.toBeInTheDocument();
+    expect(screen.queryByText('Private synthetic incident')).not.toBeInTheDocument();
+    expect(screen.getByText('Published synthetic incident')).toBeInTheDocument();
+    expect(logout).toHaveBeenCalledOnce();
+    expect(fetchIncidentSnapshotMock).toHaveBeenCalledTimes(2);
+    expect(FakeEventSource.instances.length).toBeGreaterThan(1);
+    expect(FakeEventSource.instances.slice(0, -1).every((source) => source.closed)).toBe(true);
+    expect(FakeEventSource.instances[FakeEventSource.instances.length - 1]?.closed).toBe(false);
   });
 
   it('applies each new SSE incident once and reconnects from the snapshot cursor', async () => {

@@ -11,6 +11,7 @@ import com.incidentdesk.services.IncidentService.IncidentSnapshot;
 import com.incidentdesk.services.IncidentConflictException;
 import com.incidentdesk.dto.IncidentUpdateRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -47,7 +48,8 @@ import static org.hamcrest.Matchers.containsString;
         IncidentController.class,
         CurrentUserController.class,
         BetterStackMonitorController.class,
-        IncidentEventStreamController.class
+        IncidentEventStreamController.class,
+        HealthController.class
 })
 @Import({SecurityConfig.class, GoogleOAuth2ClientConfig.class})
 @TestPropertySource(properties = {
@@ -73,6 +75,34 @@ class IncidentAuthorizationTest {
     @MockBean
     private IncidentEventStreamService incidentEventStreamService;
 
+    @MockBean
+    private JdbcTemplate jdbcTemplate;
+
+    @Test
+    void healthCheckIsPublicAndReportsDatabaseReadiness() throws Exception {
+        when(jdbcTemplate.queryForObject("SELECT 1", Integer.class)).thenReturn(1);
+
+        mockMvc.perform(get("/healthz"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value("UP"));
+    }
+
+    @Test
+    void appEntryPointIsNotBlockedByAuthentication() throws Exception {
+        mockMvc.perform(get("/"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void healthCheckFailsWhenDatabaseIsUnavailable() throws Exception {
+        when(jdbcTemplate.queryForObject("SELECT 1", Integer.class))
+                .thenThrow(new org.springframework.dao.DataAccessResourceFailureException("unavailable"));
+
+        mockMvc.perform(get("/healthz"))
+                .andExpect(status().isServiceUnavailable())
+                .andExpect(jsonPath("$.status").value("DOWN"));
+    }
+
     @Test
     void incidentSnapshotExposesCursorForSseResume() throws Exception {
         when(incidentService.getIncidentSnapshot(false))
@@ -81,6 +111,23 @@ class IncidentAuthorizationTest {
         mockMvc.perform(get("/api/incidents"))
                 .andExpect(status().isOk())
                 .andExpect(header().string("X-Incident-Event-Cursor", "12"));
+    }
+
+    @Test
+    void operatorSnapshotIncludesUnpublishedIncidents() throws Exception {
+        Incident pending = new Incident();
+        pending.setId(19L);
+        pending.setTitle("Synthetic private incident");
+        pending.setPublished(false);
+        when(incidentService.getIncidentSnapshot(true))
+                .thenReturn(new IncidentSnapshot(List.of(pending), 19L));
+
+        mockMvc.perform(get("/api/incidents").with(operatorLogin()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].title").value("Synthetic private incident"))
+                .andExpect(jsonPath("$[0].published").value(false));
+
+        verify(incidentService).getIncidentSnapshot(true);
     }
 
     @Test
@@ -96,6 +143,20 @@ class IncidentAuthorizationTest {
                 .andExpect(request().asyncStarted());
 
         verify(incidentEventStreamService).subscribe(13L, false);
+    }
+
+    @Test
+    void operatorEventStreamIncludesPrivateEvents() throws Exception {
+        when(incidentEventStreamService.subscribe(19L, true)).thenReturn(new SseEmitter());
+
+        mockMvc.perform(get("/api/incidents/events")
+                        .param("after", "19")
+                        .with(operatorLogin())
+                        .accept(MediaType.TEXT_EVENT_STREAM))
+                .andExpect(status().isOk())
+                .andExpect(request().asyncStarted());
+
+        verify(incidentEventStreamService).subscribe(19L, true);
     }
 
     @Test
@@ -231,6 +292,12 @@ class IncidentAuthorizationTest {
                 .andExpect(jsonPath("$.subject").value("viewer-subject"))
                 .andExpect(jsonPath("$.email").value("viewer@example.test"))
                 .andExpect(jsonPath("$.roles[0]").value("ROLE_VIEWER"));
+    }
+
+    @Test
+    void authenticatedUserCanSignOut() throws Exception {
+        mockMvc.perform(post("/logout").with(operatorLogin()).with(csrf()))
+                .andExpect(status().isNoContent());
     }
 
     @Test

@@ -6,6 +6,7 @@ import {
   createIncident,
   fetchCurrentUser,
   fetchIncidentSnapshot,
+  logout,
   publishIncident,
   updateIncident,
 } from './services/api';
@@ -33,6 +34,8 @@ export default function App() {
   const [authLoading, setAuthLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [authError, setAuthError] = useState<string | null>(null);
+  const [logoutError, setLogoutError] = useState<string | null>(null);
+  const [signingOut, setSigningOut] = useState<boolean>(false);
   const [actionMessage, setActionMessage] = useState<string | null>(null);
   const [eventCursor, setEventCursor] = useState<string | null>(null);
   const [liveUpdateStatus, setLiveUpdateStatus] =
@@ -92,6 +95,24 @@ export default function App() {
     await archiveIncident(id);
     setIncidents((current) => current.filter((incident) => incident.id !== id));
     setActionMessage(`Incident INC-${id} was archived; its audit history was retained.`);
+  }
+
+  async function handleSignOut() {
+    setSigningOut(true);
+    setLogoutError(null);
+    try {
+      await logout();
+      setCurrentUser(null);
+      setIncidents([]);
+      setEventCursor(null);
+      await loadData();
+      setActionMessage('You have signed out.');
+      window.history.replaceState({}, '', window.location.pathname);
+    } catch (err: unknown) {
+      setLogoutError(getFetchErrorMessage(err));
+    } finally {
+      setSigningOut(false);
+    }
   }
 
   useEffect(() => {
@@ -169,7 +190,7 @@ export default function App() {
     });
 
     return () => eventSource.close();
-  }, [eventCursor]);
+  }, [eventCursor, isOperator]);
 
   // Filter logic (F1)
   const filteredIncidents = useMemo(() => {
@@ -202,13 +223,23 @@ export default function App() {
             </p>
           </div>
             <div className="flex items-center gap-3">
-              {googleOAuthEnabled && (
+              {googleOAuthEnabled && !currentUser && (
                 <a
                   href={googleLoginUrl}
                   className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition"
                 >
                   Sign in with Google
                 </a>
+              )}
+              {currentUser && (
+                <button
+                  type="button"
+                  onClick={handleSignOut}
+                  disabled={signingOut}
+                  className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 disabled:opacity-60 text-slate-200 px-4 py-2 rounded-lg text-sm font-medium transition border border-slate-700"
+                >
+                  {signingOut ? 'Signing out…' : 'Sign out'}
+                </button>
               )}
               <button
                 onClick={loadData}
@@ -228,6 +259,11 @@ export default function App() {
         {authError && (
           <p role="alert" className="text-sm text-red-300">
             Sign-in status is unavailable: {authError}
+          </p>
+        )}
+        {logoutError && (
+          <p role="alert" className="text-sm text-red-300">
+            Sign-out failed: {logoutError}
           </p>
         )}
         {authLoading && <p role="status" className="text-sm text-slate-400">Checking sign-in status…</p>}

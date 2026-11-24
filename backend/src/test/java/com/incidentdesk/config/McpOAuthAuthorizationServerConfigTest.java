@@ -17,9 +17,9 @@ class McpOAuthAuthorizationServerConfigTest {
     @Test
     void registersPublicPkceClientWithScopedAccessAndExactRedirectUri() {
         RegisteredClientRepository repository = configuration.mcpRegisteredClientRepository(
-                "campuspulse-mcp",
+                "incident-desk-mcp",
                 "https://mcp-host.example/oauth/callback");
-        RegisteredClient client = repository.findByClientId("campuspulse-mcp");
+        RegisteredClient client = repository.findByClientId("incident-desk-mcp");
 
         assertNotNull(client);
         assertTrue(client.getClientSettings().isRequireProofKey());
@@ -35,7 +35,7 @@ class McpOAuthAuthorizationServerConfigTest {
     void refusesNonLoopbackHttpRedirectUris() {
         assertThrows(IllegalArgumentException.class, () ->
                 configuration.mcpRegisteredClientRepository(
-                        "campuspulse-mcp",
+                        "incident-desk-mcp",
                         "http://mcp-host.example/oauth/callback"));
     }
 }
