@@ -1,0 +1,249 @@
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	﻿2026-11-24T18:26:53.5302597Z Current runner version: '2.338.2'
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.5318128Z ##[group]Runner Image Provisioner
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.5318690Z Hosted Compute Agent
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.5319024Z Version: 20261111.635
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.5319442Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.5319900Z Build Date: 2026-11-11T01:49:01Z
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.5320277Z Worker ID: {56c403fc-383c-4660-a508-0d5bb59fc736}
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.5320706Z Region: eastus2
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.5321020Z Cloud: Azure
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.5321349Z ##[endgroup]
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.5322068Z ##[group]Operating System
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.5322441Z Ubuntu
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.5322776Z 26.04.1
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.5323072Z LTS
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.5323776Z ##[endgroup]
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.5324248Z ##[group]Runner Image
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.5324595Z Image: ubuntu-26.04
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.5324950Z Version: 20261116.202.1
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.5325666Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.5326558Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.5327093Z ##[endgroup]
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.5327775Z ##[group]GITHUB_TOKEN Permissions
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.5329784Z Contents: read
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.5330174Z Metadata: read
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.5330525Z Packages: read
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.5330859Z ##[endgroup]
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.5332081Z Secret source: Actions
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.5332745Z Cache mode: write
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.5333485Z Prepare workflow directory
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.5722329Z Prepare all required actions
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.5765396Z Getting action download info
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.7705224Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.8629702Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:53.9999299Z Complete job name: Frontend (React / TypeScript / Vite)
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.0469690Z ##[group]Run actions/checkout@v4
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.0470080Z with:
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.0470317Z   repository: bycait27/incident-desk
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.0472302Z   token: ***
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.0472527Z   ssh-strict: true
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.0472760Z   ssh-user: git
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.0472998Z   persist-credentials: true
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.0473258Z   clean: true
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.0473494Z   sparse-checkout-cone-mode: true
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.0473905Z   fetch-depth: 1
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.0474134Z   fetch-tags: false
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.0474369Z   show-progress: true
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.0474603Z   lfs: false
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.0474825Z   submodules: false
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.0475060Z   set-safe-directory: true
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.0475330Z   allow-unsafe-pr-checkout: false
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.0475668Z env:
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.0475890Z   CI_BUILD_ID: 45459625861-1
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.0476141Z ##[endgroup]
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2173237Z Syncing repository: bycait27/incident-desk
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2175125Z ##[group]Getting Git version info
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2175768Z Working directory is '/home/runner/work/incident-desk/incident-desk'
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2176665Z [command]/usr/bin/git version
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2207604Z git version 2.56.1
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2219187Z ##[endgroup]
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2229828Z Temporarily overriding HOME='/home/runner/work/_temp/ab9f6135-4065-45f4-a2d4-5638cb5908cc' before making global git config changes
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2231323Z Adding repository directory to the temporary git global config as a safe directory
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2232927Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/incident-desk/incident-desk
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2280069Z Deleting the contents of '/home/runner/work/incident-desk/incident-desk'
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2281897Z ##[group]Initializing the repository
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2285048Z [command]/usr/bin/git init /home/runner/work/incident-desk/incident-desk
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2439406Z hint: Using 'master' as the name for the initial branch. This default branch name
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2440143Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2440964Z hint: to use in all of your new repositories, which will suppress this warning,
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2441524Z hint: call:
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2441736Z hint:
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2442019Z hint: 	git config --global init.defaultBranch <name>
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2442335Z hint:
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2442765Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2443510Z hint: 'development'. The just-created branch can be renamed via this command:
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2444279Z hint:
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2444605Z hint: 	git branch -m <name>
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2444988Z hint:
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2445525Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2447190Z Initialized empty Git repository in /home/runner/work/incident-desk/incident-desk/.git/
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2456307Z [command]/usr/bin/git remote add origin https://github.com/bycait27/incident-desk
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2497941Z ##[endgroup]
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2498588Z ##[group]Disabling automatic garbage collection
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2500444Z [command]/usr/bin/git config --local gc.auto 0
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2527988Z ##[endgroup]
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2528572Z ##[group]Setting up auth
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2532772Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2565725Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2891266Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.2918036Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.3119051Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.3145370Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.3344987Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.3375962Z ##[endgroup]
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.3376594Z ##[group]Fetching the repository
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.3382294Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +ac9b84d7f7f32b5f7ee910630b5e1ae76e06c1fb:refs/remotes/origin/main
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.6482372Z From https://github.com/bycait27/incident-desk
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.6483048Z  * [new ref]         ac9b84d7f7f32b5f7ee910630b5e1ae76e06c1fb -> origin/main
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.6487272Z ##[endgroup]
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.6488085Z ##[group]Determining the checkout info
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.6489276Z ##[endgroup]
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.6494548Z [command]/usr/bin/git sparse-checkout disable
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.6627705Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.6650525Z ##[group]Checking out the ref
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.6653056Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.6755885Z Switched to a new branch 'main'
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.6760431Z branch 'main' set up to track 'origin/main'.
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.6763991Z ##[endgroup]
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.6794168Z [command]/usr/bin/git log -1 --format=%H
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.6812695Z ac9b84d7f7f32b5f7ee910630b5e1ae76e06c1fb
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.7054771Z ##[group]Run actions/setup-node@v4
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.7055100Z with:
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.7055347Z   node-version: 22.19.0
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.7055610Z   cache: npm
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.7055901Z   cache-dependency-path: frontend/package-lock.json
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.7056380Z   always-auth: false
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.7056639Z   check-latest: false
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.7058639Z   token: ***
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.7058877Z env:
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.7059118Z   CI_BUILD_ID: 45459625861-1
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.7059393Z ##[endgroup]
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.7933872Z Attempting to download 22.19.0...
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.8028499Z (node:2175) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:54.8029316Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:55.2944358Z Acquiring 22.19.0 - x64 from https://github.com/actions/node-versions/releases/download/22.19.0-17311483029/node-22.19.0-linux-x64.tar.gz
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:55.7246627Z Extracting ...
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:55.7331029Z [command]/usr/bin/tar xz --strip 1 --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/711d3c50-d097-4e05-8290-dc3ed75a8356 -f /home/runner/work/_temp/648af658-2275-43d2-b1e4-e16e7cbed99c
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:56.3050643Z Adding to the cache ...
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:58.5711919Z ##[group]Environment details
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:58.7096447Z node: v22.19.0
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:58.7096873Z npm: 10.9.3
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:58.7097139Z yarn: 1.22.22
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:58.7097802Z ##[endgroup]
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:58.7109300Z [command]/opt/hostedtoolcache/node/22.19.0/x64/bin/npm config get cache
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:58.7688369Z /home/runner/.npm
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:58.8513098Z Cache hit for: node-cache-Linux-x64-npm-fffd8bf63666eadd7aa82d6e68e906a725ebf8920cc5d694bed8b698043c594d
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:58.8551548Z (node:2175) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:59.2184919Z Received 42524373 of 42524373 (100.0%), 132.1 MBs/sec
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:59.2185310Z Cache Size: ~41 MB (42524373 B)
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:59.2231575Z [command]/usr/bin/tar -xf /home/runner/work/_temp/e3aa6ff7-445a-474d-969b-e31a3ef4d491/cache.tzst -P -C /home/runner/work/incident-desk/incident-desk --use-compress-program unzstd
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:59.2818513Z Cache restored successfully
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:59.2842313Z Cache restored from key: node-cache-Linux-x64-npm-fffd8bf63666eadd7aa82d6e68e906a725ebf8920cc5d694bed8b698043c594d
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:59.3004325Z ##[group]Run npm ci
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:59.3004505Z ^[[36;1mnpm ci^[[0m
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:59.3034635Z shell: /usr/bin/bash -e {0}
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:59.3034784Z env:
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:59.3034904Z   CI_BUILD_ID: 45459625861-1
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:59.3035039Z ##[endgroup]
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:59.5191586Z npm warn EBADENGINE Unsupported engine {
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:59.5191889Z npm warn EBADENGINE   package: 'jsdom@31.0.1',
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:59.5192169Z npm warn EBADENGINE   required: { node: '^22.22.2 || ^24.15.0 || >=26.0.0' },
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:59.5192482Z npm warn EBADENGINE   current: { node: 'v22.19.0', npm: '10.9.3' }
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:59.5192713Z npm warn EBADENGINE }
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:59.5195033Z npm warn EBADENGINE Unsupported engine {
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:59.5195283Z npm warn EBADENGINE   package: 'w3c-xmlserializer@6.0.0',
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:59.5195566Z npm warn EBADENGINE   required: { node: '^22.22.2 || ^24.15.0 || >=26.0.0' },
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:59.5195932Z npm warn EBADENGINE   current: { node: 'v22.19.0', npm: '10.9.3' }
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:26:59.5196167Z npm warn EBADENGINE }
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:00.5457814Z 
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:00.5459322Z added 100 packages, and audited 101 packages in 1s
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:00.5459615Z 
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:00.5459773Z 22 packages are looking for funding
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:00.5460043Z   run `npm fund` for details
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:00.5463905Z 
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:00.5464171Z found 0 vulnerabilities
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:00.6470357Z ##[group]Run npm run typecheck
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:00.6470540Z ^[[36;1mnpm run typecheck^[[0m
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:00.6498413Z shell: /usr/bin/bash -e {0}
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:00.6498712Z env:
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:00.6498830Z   CI_BUILD_ID: 45459625861-1
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:00.6498967Z ##[endgroup]
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:00.7132488Z 
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:00.7132809Z > frontend@0.0.0 typecheck
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:00.7133083Z > tsc --strict --noEmit -p tsconfig.app.json
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:00.7133208Z 
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:00.8971324Z ##[group]Run npm run lint
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:00.8971504Z ^[[36;1mnpm run lint^[[0m
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:00.8999073Z shell: /usr/bin/bash -e {0}
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:00.8999218Z env:
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:00.8999335Z   CI_BUILD_ID: 45459625861-1
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:00.8999470Z ##[endgroup]
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:01.0122736Z 
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:01.0123361Z > frontend@0.0.0 lint
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:01.0123755Z > oxlint
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:01.0123824Z 
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:01.0536365Z Found 0 warnings and 0 errors.
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:01.0536864Z Finished in 18ms on 14 files with 116 rules using 4 threads.
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:01.1476305Z ##[group]Run npm run test
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:01.1476545Z ^[[36;1mnpm run test^[[0m
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:01.1504087Z shell: /usr/bin/bash -e {0}
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:01.1504240Z env:
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:01.1504353Z   CI_BUILD_ID: 45459625861-1
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:01.1504490Z ##[endgroup]
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:01.2326828Z 
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:01.2327056Z > frontend@0.0.0 test
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:01.2327270Z > vitest run --environment jsdom
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:01.2327394Z 
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:01.4047238Z 
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:01.4048494Z ^[[1m^[[30m^[[46m RUN ^[[49m^[[39m^[[22m ^[[36mv5.1.1 ^[[39m^[[90m/home/runner/work/incident-desk/incident-desk/frontend^[[39m
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:01.4049116Z 
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:02.0051304Z  ^[[32m✓^[[39m src/services/api.test.ts ^[[2m(^[[22m^[[2m3 tests^[[22m^[[2m)^[[22m^[[32m 12^[[2mms^[[22m^[[39m
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:02.3345074Z  ^[[32m✓^[[39m src/UptimePanel.test.tsx ^[[2m(^[[22m^[[2m3 tests^[[22m^[[2m)^[[22m^[[32m 95^[[2mms^[[22m^[[39m
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:02.5205568Z  ^[[32m✓^[[39m src/incidentLiveUpdates.test.ts ^[[2m(^[[22m^[[2m6 tests^[[22m^[[2m)^[[22m^[[32m 6^[[2mms^[[22m^[[39m
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:02.5781196Z  ^[[32m✓^[[39m src/App.test.tsx ^[[2m(^[[22m^[[2m6 tests^[[22m^[[2m)^[[22m^[[32m 228^[[2mms^[[22m^[[39m
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:02.5810140Z 
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:02.5813220Z ^[[2m Test Files ^[[22m ^[[1m^[[32m4 passed^[[39m^[[22m^[[90m (4)^[[39m
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:02.5815001Z ^[[2m      Tests ^[[22m ^[[1m^[[32m18 passed^[[39m^[[22m^[[90m (18)^[[39m
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:02.5815394Z ^[[2m   Start at ^[[22m 18:27:01
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:02.5817728Z ^[[2m   Duration ^[[22m 1.17s^[[2m (environment 60%, import 17%, tests 12%, transform 10%)^[[22m
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:02.5823262Z 
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:02.6086734Z ##[group]Run npm run build
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:02.6086904Z ^[[36;1mnpm run build^[[0m
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:02.6112956Z shell: /usr/bin/bash -e {0}
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:02.6113101Z env:
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:02.6113218Z   CI_BUILD_ID: 45459625861-1
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:02.6113351Z ##[endgroup]
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:02.6684824Z 
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:02.6685346Z > frontend@0.0.0 build
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:02.6685599Z > tsc -b && vite build
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:02.6685683Z 
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:02.9605241Z ^[[36mvite v8.3.8 ^[[32mbuilding client environment for production...^[[36m^[[39m
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:02.9694771Z transforming...
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:03.0414707Z ✓ 2087 modules transformed.
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:03.0655155Z rendering chunks...
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:03.0867190Z computing gzip size...
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:03.0896384Z dist/index.html                   0.45 kB │ gzip:  0.29 kB
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:03.0896988Z dist/assets/index-DGNrK5qb.css    1.78 kB │ gzip:  0.81 kB
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:03.0897521Z dist/assets/index-BkDQ8wmP.js   244.66 kB │ gzip: 75.83 kB
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:03.0897722Z 
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:03.0904334Z ^[[32m✓ built in 129ms^[[39m
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:03.1158750Z Post job cleanup.
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:03.1902234Z (node:2422) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:03.1902694Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:03.1903987Z Cache hit occurred on the primary key node-cache-Linux-x64-npm-fffd8bf63666eadd7aa82d6e68e906a725ebf8920cc5d694bed8b698043c594d, not saving cache.
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:03.2014965Z Post job cleanup.
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:03.2542161Z [command]/usr/bin/git version
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:03.2573794Z git version 2.56.1
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:03.2595472Z Temporarily overriding HOME='/home/runner/work/_temp/45abe03a-ffa8-451b-8fcb-a2bca47eeaf2' before making global git config changes
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:03.2596244Z Adding repository directory to the temporary git global config as a safe directory
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:03.2598181Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/incident-desk/incident-desk
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:03.2628123Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:03.2654527Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:03.2884397Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:03.2908104Z http.https://github.com/.extraheader
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:03.2916585Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:03.2946483Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:03.3171973Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:03.3198460Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:03.3507141Z Cleaning up orphan processes
+Frontend (React / TypeScript / Vite)	UNKNOWN STEP	2026-11-24T18:27:03.3769112Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

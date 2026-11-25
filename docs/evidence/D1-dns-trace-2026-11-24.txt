@@ -1,0 +1,48 @@
+
+; <<>> DiG 9.16.28 <<>> +trace status.csc436.com
+;; global options: +cmd
+.			473990	IN	NS	m.root-servers.net.
+.			473990	IN	NS	a.root-servers.net.
+.			473990	IN	NS	b.root-servers.net.
+.			473990	IN	NS	c.root-servers.net.
+.			473990	IN	NS	d.root-servers.net.
+.			473990	IN	NS	e.root-servers.net.
+.			473990	IN	NS	f.root-servers.net.
+.			473990	IN	NS	g.root-servers.net.
+.			473990	IN	NS	h.root-servers.net.
+.			473990	IN	NS	i.root-servers.net.
+.			473990	IN	NS	j.root-servers.net.
+.			473990	IN	NS	k.root-servers.net.
+.			473990	IN	NS	l.root-servers.net.
+.			473990	IN	RRSIG	NS 8 0 518400 20261207050000 20261124040000 8763 . ycgOK/3QC7JVStGzf6xjr/IFJta7tUjh+9fSY9Wn1HWsOssi48yIqwSE 3Ygls8NND8L25fZUxfR45k30rpPWibiAFP8Lf2aZIAHyftKaNNTWFXoe zm74i/7UkAmTWYvOVT0qTD/qsfrLwpTQVQaYhIfoAyaBC3NpxAkQsp9+ ZH+rmJR4Yk7zpQa/98V8Ik19J9Ho5OBMA4ymF1zhdZr0BmHj4ZFtGabh nAXR2TkNKL3HNsEjZwV8GixZQdVFldVbytRAtgdw3pTmpgEb+8M3kV9A jMB8tfykjoarH2PJlnuYSm4zsmK8wEVD7VQjfR8v6vXhxjlccKFEfbwm 4shgQw==
+;; Received 1097 bytes from 75.75.75.75#53(75.75.75.75) in 13 ms
+
+com.			172800	IN	NS	a.gtld-servers.net.
+com.			172800	IN	NS	b.gtld-servers.net.
+com.			172800	IN	NS	c.gtld-servers.net.
+com.			172800	IN	NS	d.gtld-servers.net.
+com.			172800	IN	NS	e.gtld-servers.net.
+com.			172800	IN	NS	f.gtld-servers.net.
+com.			172800	IN	NS	g.gtld-servers.net.
+com.			172800	IN	NS	h.gtld-servers.net.
+com.			172800	IN	NS	i.gtld-servers.net.
+com.			172800	IN	NS	j.gtld-servers.net.
+com.			172800	IN	NS	k.gtld-servers.net.
+com.			172800	IN	NS	l.gtld-servers.net.
+com.			172800	IN	NS	m.gtld-servers.net.
+com.			86400	IN	DS	19718 13 2 8ACBB0CD28F41250A80A491389424D341522D946B0DA0C0291F2D3D7 71D7805A
+com.			86400	IN	RRSIG	DS 8 1 86400 20261207210000 20261124200000 8763 . mfDQZEgycBoS4o/CjEw+VlgZ17ag4NTscWCif0rjrrgmDzpoqure7f1O f82nL9mA+0KRbdM/JEl/K6WcrelXTKgUbGPOXNPms4W1B+cOydRjpwnz /6JxdyBSDnLxoRC5tZbv4OUajaoPC43beBDQAUOOylkHcD2m9lTM+K+m 6jwTrn1ce7dkLSd47T2o1eUB57dle9Z0sMozUnPwm+gGsT/QopFYIVHI khTtU2GbnVpQln/Ge6zDrJNSTWR7/KG7EE2ZIqAnjvwCkRssuHFzRCy2 /LJ0zbLDSCaJahaobNiyVXFxBM8wPi5pYnR2TAdYNKwkZ35F4GY8bSxJ 7GxniQ==
+;; Received 1177 bytes from 2001:500:2f::f#53(f.root-servers.net) in 10 ms
+
+csc436.com.		172800	IN	NS	seth.ns.cloudflare.com.
+csc436.com.		172800	IN	NS	melissa.ns.cloudflare.com.
+CK0POJMG874LJREF7EFN8430QVIT8BSM.com. 900 IN NSEC3 1 1 0 - CK0Q35HRS4H76G6CHNB9414CJN6S5UPL NS SOA RRSIG DNSKEY NSEC3PARAM
+CK0POJMG874LJREF7EFN8430QVIT8BSM.com. 900 IN RRSIG NSEC3 13 2 900 20261130002625 20261122231625 65344 com. PzBuuuPsJAEScAhasa41CgKQCM3iDwvTWvpl8xzN8koFHPP/h/ZKgHqi BpjedDTz7hvvxqU/OJA057NN8p2cMw==
+S95TB3UOO60TMSP4BPJLG2B9253C8BS1.com. 900 IN NSEC3 1 1 0 - S95TDD4O55PTGUUOESVBANPTI2R1Q0F0 NS DS RRSIG
+S95TB3UOO60TMSP4BPJLG2B9253C8BS1.com. 900 IN RRSIG NSEC3 13 2 900 20261130031743 20261123020743 65344 com. T23YbK980wg8x7kpuS/kPSuAPIp2H4UKCfiXM2LKrtxSMVu/CtQHGReV zMbclFxnnXsZyswU93mYRVGvHYjCOQ==
+;; Received 722 bytes from 192.41.162.30#53(l.gtld-servers.net) in 31 ms
+
+status.csc436.com.	300	IN	A	172.67.185.98
+status.csc436.com.	300	IN	A	104.21.84.30
+;; Received 78 bytes from 2606:4700:58::adf5:3b8e#53(seth.ns.cloudflare.com) in 16 ms
+

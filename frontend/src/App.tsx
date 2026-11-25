@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import type { CurrentUser, Incident } from './types';
 import {
   API_BASE_URL,
@@ -11,10 +11,13 @@ import {
   updateIncident,
 } from './services/api';
 import { parseIncidentEvent, upsertIncident } from './incidentLiveUpdates';
-import IncidentSubmissionForm from './IncidentSubmissionForm';
-import OperatorIncidentControls from './OperatorIncidentControls';
+import { summarizeIncidents } from './incidentSummary';
+import AsyncControlsBoundary from './AsyncControlsBoundary';
 import UptimePanel from './UptimePanel';
 import { AlertCircle, Search, Filter, RefreshCw, ShieldAlert, Clock } from 'lucide-react';
+
+const IncidentSubmissionForm = lazy(() => import('./IncidentSubmissionForm'));
+const OperatorIncidentControls = lazy(() => import('./OperatorIncidentControls'));
 
 const googleOAuthEnabled = import.meta.env.VITE_GOOGLE_OAUTH_ENABLED === 'true';
 const googleLoginUrl =
@@ -205,9 +208,10 @@ export default function App() {
       return matchesSearch && matchesStatus && matchesSeverity;
     });
   }, [incidents, searchQuery, statusFilter, severityFilter]);
+  const incidentSummary = useMemo(() => summarizeIncidents(filteredIncidents), [filteredIncidents]);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans p-6 md:p-10">
+    <main className="min-h-screen bg-slate-950 text-slate-100 font-sans p-6 md:p-10">
       <div className="max-w-6xl mx-auto space-y-8">
         
         {/* Header */}
@@ -278,7 +282,13 @@ export default function App() {
           </p>
         )}
 
-        {currentUser && <IncidentSubmissionForm onSubmit={handleSubmitIncident} />}
+        {currentUser && (
+          <AsyncControlsBoundary>
+            <Suspense fallback={<p role="status">Loading report form...</p>}>
+              <IncidentSubmissionForm onSubmit={handleSubmitIncident} />
+            </Suspense>
+          </AsyncControlsBoundary>
+        )}
 
         <UptimePanel />
 
@@ -288,6 +298,7 @@ export default function App() {
             <Search className="absolute left-3 top-3 w-4 h-4 text-slate-500" />
             <input 
               type="text"
+              aria-label="Search incidents"
               placeholder="Search incidents by title or description..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -298,6 +309,7 @@ export default function App() {
           <div className="flex items-center gap-2">
             <Filter className="w-4 h-4 text-slate-500 shrink-0" />
             <select 
+              aria-label="Filter by status"
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
               className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-indigo-500 transition"
@@ -312,6 +324,7 @@ export default function App() {
 
           <div>
             <select 
+              aria-label="Filter by severity"
               value={severityFilter}
               onChange={(e) => setSeverityFilter(e.target.value)}
               className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-indigo-500 transition"
@@ -324,6 +337,12 @@ export default function App() {
             </select>
           </div>
         </div>
+
+        {!loading && !error && (
+          <p role="status" className="text-sm text-slate-400">
+            Matching incidents: {incidentSummary.visible} · Active: {incidentSummary.active}
+          </p>
+        )}
 
         {/* State Handling (F2): Loading, Error, Empty, and Data */}
         {loading && (
@@ -395,13 +414,17 @@ export default function App() {
                   <span>Last Updated: {new Date(incident.updatedAt).toLocaleString()}</span>
                 </div>
                 {isOperator && (
-                  <OperatorIncidentControls
-                    key={`${incident.id}-${incident.updatedAt}-${incident.title}-${incident.status}-${incident.severity}`}
-                    incident={incident}
-                    onSave={(update) => handleUpdateIncident(incident.id, update)}
-                    onPublish={() => handlePublishIncident(incident.id)}
-                    onArchive={() => handleArchiveIncident(incident.id)}
-                  />
+                  <AsyncControlsBoundary>
+                    <Suspense fallback={<p role="status">Loading incident controls...</p>}>
+                      <OperatorIncidentControls
+                        key={`${incident.id}-${incident.updatedAt}-${incident.title}-${incident.status}-${incident.severity}`}
+                        incident={incident}
+                        onSave={(update) => handleUpdateIncident(incident.id, update)}
+                        onPublish={() => handlePublishIncident(incident.id)}
+                        onArchive={() => handleArchiveIncident(incident.id)}
+                      />
+                    </Suspense>
+                  </AsyncControlsBoundary>
                 )}
               </div>
             ))}
@@ -409,6 +432,6 @@ export default function App() {
         )}
 
       </div>
-    </div>
+    </main>
   );
 }

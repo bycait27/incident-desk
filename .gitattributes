@@ -1,0 +1,3 @@
+/docs/evidence/*.txt -text
+/docs/evidence/*.json -text
+/docs/evidence/*.har -text

@@ -1,0 +1,335 @@
+Staging anonymous curl.exe -i captures, 2026-11-24 UTC.
+Redacted: Set-Cookie values (session credentials) and Report-To URLs (opaque reporting endpoints). All other response content is as captured; raw copies are retained privately in session files.
+Command placeholders <private-output> and <status> stand for the private output path and curl's status-format argument, not literal arguments.
+The 404 shows this ID is not publicly visible; it does not exclude an archived record.
+A subsequent read-only database query found zero rows for the ID; see F3-staging-missing-id.md.
+
+Command: curl.exe -sS -i --max-time 25 -o <private-output> -w <status> https://staging-status.csc436.com/api/incidents
+HTTP/1.1 200 OK
+Date: Tue, 24 Nov 2026 20:12:19 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'
+expires: 0
+pragma: no-cache
+referrer-policy: strict-origin-when-cross-origin
+Server: cloudflare
+strict-transport-security: max-age=31536000 ; includeSubDomains
+vary: Origin
+vary: Access-Control-Request-Method
+vary: Access-Control-Request-Headers
+x-content-type-options: nosniff
+x-frame-options: DENY
+x-incident-event-cursor: 8
+x-railway-request-id: jeTuWv5TREWCLVf-H4GxDA
+x-xss-protection: 0
+x-railway-edge: yyz1
+x-hikari-trace: yyz1.nas1
+cf-cache-status: DYNAMIC
+Report-To: [REDACTED: reporting endpoint]
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+CF-RAY: a5fb115d3fec164c-YYZ
+alt-svc: h3=":443"; ma=86400
+
+[{"id":6,"title":"Test2","description":"Test2","status":"OPEN","severity":"LOW","reporterId":null,"assignedTo":null,"published":true,"archived":false,"createdAt":"2026-11-24T01:25:17.422609Z","updatedAt":"2026-11-24T01:30:01.964009Z"},{"id":5,"title":"Test","description":"Test.","status":"OPEN","severity":"LOW","reporterId":null,"assignedTo":null,"published":true,"archived":false,"createdAt":"2026-11-24T01:15:36.451547Z","updatedAt":"2026-11-24T01:16:12.892802Z"},{"id":1,"title":"Library 3rd Floor Wi-Fi Dropping","description":"Wireless connections keep cycling and disconnecting every 5 minutes near the printing kiosks.","status":"IN_PROGRESS","severity":"HIGH","reporterId":1,"assignedTo":3,"published":true,"archived":false,"createdAt":"2026-11-24T00:39:16.819578Z","updatedAt":"2026-11-24T00:39:16.819578Z"},{"id":2,"title":"Canvas LMS Login Redirect Error","description":"Receiving a 403 authorization error when attempting to log into Canvas via single sign-on.","status":"OPEN","severity":"CRITICAL","reporterId":2,"assignedTo":null,"published":true,"archived":false,"createdAt":"2026-11-24T00:39:16.819578Z","updatedAt":"2026-11-24T00:39:16.819578Z"},{"id":3,"title":"Student Union Printer Jam","description":"Printer #4 is displaying a persistent paper jam error despite tray clearance.","status":"RESOLVED","severity":"MEDIUM","reporterId":1,"assignedTo":3,"published":true,"archived":false,"createdAt":"2026-11-24T00:39:16.819578Z","updatedAt":"2026-11-24T00:39:16.819578Z"}]
+
+Command: curl.exe -sS -i --max-time 25 -o <private-output> -w <status> https://staging-status.csc436.com/api/incidents/9223372036854775807
+HTTP/1.1 404 Not Found
+Date: Tue, 24 Nov 2026 20:12:19 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'
+expires: 0
+pragma: no-cache
+referrer-policy: strict-origin-when-cross-origin
+Server: cloudflare
+strict-transport-security: max-age=31536000 ; includeSubDomains
+vary: Origin
+vary: Access-Control-Request-Method
+vary: Access-Control-Request-Headers
+x-content-type-options: nosniff
+x-frame-options: DENY
+x-railway-request-id: msDlOsPkQtqxFWIfozsQ6Q
+x-xss-protection: 0
+x-railway-edge: atl1
+x-hikari-trace: atl1.1v22
+cf-cache-status: DYNAMIC
+Report-To: [REDACTED: reporting endpoint]
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+CF-RAY: a5fb115f98ea6769-ATL
+alt-svc: h3=":443"; ma=86400
+
+{"code":"NOT_FOUND","message":"Incident not found with id: 9223372036854775807"}
+
+Command: curl.exe -sS -i --max-time 25 -o <private-output> -w <status> -X POST -H 'Content-Type: application/json' --data '{}' https://staging-status.csc436.com/api/incidents
+HTTP/1.1 401 Unauthorized
+Date: Tue, 24 Nov 2026 20:12:20 GMT
+Content-Type: application/json
+Content-Length: 63
+Connection: keep-alive
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'
+expires: 0
+pragma: no-cache
+referrer-policy: strict-origin-when-cross-origin
+Server: cloudflare
+Set-Cookie: [REDACTED: session cookie]
+strict-transport-security: max-age=31536000 ; includeSubDomains
+vary: Origin
+vary: Access-Control-Request-Method
+vary: Access-Control-Request-Headers
+x-content-type-options: nosniff
+x-frame-options: DENY
+x-railway-request-id: iZwGJ4YJRnuznTazFFmdQQ
+x-xss-protection: 0
+x-hikari-trace: yyz1.gre5
+x-railway-edge: yyz1
+cf-cache-status: DYNAMIC
+Report-To: [REDACTED: reporting endpoint]
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+CF-RAY: a5fb116129f5cceb-YYZ
+alt-svc: h3=":443"; ma=86400
+
+{"code":"UNAUTHORIZED","message":"Authentication is required."}
+
+
+Authenticated curl exercise: incident 8, 2026-11-24 UTC
+Each response below is from curl.exe -i. Cookies and CSRF tokens were supplied privately through curl config on standard input, not included in the command line or this transcript. Set-Cookie and Report-To response headers are redacted; other response content is as captured. Synthetic request bodies are included where applicable. Raw responses remain in private session files.
+
+--- viewer-create ---
+Request body: {"description":"Synthetic staging report for authenticated curl evidence.","title":"Synthetic curl REST evidence 2026-11-24"}
+Authenticated curl -i capture, staging. Cookie and CSRF request headers omitted; Set-Cookie and Report-To response headers redacted.
+Method: POST
+Path: /api/incidents
+HTTP/1.1 201 Created
+Date: Tue, 24 Nov 2026 20:36:47 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'
+expires: 0
+location: /api/incidents/8
+pragma: no-cache
+referrer-policy: strict-origin-when-cross-origin
+Server: cloudflare
+strict-transport-security: max-age=31536000 ; includeSubDomains
+vary: Origin
+vary: Access-Control-Request-Method
+vary: Access-Control-Request-Headers
+x-content-type-options: nosniff
+x-frame-options: DENY
+x-railway-request-id: w_IvtjdQRLqHL7i-Cx5-qw
+x-xss-protection: 0
+x-railway-edge: atl1
+x-hikari-trace: atl1.1v22
+cf-cache-status: DYNAMIC
+Report-To: [REDACTED: reporting endpoint]
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+CF-RAY: a5fb3535bab492ba-DFW
+alt-svc: h3=":443"; ma=86400
+
+{"id":8,"title":"Synthetic curl REST evidence 2026-11-24","description":"Synthetic staging report for authenticated curl evidence.","status":"OPEN","severity":"LOW","reporterId":null,"assignedTo":null,"published":false,"archived":false,"createdAt":"2026-11-24T20:36:47.790256211Z","updatedAt":"2026-11-24T20:36:47.790256211Z"}
+
+--- viewer-update ---
+Request body: {"title":"Synthetic curl REST evidence 2026-11-24","description":"Synthetic staging report for authenticated curl evidence.","assignedTo":null,"status":"IN_PROGRESS","severity":"LOW"}
+Authenticated curl -i capture, staging. Cookie and CSRF request headers omitted; Set-Cookie and Report-To response headers redacted.
+Method: PUT
+Path: /api/incidents/8
+HTTP/1.1 403 Forbidden
+Date: Tue, 24 Nov 2026 20:36:48 GMT
+Content-Type: application/json
+Content-Length: 77
+Connection: keep-alive
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'
+expires: 0
+pragma: no-cache
+referrer-policy: strict-origin-when-cross-origin
+Server: cloudflare
+strict-transport-security: max-age=31536000 ; includeSubDomains
+vary: Origin
+vary: Access-Control-Request-Method
+vary: Access-Control-Request-Headers
+x-content-type-options: nosniff
+x-frame-options: DENY
+x-railway-request-id: K9Z_p-weS_2epFIEaP71AA
+x-xss-protection: 0
+x-hikari-trace: atl1.mwdw
+x-railway-edge: atl1
+cf-cache-status: DYNAMIC
+Report-To: [REDACTED: reporting endpoint]
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+CF-RAY: a5fb35383d53675f-ATL
+alt-svc: h3=":443"; ma=86400
+
+{"code":"FORBIDDEN","message":"The current role cannot perform this action."}
+
+--- operator-update ---
+Request body: {"title":"Synthetic curl REST evidence 2026-11-24","description":"Synthetic staging report updated for authenticated curl evidence.","assignedTo":null,"status":"IN_PROGRESS","severity":"LOW"}
+Authenticated curl -i capture, staging. Cookie and CSRF request headers omitted; Set-Cookie and Report-To response headers redacted.
+Method: PUT
+Path: /api/incidents/8
+HTTP/1.1 200 OK
+Date: Tue, 24 Nov 2026 20:38:42 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'
+expires: 0
+pragma: no-cache
+referrer-policy: strict-origin-when-cross-origin
+Server: cloudflare
+strict-transport-security: max-age=31536000 ; includeSubDomains
+vary: Origin
+vary: Access-Control-Request-Method
+vary: Access-Control-Request-Headers
+x-content-type-options: nosniff
+x-frame-options: DENY
+x-railway-request-id: wWzIcXXBT9eYbWC8Hn5Ytg
+x-xss-protection: 0
+x-railway-edge: atl1
+x-hikari-trace: atl1.1v22
+cf-cache-status: DYNAMIC
+Report-To: [REDACTED: reporting endpoint]
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+CF-RAY: a5fb38029f136a61-DFW
+alt-svc: h3=":443"; ma=86400
+
+{"id":8,"title":"Synthetic curl REST evidence 2026-11-24","description":"Synthetic staging report updated for authenticated curl evidence.","status":"IN_PROGRESS","severity":"LOW","reporterId":null,"assignedTo":null,"published":false,"archived":false,"createdAt":"2026-11-24T20:36:47.790256Z","updatedAt":"2026-11-24T20:38:42.491791894Z"}
+
+--- operator-invalid ---
+Request body: {"description":"Synthetic staging report updated for authenticated curl evidence.","severity":"LOW","title":"Synthetic curl REST evidence 2026-11-24","assignedTo":null,"status":"INVALID"}
+Authenticated curl -i capture, staging. Cookie and CSRF request headers omitted; Set-Cookie and Report-To response headers redacted.
+Method: PUT
+Path: /api/incidents/8
+HTTP/1.1 400 Bad Request
+Date: Tue, 24 Nov 2026 20:38:42 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'
+expires: 0
+pragma: no-cache
+referrer-policy: strict-origin-when-cross-origin
+Server: cloudflare
+strict-transport-security: max-age=31536000 ; includeSubDomains
+vary: Origin
+vary: Access-Control-Request-Method
+vary: Access-Control-Request-Headers
+x-content-type-options: nosniff
+x-frame-options: DENY
+x-railway-request-id: Igublf24TaGEmU1ZGbGh5g
+x-xss-protection: 0
+x-railway-edge: yyz1
+x-hikari-trace: yyz1.nas1
+cf-cache-status: DYNAMIC
+Report-To: [REDACTED: reporting endpoint]
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+CF-RAY: a5fb38053b2e369d-YYZ
+alt-svc: h3=":443"; ma=86400
+
+{"code":"VALIDATION_ERROR","message":"Request fields are invalid."}
+
+--- operator-publish ---
+Authenticated curl -i capture, staging. Cookie and CSRF request headers omitted; Set-Cookie and Report-To response headers redacted.
+Method: POST
+Path: /api/incidents/8/publish
+HTTP/1.1 200 OK
+Date: Tue, 24 Nov 2026 20:38:43 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'
+expires: 0
+pragma: no-cache
+referrer-policy: strict-origin-when-cross-origin
+Server: cloudflare
+strict-transport-security: max-age=31536000 ; includeSubDomains
+vary: Origin
+vary: Access-Control-Request-Method
+vary: Access-Control-Request-Headers
+x-content-type-options: nosniff
+x-frame-options: DENY
+x-railway-request-id: wR3WEBldTdiikpBvBT7zVQ
+x-xss-protection: 0
+x-railway-edge: atl1
+x-hikari-trace: atl1.1v22
+cf-cache-status: DYNAMIC
+Report-To: [REDACTED: reporting endpoint]
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+CF-RAY: a5fb38074d6e8b23-DFW
+alt-svc: h3=":443"; ma=86400
+
+{"id":8,"title":"Synthetic curl REST evidence 2026-11-24","description":"Synthetic staging report updated for authenticated curl evidence.","status":"IN_PROGRESS","severity":"LOW","reporterId":null,"assignedTo":null,"published":true,"archived":false,"createdAt":"2026-11-24T20:36:47.790256Z","updatedAt":"2026-11-24T20:38:43.188920601Z"}
+
+--- operator-publish-again ---
+Authenticated curl -i capture, staging. Cookie and CSRF request headers omitted; Set-Cookie and Report-To response headers redacted.
+Method: POST
+Path: /api/incidents/8/publish
+HTTP/1.1 409 Conflict
+Date: Tue, 24 Nov 2026 20:38:43 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'
+expires: 0
+pragma: no-cache
+referrer-policy: strict-origin-when-cross-origin
+Server: cloudflare
+strict-transport-security: max-age=31536000 ; includeSubDomains
+vary: Origin
+vary: Access-Control-Request-Method
+vary: Access-Control-Request-Headers
+x-content-type-options: nosniff
+x-frame-options: DENY
+x-railway-request-id: DvVAeo4sSgOr2kh-o3UVLg
+x-xss-protection: 0
+x-railway-edge: atl1
+x-hikari-trace: atl1.mwdw
+cf-cache-status: DYNAMIC
+Report-To: [REDACTED: reporting endpoint]
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+CF-RAY: a5fb38095eeb6c51-DFW
+alt-svc: h3=":443"; ma=86400
+
+{"code":"CONFLICT","message":"Incident 8 cannot be changed in its current state."}
+
+--- operator-archive ---
+Authenticated curl -i capture, staging. Cookie and CSRF request headers omitted; Set-Cookie and Report-To response headers redacted.
+Method: DELETE
+Path: /api/incidents/8
+HTTP/1.1 204 No Content
+Date: Tue, 24 Nov 2026 20:38:43 GMT
+Connection: keep-alive
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'
+expires: 0
+pragma: no-cache
+referrer-policy: strict-origin-when-cross-origin
+Server: cloudflare
+strict-transport-security: max-age=31536000 ; includeSubDomains
+vary: Origin
+vary: Access-Control-Request-Method
+vary: Access-Control-Request-Headers
+x-content-type-options: nosniff
+x-frame-options: DENY
+x-railway-request-id: oq0uHlwdSAKf3cbqg4a9AQ
+x-xss-protection: 0
+x-hikari-trace: atl1.mwdw
+x-railway-edge: atl1
+cf-cache-status: DYNAMIC
+Report-To: [REDACTED: reporting endpoint]
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+CF-RAY: a5fb380b997ef0a8-DFW
+alt-svc: h3=":443"; ma=86400
+
+

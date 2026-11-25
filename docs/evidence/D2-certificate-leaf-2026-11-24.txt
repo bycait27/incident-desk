@@ -1,0 +1,6 @@
+subject=CN=csc436.com
+issuer=C=US, O=Let's Encrypt, CN=YE2
+notBefore=Oct 13 17:48:17 2026 GMT
+notAfter=Jan 11 17:48:16 2027 GMT
+X509v3 Subject Alternative Name: 
+    DNS:*.csc436.com, DNS:csc436.com

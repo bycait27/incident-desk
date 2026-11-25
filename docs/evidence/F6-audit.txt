@@ -1,0 +1,51 @@
+F6 staging audit exercise — prediction, 2026-11-24
+
+Expected: creating a uniquely named synthetic incident and then updating it
+as an authenticated operator produces corresponding CREATE and UPDATE audit
+rows for that incident. The UPDATE row's before and after states should show
+the actual change, and the actor should match the validated operator identity.
+Account identifiers will be redacted. A successful query does not by itself
+prove that PostgreSQL prevents updates or deletes to the audit table.
+
+Synthetic staging incident: 9
+Created: POST /api/incidents returned 201 at 2026-11-24T20:42:34.063Z.
+Operator update: PUT /api/incidents/9 returned 200 at 2026-11-24T20:42:39.586Z.
+The description changed from "Synthetic staging record for persistence and
+audit evidence; initial state." to "Synthetic staging record for persistence
+and audit evidence; operator updated.", status from OPEN to IN_PROGRESS, and
+severity from LOW to MEDIUM.
+
+Read-only query on the staging incident-desk-postgres service, 2026-11-24:
+
+SELECT id, actor_email, action, timestamp, before_state_json, after_state_json
+FROM audit_logs
+WHERE resource_type = 'INCIDENT' AND resource_id = 9
+ORDER BY id;
+
+Actual result, reformatted for readability. Both actor_email values are
+redacted; the unredacted query output is retained privately.
+
+id=21 actor_email=[REDACTED] action=CREATE timestamp=2026-11-24 20:42:34.299627+00
+before_state_json=[empty in psql CSV output; NULL and empty text are not distinguished]
+after_state_json={"id":9,"title":"Synthetic F4 F6 persistence audit 2026-11-24 2045","description":"Synthetic staging record for persistence and audit evidence; initial state.","status":"OPEN","severity":"LOW","reporterId":null,"assignedTo":null,"published":false,"archived":false,"createdAt":"2026-11-24T20:42:34.294954651Z","updatedAt":"2026-11-24T20:42:34.294954651Z"}
+
+id=22 actor_email=[REDACTED] action=UPDATE timestamp=2026-11-24 20:42:39.827515+00
+before_state_json={"id":9,"title":"Synthetic F4 F6 persistence audit 2026-11-24 2045","description":"Synthetic staging record for persistence and audit evidence; initial state.","status":"OPEN","severity":"LOW","reporterId":null,"assignedTo":null,"published":false,"archived":false,"createdAt":"2026-11-24T20:42:34.294955Z","updatedAt":"2026-11-24T20:42:34.294955Z"}
+after_state_json={"id":9,"title":"Synthetic F4 F6 persistence audit 2026-11-24 2045","description":"Synthetic staging record for persistence and audit evidence; operator updated.","status":"IN_PROGRESS","severity":"MEDIUM","reporterId":null,"assignedTo":null,"published":false,"archived":false,"createdAt":"2026-11-24T20:42:34.294955Z","updatedAt":"2026-11-24T20:42:39.824237679Z"}
+
+The two recorded actor values matched the signed-in operator's /api/auth/me
+email in a private SHA-256 comparison. The application source passes the
+authenticated OIDC user's email to the audit service; F9 describes the
+actor-attribution test. Neither account identifiers nor their hashes are
+included here. The staging deployment's source SHA was not independently
+verified.
+
+Append-only limitation, checked read-only on 2026-11-24: the staging app's
+database username matched the PostgreSQL service's PGUSER, and was postgres.
+That role is a superuser and had INSERT, UPDATE, DELETE and TRUNCATE privileges
+on public.audit_logs. The table had zero enabled non-internal triggers. The
+application normally inserts audit records, but database-level immutability
+is NOT enforced. F6 is therefore incomplete; the query results do not prove
+append-only enforcement.
+
+The temporary Railway SSH key used for these queries was removed afterward.

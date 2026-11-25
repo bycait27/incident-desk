@@ -13,6 +13,7 @@ import {
   updateIncident,
 } from './services/api';
 import App from './App';
+import AsyncControlsBoundary from './AsyncControlsBoundary';
 
 vi.mock('./services/api', () => ({
   API_BASE_URL: 'http://localhost:8080/api',
@@ -81,6 +82,30 @@ describe('incident fetch states', () => {
     fetchUptimeMonitorsMock.mockResolvedValue(emptyMonitoringResponse);
   });
 
+  it('provides a main landmark and accessible search and filter controls', () => {
+    fetchIncidentSnapshotMock.mockResolvedValue({ incidents: [], eventCursor: '0' });
+
+    render(<App />);
+
+    expect(screen.getByRole('main')).toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: 'Search incidents' })).toBeInTheDocument();
+    expect(screen.getByRole('combobox', { name: 'Filter by status' })).toBeInTheDocument();
+    expect(screen.getByRole('combobox', { name: 'Filter by severity' })).toBeInTheDocument();
+  });
+
+  it('shows an error when deferred incident controls cannot load', () => {
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
+    function BrokenControls(): never {
+      throw new Error('Failed to load controls');
+    }
+
+    render(<AsyncControlsBoundary><BrokenControls /></AsyncControlsBoundary>);
+
+    expect(screen.getByRole('alert')).toHaveTextContent('Unable to load incident controls');
+    expect(consoleError).toHaveBeenCalled();
+    consoleError.mockRestore();
+  });
+
   it('shows loading while the request is pending, then the empty state', async () => {
     let resolveFetch!: (snapshot: IncidentSnapshot) => void;
     fetchIncidentSnapshotMock.mockImplementation(
@@ -99,6 +124,32 @@ describe('incident fetch states', () => {
     });
 
     expect(screen.getByText('No matching incidents found')).toBeInTheDocument();
+  });
+
+  it('updates the visible and active counts when filtering incidents', async () => {
+    const incident: Incident = {
+      id: 1,
+      title: 'Synthetic outage',
+      description: 'Test',
+      status: 'OPEN',
+      severity: 'LOW',
+      published: true,
+      archived: false,
+      createdAt: '2026-11-24T00:00:00Z',
+      updatedAt: '2026-11-24T00:00:00Z',
+    };
+    fetchIncidentSnapshotMock.mockResolvedValue({
+      incidents: [incident, { ...incident, id: 2, status: 'RESOLVED' }],
+      eventCursor: '0',
+    });
+
+    render(<App />);
+
+    expect(await screen.findByText('Matching incidents: 2 · Active: 1')).toBeInTheDocument();
+    fireEvent.change(screen.getByRole('combobox', { name: 'Filter by status' }), {
+      target: { value: 'RESOLVED' },
+    });
+    expect(screen.getByText('Matching incidents: 1 · Active: 0')).toBeInTheDocument();
   });
 
   it('shows the request error and allows retry after a forced failure', async () => {

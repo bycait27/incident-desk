@@ -1,0 +1,11 @@
+Keyboard-only walkthrough: 2026-11-24T22:59:04.209Z local anonymous board
+Tab: Refresh Data
+Enter: refresh completed
+Tab: Search incidents
+Type Printer: matching incident visible; nonmatching incident hidden
+Tab: Filter by status
+End: Closed selected; empty state visible
+Home: All Statuses selected; matching incident visible
+Tab: Filter by severity
+End: Critical selected; empty state visible
+PASS: public-board controls operated with keyboard keys. Authenticated forms were not exercised.
