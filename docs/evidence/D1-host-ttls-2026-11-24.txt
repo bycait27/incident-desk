@@ -1,0 +1,8 @@
+status.csc436.com.	300	IN	A	172.67.185.98
+status.csc436.com.	300	IN	A	104.21.84.30
+mcp.csc436.com.		300	IN	A	104.21.84.30
+mcp.csc436.com.		300	IN	A	172.67.185.98
+staging-status.csc436.com. 300	IN	A	104.21.84.30
+staging-status.csc436.com. 300	IN	A	172.67.185.98
+staging-mcp.csc436.com.	300	IN	A	172.67.185.98
+staging-mcp.csc436.com.	300	IN	A	104.21.84.30

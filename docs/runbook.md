@@ -14,7 +14,7 @@ Never put tokens, passwords, cookies, or personal data in incident notes.
 | Staging | https://staging-status.csc436.com/healthz | https://staging-mcp.csc436.com/healthz |
 | Production | https://status.csc436.com/healthz | https://mcp.csc436.com/healthz |
 
-Use `/healthz`, not `/healthzup`. The application returns HTTP 200 and
+Use `/healthz`. The application returns HTTP 200 and
 `{"status":"UP"}` when it can query PostgreSQL; it returns 503 and
 `{"status":"DOWN"}` on a database access failure. The MCP endpoint returns
 HTTP 200 and `{"status":"ok"}` when its process is healthy. MCP readiness
@@ -107,3 +107,14 @@ present on the default branch for its schedule to run. GitHub may delay
 scheduled runs or disable them after repository inactivity; check Actions
 periodically because this workflow cannot alert if GitHub Actions stops
 running it.
+
+## Availability objective
+
+For staging MCP, the proposed availability SLI is successful Better Stack
+`/healthz` checks divided by the checks expected at the 180-second interval
+over a rolling 30-day window. Missing or unknown checks count as unsuccessful;
+investigate monitoring gaps separately. The target SLO is 99.9%. This measures
+the health endpoint, not successful authenticated tool calls. The existing
+monitor's email alert fired during the
+[staging exercise](gameday-postmortem.md#follow-up-staging-alert-exercise).
+No 30-day SLI result or SLO dashboard has been captured yet.

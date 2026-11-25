@@ -1,0 +1,7 @@
+retry:3000
+:connected
+
+id:22
+event:incident
+data:{"eventType":"PUBLISHED","incident":{"id":11,"title":"Synthetic F11 missed 2026-11-24","description":"Synthetic staging event for reconnect replay.","status":"OPEN","severity":"LOW","reporterId":null,"assignedTo":null,"published":true,"archived":false,"createdAt":"2026-11-24T20:55:12.181148Z","updatedAt":"2026-11-24T20:56:16.635909882Z"}}
+

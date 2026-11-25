@@ -1,6 +1,7 @@
 package com.incidentdesk.controllers;
 
 import com.incidentdesk.config.SecurityConfig;
+import com.incidentdesk.config.StaticAssetCacheConfig;
 import com.incidentdesk.config.GoogleOAuth2ClientConfig;
 import com.incidentdesk.services.BetterStackMonitorService;
 import com.incidentdesk.services.BetterStackMonitorService.MonitorStatusResponse;
@@ -51,7 +52,7 @@ import static org.hamcrest.Matchers.containsString;
         IncidentEventStreamController.class,
         HealthController.class
 })
-@Import({SecurityConfig.class, GoogleOAuth2ClientConfig.class})
+@Import({SecurityConfig.class, GoogleOAuth2ClientConfig.class, StaticAssetCacheConfig.class})
 @TestPropertySource(properties = {
         "app.oauth.google.enabled=true",
         "app.oauth.google.client-id=synthetic-client",
@@ -94,6 +95,35 @@ class IncidentAuthorizationTest {
     }
 
     @Test
+    void onlyVersionedStaticAssetsArePubliclyCacheable() throws Exception {
+        var response = mockMvc.perform(get("/assets/evidence-1234abcd.js"))
+                .andExpect(status().isOk())
+                .andExpect(header().string("Cache-Control", containsString("public")))
+                .andExpect(header().string("Cache-Control", containsString("immutable")))
+                .andReturn().getResponse();
+
+        mockMvc.perform(get("/assets/evidence-1234abcd.js")
+                        .header("If-Modified-Since", response.getHeader("Last-Modified")))
+                .andExpect(status().isNotModified());
+
+        mockMvc.perform(get("/assets/evidence-B2jOtnpS.css"))
+                .andExpect(status().isOk())
+                .andExpect(header().string("Cache-Control", containsString("public")))
+                .andExpect(header().string("Cache-Control", containsString("immutable")));
+
+        mockMvc.perform(get("/assets/unversioned.js"))
+                .andExpect(status().isOk())
+                .andExpect(header().string("Cache-Control", containsString("no-store")));
+
+        mockMvc.perform(get("/assets/missing-1234abcd.js"))
+                .andExpect(status().isNotFound())
+                .andExpect(header().string("Cache-Control", containsString("no-store")));
+
+        mockMvc.perform(get("/api/auth/me").with(operatorLogin()))
+                .andExpect(header().string("Cache-Control", containsString("no-store")));
+    }
+
+    @Test
     void secureResponsesIncludeRequiredSecurityHeaders() throws Exception {
         mockMvc.perform(get("/api/auth/me").with(operatorLogin()).secure(true))
                 .andExpect(header().string("Content-Security-Policy", containsString("default-src 'self'")))
@@ -119,6 +149,7 @@ class IncidentAuthorizationTest {
 
         mockMvc.perform(get("/api/incidents"))
                 .andExpect(status().isOk())
+                .andExpect(header().string("Cache-Control", containsString("no-store")))
                 .andExpect(header().string("X-Incident-Event-Cursor", "12"));
     }
 
@@ -133,6 +164,7 @@ class IncidentAuthorizationTest {
 
         mockMvc.perform(get("/api/incidents").with(operatorLogin()))
                 .andExpect(status().isOk())
+                .andExpect(header().string("Cache-Control", containsString("no-store")))
                 .andExpect(jsonPath("$[0].title").value("Synthetic private incident"))
                 .andExpect(jsonPath("$[0].published").value(false));
 

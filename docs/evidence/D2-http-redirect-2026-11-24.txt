@@ -1,0 +1,13 @@
+HTTP/1.1 301 Moved Permanently
+Date: Tue, 24 Nov 2026 21:56:53 GMT
+Content-Length: 0
+Connection: keep-alive
+location: https://status.csc436.com/
+x-railway-67: 67
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+cf-cache-status: DYNAMIC
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=nudOf9j96wgFdvCR4xEQ4MTO3di5njJFeKQTmKUiOJQzto3c5FWohkOugrPZwnX831AuG%2FgIDEahbCWgd2MSBDpVPUxQprMEBKixMQOtWPgL8liHKYKfjS8ZCp%2B8I4PVZ2ttpeMpkIXfeHPB%2BiiHdA%3D%3D"}]}
+Server: cloudflare
+CF-RAY: a5fbaa8bcf716956-YYZ
+alt-svc: h3=":443"; ma=86400
+

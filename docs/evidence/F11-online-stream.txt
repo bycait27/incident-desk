@@ -1,0 +1,9 @@
+retry:3000
+:connected
+
+id:21
+event:incident
+data:{"eventType":"PUBLISHED","incident":{"id":10,"title":"Synthetic F11 online 2026-11-24","description":"Synthetic staging event for online receipt.","status":"OPEN","severity":"LOW","reporterId":null,"assignedTo":null,"published":true,"archived":false,"createdAt":"2026-11-24T20:55:12.047595Z","updatedAt":"2026-11-24T20:55:28.12207227Z"}}
+
+:keepalive
+

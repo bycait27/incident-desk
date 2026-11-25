@@ -6,7 +6,8 @@ Spring Authorization Server reuses the existing Google OIDC login; it issues
 five-minute, audience-bound access tokens to the statically registered public
 MCP client. PKCE is mandatory, only HTTPS or loopback HTTP callback URLs are
 accepted, and the MCP resource validates the token signature, issuer, audience,
-and expiry.
+and expiration when present. Its verifier does not explicitly require an
+`exp` claim; the app-issued tokens have one.
 
 ## Local setup
 
@@ -75,8 +76,10 @@ The authorization server's browser origin is separately configured by
 The backend independently validates the same signed access token and enforces
 the corresponding scope on each MCP API route. The MCP App also requires the
 user to review the report and select **Confirm and submit** before it calls the
-write tool. Tool starts, outcomes, and insufficient-scope denials are appended
-to `audit_logs`; the actor is derived from the validated token.
+write tool. Tool starts and outcomes are sent to `audit_logs`; the actor is
+derived from the validated token. Insufficient-scope denials are audited only
+when the token has `mcp:audit`, and the staging database does not enforce
+append-only audit records.
 
 ## Commands
 
@@ -90,3 +93,11 @@ mvn -f backend/pom.xml test
 The MCP service has a non-sensitive readiness endpoint at `/healthz`. OAuth is
 disabled by default in the backend; enabling it without a private signing JWK
 fails startup rather than silently using an ephemeral key.
+
+## Host exercise
+
+The [VS Code recording](evidence/F13-mcp-app-host.mp4) shows the interactive
+app and a detail read. Submission failed because the connection could not
+receive the confirmation request. This is partial F13 evidence, not proof of
+a successful authorized write. A live read-only token denial and live write
+audit have not been demonstrated.

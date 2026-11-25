@@ -1,0 +1,238 @@
+MCP server and app	UNKNOWN STEP	﻿2026-11-24T18:26:54.3546205Z Current runner version: '2.338.2'
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.3564654Z ##[group]Runner Image Provisioner
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.3565400Z Hosted Compute Agent
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.3565921Z Version: 20261111.635
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.3566455Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.3567047Z Build Date: 2026-11-11T01:49:01Z
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.3567640Z Worker ID: {30470251-9d03-4d6a-ba97-9aab57d71539}
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.3568205Z Region: westus3
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.3568629Z Cloud: Azure
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.3569086Z ##[endgroup]
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.3570674Z ##[group]Operating System
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.3571269Z Ubuntu
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.3571699Z 26.04.1
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.3572100Z LTS
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.3572570Z ##[endgroup]
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.3573012Z ##[group]Runner Image
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.3573748Z Image: ubuntu-26.04
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.3574249Z Version: 20261116.202.1
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.3575289Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.3576523Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.3577301Z ##[endgroup]
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.3578286Z ##[group]GITHUB_TOKEN Permissions
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.3580400Z Contents: read
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.3580888Z Metadata: read
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.3581361Z Packages: read
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.3581845Z ##[endgroup]
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.3583518Z Secret source: Actions
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.3584244Z Cache mode: write
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.3584964Z Prepare workflow directory
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.4060439Z Prepare all required actions
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.4101549Z Getting action download info
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.6945073Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.7668568Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.9328944Z Complete job name: MCP server and app
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.9962272Z ##[group]Run actions/checkout@v4
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.9963113Z with:
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.9963681Z   repository: bycait27/incident-desk
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.9967601Z   token: ***
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.9968206Z   ssh-strict: true
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.9968726Z   ssh-user: git
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.9969235Z   persist-credentials: true
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.9970075Z   clean: true
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.9970603Z   sparse-checkout-cone-mode: true
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.9971202Z   fetch-depth: 1
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.9971733Z   fetch-tags: false
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.9972239Z   show-progress: true
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.9972752Z   lfs: false
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.9973240Z   submodules: false
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.9973780Z   set-safe-directory: true
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.9974399Z   allow-unsafe-pr-checkout: false
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.9975153Z env:
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.9975636Z   CI_BUILD_ID: 45459625861-1
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:54.9976186Z ##[endgroup]
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2480597Z Syncing repository: bycait27/incident-desk
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2483257Z ##[group]Getting Git version info
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2484353Z Working directory is '/home/runner/work/incident-desk/incident-desk'
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2485937Z [command]/usr/bin/git version
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2491266Z git version 2.56.1
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2508271Z ##[endgroup]
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2521601Z Temporarily overriding HOME='/home/runner/work/_temp/41ff7226-ed7c-4bef-8956-acee1f46822c' before making global git config changes
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2526307Z Adding repository directory to the temporary git global config as a safe directory
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2527958Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/incident-desk/incident-desk
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2583551Z Deleting the contents of '/home/runner/work/incident-desk/incident-desk'
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2593738Z ##[group]Initializing the repository
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2598556Z [command]/usr/bin/git init /home/runner/work/incident-desk/incident-desk
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2683406Z hint: Using 'master' as the name for the initial branch. This default branch name
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2685135Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2687072Z hint: to use in all of your new repositories, which will suppress this warning,
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2687967Z hint: call:
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2688401Z hint:
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2688940Z hint: 	git config --global init.defaultBranch <name>
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2689860Z hint:
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2690418Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2691379Z hint: 'development'. The just-created branch can be renamed via this command:
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2692378Z hint:
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2692972Z hint: 	git branch -m <name>
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2693696Z hint:
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2694415Z hint: Disable this message with "git config set advice.defaultBranchName false"
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2705276Z Initialized empty Git repository in /home/runner/work/incident-desk/incident-desk/.git/
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2731958Z [command]/usr/bin/git remote add origin https://github.com/bycait27/incident-desk
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2749132Z ##[endgroup]
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2750406Z ##[group]Disabling automatic garbage collection
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2752641Z [command]/usr/bin/git config --local gc.auto 0
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2780883Z ##[endgroup]
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2781568Z ##[group]Setting up auth
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2788096Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.2814989Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.3165725Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.3195039Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.3401153Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.3426702Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.3611731Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.3640912Z ##[endgroup]
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.3641685Z ##[group]Fetching the repository
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.3648146Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +ac9b84d7f7f32b5f7ee910630b5e1ae76e06c1fb:refs/remotes/origin/main
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.9063496Z From https://github.com/bycait27/incident-desk
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.9064444Z  * [new ref]         ac9b84d7f7f32b5f7ee910630b5e1ae76e06c1fb -> origin/main
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.9068072Z ##[endgroup]
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.9068925Z ##[group]Determining the checkout info
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.9070139Z ##[endgroup]
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.9075324Z [command]/usr/bin/git sparse-checkout disable
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.9117757Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.9143496Z ##[group]Checking out the ref
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.9156042Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.9249952Z Switched to a new branch 'main'
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.9254842Z branch 'main' set up to track 'origin/main'.
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.9323802Z ##[endgroup]
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.9325788Z [command]/usr/bin/git log -1 --format=%H
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.9326816Z ac9b84d7f7f32b5f7ee910630b5e1ae76e06c1fb
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.9573591Z ##[group]Run actions/setup-node@v4
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.9574174Z with:
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.9574582Z   node-version: 22.19.0
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.9575072Z   cache: npm
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.9575557Z   cache-dependency-path: mcp/package-lock.json
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.9576359Z   always-auth: false
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.9576838Z   check-latest: false
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.9580847Z   token: ***
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.9581313Z env:
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.9581717Z   CI_BUILD_ID: 45459625861-1
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:55.9582202Z ##[endgroup]
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:56.0776725Z Attempting to download 22.19.0...
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:56.0904308Z (node:2184) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:56.0906318Z (Use `node --trace-deprecation ...` to show where the warning was created)
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:56.9205944Z Acquiring 22.19.0 - x64 from https://github.com/actions/node-versions/releases/download/22.19.0-17311483029/node-22.19.0-linux-x64.tar.gz
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:57.4360665Z Extracting ...
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:57.4447851Z [command]/usr/bin/tar xz --strip 1 --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/321d9eeb-2e4e-41ea-b910-47e16423fca6 -f /home/runner/work/_temp/cc5c422c-e037-49cc-b03f-30f29817d1ea
+MCP server and app	UNKNOWN STEP	2026-11-24T18:26:58.1080209Z Adding to the cache ...
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:00.0146555Z ##[group]Environment details
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:00.2029062Z node: v22.19.0
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:00.2029881Z npm: 10.9.3
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:00.2030371Z yarn: 1.22.22
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:00.2031233Z ##[endgroup]
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:00.2046820Z [command]/opt/hostedtoolcache/node/22.19.0/x64/bin/npm config get cache
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:00.2783080Z /home/runner/.npm
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:00.5015461Z Cache hit for: node-cache-Linux-x64-npm-750bb6418b7a09ff09d83fbcafd09764cda0621e2957767c15680f86023e165b
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:00.5115289Z (node:2184) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:01.7141037Z Received 20971520 of 28099947 (74.6%), 20.0 MBs/sec
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:01.8390903Z Received 28099947 of 28099947 (100.0%), 23.8 MBs/sec
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:01.8391730Z Cache Size: ~27 MB (28099947 B)
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:01.8414977Z [command]/usr/bin/tar -xf /home/runner/work/_temp/fcd83bfb-8104-45e9-a938-815f00bd98d5/cache.tzst -P -C /home/runner/work/incident-desk/incident-desk --use-compress-program unzstd
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:01.8866894Z Cache restored successfully
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:01.8891063Z Cache restored from key: node-cache-Linux-x64-npm-750bb6418b7a09ff09d83fbcafd09764cda0621e2957767c15680f86023e165b
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:01.9040429Z ##[group]Run npm ci
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:01.9040819Z ^[[36;1mnpm ci^[[0m
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:01.9066502Z shell: /usr/bin/bash -e {0}
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:01.9066943Z env:
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:01.9067265Z   CI_BUILD_ID: 45459625861-1
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:01.9067618Z ##[endgroup]
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:03.7582351Z 
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:03.7588553Z added 199 packages, and audited 200 packages in 2s
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:03.7588907Z 
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:03.7589131Z 52 packages are looking for funding
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:03.7589768Z   run `npm fund` for details
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:03.7693027Z 
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:03.7693863Z 3 vulnerabilities (1 moderate, 2 critical)
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:03.7694193Z 
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:03.7694408Z To address all issues (including breaking changes), run:
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:03.7694952Z   npm audit fix --force
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:03.7695109Z 
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:03.7695283Z Run `npm audit` for details.
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:03.8012429Z ##[group]Run npm test
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:03.8012746Z ^[[36;1mnpm test^[[0m
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:03.8033812Z shell: /usr/bin/bash -e {0}
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:03.8034120Z env:
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:03.8034452Z   CI_BUILD_ID: 45459625861-1
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:03.8034804Z ##[endgroup]
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:03.8782582Z 
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:03.8783200Z > incident-desk-mcp@1.0.0 test
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:03.8783774Z > vitest run --root .
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:03.8784027Z 
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:04.1123725Z 
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:04.1125627Z ^[[1m^[[46m RUN ^[[49m^[[22m ^[[36mv3.2.7 ^[[39m^[[90m/home/runner/work/incident-desk/incident-desk/mcp^[[39m
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:04.1126341Z 
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:04.5337158Z  ^[[32m✓^[[39m tests/tool-scopes.test.ts ^[[2m(^[[22m^[[2m2 tests^[[22m^[[2m)^[[22m^[[32m 4^[[2mms^[[22m^[[39m
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:04.5600914Z  ^[[32m✓^[[39m tests/auth.test.ts ^[[2m(^[[22m^[[2m4 tests^[[22m^[[2m)^[[22m^[[32m 116^[[2mms^[[22m^[[39m
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:04.5700003Z 
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:04.5704662Z ^[[2m Test Files ^[[22m ^[[1m^[[32m2 passed^[[39m^[[22m^[[90m (2)^[[39m
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:04.5705752Z ^[[2m      Tests ^[[22m ^[[1m^[[32m6 passed^[[39m^[[22m^[[90m (6)^[[39m
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:04.5706556Z ^[[2m   Start at ^[[22m 18:27:04
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:04.5707854Z ^[[2m   Duration ^[[22m 457ms^[[2m (transform 90ms, setup 0ms, collect 274ms, tests 120ms, environment 0ms, prepare 173ms)^[[22m
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:04.5708536Z 
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:04.6790210Z ##[group]Run npm run build
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:04.6790559Z ^[[36;1mnpm run build^[[0m
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:04.6809866Z shell: /usr/bin/bash -e {0}
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:04.6810163Z env:
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:04.6810484Z   CI_BUILD_ID: 45459625861-1
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:04.6810801Z ##[endgroup]
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:04.7528506Z 
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:04.7529179Z > incident-desk-mcp@1.0.0 build
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:04.7530066Z > npm run typecheck && vite build && tsc -p tsconfig.server.json
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:04.7530434Z 
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:04.8252298Z 
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:04.8253065Z > incident-desk-mcp@1.0.0 typecheck
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:04.8254416Z > tsc --noEmit -p tsconfig.json
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:04.8254824Z 
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:07.3098800Z ^[[36mvite v6.4.6 ^[[32mbuilding for production...^[[36m^[[39m
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:07.3651275Z transforming...
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:07.7318397Z ^[[33mnode_modules/zod/v4/core/util.js (400:0): A comment
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:07.7318981Z 
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:07.7320451Z "// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle."
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:07.7321388Z 
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:07.7322784Z in "node_modules/zod/v4/core/util.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.^[[39m
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:07.7330770Z ^[[33mnode_modules/zod/v4/core/regexes.js (74:0): A comment
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:07.7331243Z 
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:07.7331776Z "/** Anchors a pattern source. The interpolation lives here rather than at the call site because
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:07.7333318Z  * esbuild will not drop a `@__PURE__` call whose own argument interpolates a variable, but it
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:07.7334255Z  * will drop `anchor(dateSource)`. Keeping it inline pinned `date` into every bundle. */"
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:07.7334760Z 
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:07.7336045Z in "node_modules/zod/v4/core/regexes.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.^[[39m
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:08.6559017Z ^[[32m✓^[[39m 188 modules transformed.
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:08.8796807Z rendering chunks...
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:08.8870469Z [plugin vite:singlefile] 
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:08.8870908Z 
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:08.8871313Z [plugin vite:singlefile] Inlining: mcp-app-YAsPOsLL.js
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:08.8878029Z [plugin vite:singlefile] Inlining: style-8RKslD_P.css
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:08.8918064Z computing gzip size...
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:08.9059116Z ^[[2m../dist/^[[22m^[[32mmcp-app.html  ^[[39m^[[1m^[[2m475.54 kB^[[22m^[[1m^[[22m^[[2m │ gzip: 136.26 kB^[[22m
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:08.9060321Z ^[[32m✓ built in 1.57s^[[39m
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:10.8669893Z Post job cleanup.
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:10.9778529Z (node:2540) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:10.9780098Z (Use `node --trace-deprecation ...` to show where the warning was created)
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:10.9781933Z Cache hit occurred on the primary key node-cache-Linux-x64-npm-750bb6418b7a09ff09d83fbcafd09764cda0621e2957767c15680f86023e165b, not saving cache.
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:10.9910370Z Post job cleanup.
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:11.0717907Z [command]/usr/bin/git version
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:11.0757852Z git version 2.56.1
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:11.0790647Z Temporarily overriding HOME='/home/runner/work/_temp/f277d3b3-5bae-4546-a8c1-2932285a0317' before making global git config changes
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:11.0792146Z Adding repository directory to the temporary git global config as a safe directory
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:11.0796092Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/incident-desk/incident-desk
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:11.0839127Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:11.0882788Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:11.1163514Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:11.1187617Z http.https://github.com/.extraheader
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:11.1206974Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:11.1244683Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:11.1498053Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:11.1539227Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:11.1923512Z Cleaning up orphan processes
+MCP server and app	UNKNOWN STEP	2026-11-24T18:27:11.2248526Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

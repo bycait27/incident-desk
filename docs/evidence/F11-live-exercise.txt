@@ -1,0 +1,36 @@
+F11 staging kill-and-recover exercise — prediction, 2026-11-24
+
+Expected: an anonymous board receives the first published synthetic incident.
+While that tab is offline, a second incident is published and the staging app
+is restarted without interrupting PostgreSQL. When the original tab goes
+online, it reconnects and renders each incident exactly once; the missed
+public event ID is replayed after its earlier cursor.
+
+The staging app uses deployment fb0522ce-73b1-44ce-8449-b893ba79804f and image
+digest sha256:35e3f2ade37f6d4597124f680809bd5b555d3bd720662a9b6cdae5306606fd0a
+at the start of this exercise. Its source commit has not been independently
+verified. No production service or database volume will be disrupted.
+
+Actual observations, 2026-11-24:
+- Independent anonymous snapshot cursor before the exercise: 18.
+- Synthetic reports 10 and 11 were created privately. Report 10 was
+  published at approximately 20:55:28 UTC. An independent anonymous SSE
+  observer received event ID 21: see F11-online-stream.txt.
+- I confirmed report 10 appeared once and switched the anonymous tab
+  to Offline without reloading. Report 11 was then published at approximately
+  20:56:16 UTC. The staging app was restarted at 20:56:32 UTC; PostgreSQL was
+  not restarted or deleted. Health returned 200 at 20:56:51 UTC.
+- After restart, an independent curl SSE request with Last-Event-ID: 21 and
+  after=18 received the missed PUBLISHED event for report 11 as ID 22: see
+  F11-replay-stream.txt. The command intentionally timed out after five
+  seconds (curl exit 28) to stop the otherwise long-lived stream.
+- I restored the original tab to online without reloading and
+  confirmed both reports appeared once. The request name showed after=18;
+  that is the starting cursor, not the event ID. The browser's own replayed
+  event ID was not independently confirmed in the recording.
+- After the recording, the signed-in operator archived only synthetic reports
+  10 and 11; both DELETE requests returned 204 at 21:06:10 UTC.
+
+The browser recording and the curl replay are distinct
+observations; the independent curl request is not a capture of the browser's
+own SSE connection.

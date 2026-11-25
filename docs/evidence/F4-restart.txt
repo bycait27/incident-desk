@@ -1,0 +1,37 @@
+F4 staging persistence exercise — prediction, 2026-11-24
+
+Expected: a newly created synthetic staging incident remains readable with
+the same ID and content after an application restart and again after a
+separate redeploy. PostgreSQL and its volume will not be deleted or reset.
+The deployment identifiers and actual observations will be recorded below.
+
+Before restart — 2026-11-24T20:42:42.134Z
+Staging app deployment: b807dee2-f917-4acf-b8fb-0be35e55bdf4 (SUCCESS)
+Image digest: sha256:35e3f2ade37f6d4597124f680809bd5b555d3bd720662a9b6cdae5306606fd0a
+Operator browser GET /api/incidents/9: HTTP 200
+{"id":9,"title":"Synthetic F4 F6 persistence audit 2026-11-24 2045","description":"Synthetic staging record for persistence and audit evidence; operator updated.","status":"IN_PROGRESS","severity":"MEDIUM","reporterId":null,"assignedTo":null,"published":false,"archived":false,"createdAt":"2026-11-24T20:42:34.294955Z","updatedAt":"2026-11-24T20:42:39.824238Z"}
+
+Restart requested at 2026-11-24T20:43:49.3440654Z for staging app deployment
+b807dee2-f917-4acf-b8fb-0be35e55bdf4. Railway health returned HTTP 200 at
+2026-11-24T20:44:12.3715475Z.
+The restart ended the in-memory login session. A signed-out request returned
+404 because the report is private; the operator signed in again.
+
+After restart — 2026-11-24T20:45:02.149Z
+Operator browser GET /api/incidents/9: HTTP 200
+{"id":9,"title":"Synthetic F4 F6 persistence audit 2026-11-24 2045","description":"Synthetic staging record for persistence and audit evidence; operator updated.","status":"IN_PROGRESS","severity":"MEDIUM","reporterId":null,"assignedTo":null,"published":false,"archived":false,"createdAt":"2026-11-24T20:42:34.294955Z","updatedAt":"2026-11-24T20:42:39.824238Z"}
+
+Redeploy of the existing image requested at 2026-11-24T20:45:12.4461422Z.
+New staging app deployment: fb0522ce-73b1-44ce-8449-b893ba79804f (SUCCESS)
+Image digest: sha256:35e3f2ade37f6d4597124f680809bd5b555d3bd720662a9b6cdae5306606fd0a
+Health returned HTTP 200 at 2026-11-24T20:45:41.5851672Z. The operator signed
+in again after the redeploy.
+
+After redeploy — 2026-11-24T20:46:05.446Z
+Operator browser GET /api/incidents/9: HTTP 200
+{"id":9,"title":"Synthetic F4 F6 persistence audit 2026-11-24 2045","description":"Synthetic staging record for persistence and audit evidence; operator updated.","status":"IN_PROGRESS","severity":"MEDIUM","reporterId":null,"assignedTo":null,"published":false,"archived":false,"createdAt":"2026-11-24T20:42:34.294955Z","updatedAt":"2026-11-24T20:42:39.824238Z"}
+
+Interpretation: the same private incident and content were readable after the
+restart and after a separate deployment of the same image. This is not a
+demonstration of persistence across a changed application image. The GET
+observations above were captured in a signed-in browser, not as curl output.

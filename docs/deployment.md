@@ -52,8 +52,10 @@ domain is not a secret or a Railway variable.
    sequence there. Railway resources may incur charges; review current
    pricing before applying.
 4. After the services exist, add their custom domains in the Railway
-   dashboard under each service's **Settings → Networking**, targeting port
-   `8080`. Custom-domain registration is not supported by Railway configuration:
+   dashboard under each service's **Settings → Networking**, targeting the
+   port on which that service listens. The app defaults to `8080`; MCP
+   defaults to `3001`, and both honor Railway's `PORT` environment variable.
+   Custom-domain registration is not supported by Railway configuration:
 
    | Environment | App service | MCP service |
    | --- | --- | --- |
@@ -66,12 +68,12 @@ domain is not a secret or a Railway variable.
 5. Configure the following service variables separately in each environment
    before the first deploy. Use distinct staging and production credentials:
 
-   - App: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`,
+    - App: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`,
      `GOOGLE_OPERATOR_SUBJECT`, `BETTERSTACK_API_TOKEN`, and
      `BETTERSTACK_PUBLIC_MONITOR_IDS`.
-   - App: `MCP_SIGNING_JWK_BASE64`, `MCP_OAUTH_REDIRECT_URIS`, and
+    - App: `MCP_SIGNING_JWK_BASE64`, `MCP_OAUTH_REDIRECT_URIS`, and
      `MCP_OAUTH_CLIENT_ORIGIN`.
-   - MCP service: `MCP_ALLOWED_ORIGINS` is configured to the staging or
+    - MCP service: `MCP_ALLOWED_ORIGINS` is configured to the staging or
      production app origin by the IaC. Add any additional MCP host browser
      origin as a comma-separated exact origin before using the MCP App.
 
@@ -102,8 +104,16 @@ reports the domain verified and the certificate valid.
 
 Use Cloudflare's automatic TTL for proxied records. This keeps changes
 responsive without overriding Cloudflare's proxy TTL behavior. Exact record
-targets, CAA configuration, and certificate checks depend on the provisioned
-Railway domains and will be recorded after setup.
+targets depend on the provisioned Railway domains. The
+[DNS evidence](evidence/D1-dns-2026-11-24.md) and
+[HTTPS evidence](evidence/D2-public-checks-2026-11-24.md) document the
+observed TTLs, CAA records, and certificate checks.
+
+The workspace cache policy sends `no-store` for HTML, public API responses,
+and authenticated responses. JavaScript and CSS asset names matching its
+eight-character fingerprint pattern use a public, one-year immutable policy.
+The policy was deployed directly to staging, not verified in production; see
+the [CDN observations](evidence/D6-cdn.md).
 
 Set Cloudflare SSL/TLS mode to **Full (strict)**. Do not enable HSTS until both
 production and staging HTTPS endpoints work correctly.
@@ -198,5 +208,6 @@ client-supplied forwarding headers are overwritten.
 Staging and production PostgreSQL, app, and MCP services are deployed. Both
 environments passed the application and MCP health checks through the
 deployment workflow, and production deployment requires approval. The
-production Better Stack monitor is up. DNS, certificate, CDN, rollback, and
-other operational proof still need to be captured in the evidence dossier.
+production Better Stack monitor is up.
+The `final-project` revision has not been verified to match production.
+No clean-clone deployment has been captured.

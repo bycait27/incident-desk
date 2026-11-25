@@ -1,0 +1,464 @@
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	﻿2026-11-24T18:26:54.3645501Z Current runner version: '2.338.2'
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.3666879Z ##[group]Runner Image Provisioner
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.3667616Z Hosted Compute Agent
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.3668116Z Version: 20261111.635
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.3668635Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.3669303Z Build Date: 2026-11-11T01:49:01Z
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.3669870Z Worker ID: {c4015567-c273-490e-bc65-a8c17c2b9bf4}
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.3670733Z Region: westus3
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.3671208Z Cloud: Azure
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.3671692Z ##[endgroup]
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.3673227Z ##[group]Operating System
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.3673757Z Ubuntu
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.3674174Z 26.04.1
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.3674652Z LTS
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.3675076Z ##[endgroup]
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.3675588Z ##[group]Runner Image
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.3676093Z Image: ubuntu-26.04
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.3676582Z Version: 20261116.202.1
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.3677637Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.3678904Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.3679698Z ##[endgroup]
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.3680685Z ##[group]GITHUB_TOKEN Permissions
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.3682669Z Contents: read
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.3683188Z Metadata: read
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.3683737Z Packages: read
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.3684199Z ##[endgroup]
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.3685909Z Secret source: Actions
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.3686719Z Cache mode: write
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.3687460Z Prepare workflow directory
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.4198827Z Prepare all required actions
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.4238328Z Getting action download info
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.7083818Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:54.8504213Z Download action repository 'actions/setup-java@v4' (SHA:cf277c60eb25467037889841efdb72551f06f6c3)
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:55.6508674Z Complete job name: Backend (Java 21 / Spring Boot)
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:55.6963490Z ##[group]Checking docker version
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:55.6973702Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:55.8409415Z '1.54'
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:55.8425906Z Docker daemon API version: '1.54'
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:55.8426529Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:55.8584417Z '1.54'
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:55.8602777Z Docker client API version: '1.54'
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:55.8607721Z ##[endgroup]
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:55.8609873Z ##[group]Clean up resources from previous jobs
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:55.8614067Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=a9fa4b"
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:55.8752608Z ##[command]/usr/bin/docker network prune --force --filter "label=a9fa4b"
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:55.8880804Z ##[endgroup]
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:55.8881241Z ##[group]Create local container network
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:55.8889122Z ##[command]/usr/bin/docker network create --label a9fa4b github_network_65484a2c43384260a849fb53b714fdac
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:55.9355100Z 8a4a2285f70a6a8bf58f051c030e3719e529013dccb96a7f8193f6d5e432f3e0
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:55.9361273Z ##[endgroup]
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:55.9382105Z ##[group]Starting postgres service container
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:55.9398941Z ##[command]/usr/bin/docker pull postgres:15-alpine
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:56.6523384Z 15-alpine: Pulling from library/postgres
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:56.8691555Z 881fc932939e: Pulling fs layer
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:56.8692824Z e571357576e6: Pulling fs layer
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:56.8693811Z 09c15c8e2258: Pulling fs layer
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:56.8694682Z 69eea17b1577: Pulling fs layer
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:56.8695733Z 20274f76558e: Pulling fs layer
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:56.8700151Z 13177e356272: Pulling fs layer
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:56.8701442Z 3d7d564254f8: Pulling fs layer
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:56.8702818Z 2b958ec33668: Pulling fs layer
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:56.8709584Z 1e045eed8cca: Pulling fs layer
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:56.8710951Z 1aeb54d379d5: Pulling fs layer
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:57.0567803Z 69eea17b1577: Download complete
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:57.0578290Z 881fc932939e: Download complete
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:57.1534369Z 20274f76558e: Download complete
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:57.1535835Z 3d7d564254f8: Download complete
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:57.1539915Z 1e045eed8cca: Download complete
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:57.1543683Z 1aeb54d379d5: Download complete
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:57.1545791Z e571357576e6: Download complete
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:57.1549118Z 13177e356272: Download complete
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:57.1554544Z 2b958ec33668: Download complete
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:57.3557258Z 9158be413255: Download complete
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:57.3565185Z f5ee26a46044: Download complete
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:57.3612784Z 881fc932939e: Pull complete
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:57.3638950Z 3d7d564254f8: Pull complete
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:57.6610117Z 2b958ec33668: Pull complete
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:57.9531025Z 09c15c8e2258: Download complete
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:57.9572651Z 1aeb54d379d5: Pull complete
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:57.9592948Z 13177e356272: Pull complete
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:59.2324769Z 69eea17b1577: Pull complete
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:59.2339582Z 20274f76558e: Pull complete
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:59.2353604Z 1e045eed8cca: Pull complete
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:59.2362875Z e571357576e6: Pull complete
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:59.2375888Z 09c15c8e2258: Pull complete
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:59.2376575Z Digest: sha256:e18480a22d6e48f4d816a6696769b1ec09ac73a824c5649e49c7d8b684913f3d
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:59.2377230Z Status: Downloaded newer image for postgres:15-alpine
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:59.2377729Z docker.io/library/postgres:15-alpine
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:26:59.2443416Z ##[command]/usr/bin/docker create --name 515f03f2e7d449618b9bc62d81a0e65a_postgres15alpine_4b2e3e --label a9fa4b --network github_network_65484a2c43384260a849fb53b714fdac --network-alias postgres -p 5432:5432 --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5 -e "POSTGRES_DB=incident_desk" -e "POSTGRES_USER=postgres" -e "POSTGRES_PASSWORD=postgres" -e GITHUB_ACTIONS=true -e CI=true postgres:15-alpine
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:01.5856308Z 9758206d313cfd084527d669411c77b0f2a0e21f11645f63ec58ec7e05343158
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:01.5884091Z ##[command]/usr/bin/docker start 9758206d313cfd084527d669411c77b0f2a0e21f11645f63ec58ec7e05343158
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:02.1953265Z 9758206d313cfd084527d669411c77b0f2a0e21f11645f63ec58ec7e05343158
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:02.1976787Z ##[command]/usr/bin/docker ps --all --filter id=9758206d313cfd084527d669411c77b0f2a0e21f11645f63ec58ec7e05343158 --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:02.2255661Z 9758206d313cfd084527d669411c77b0f2a0e21f11645f63ec58ec7e05343158 Up Less than a second (health: starting)
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:02.2277126Z ##[command]/usr/bin/docker port 9758206d313cfd084527d669411c77b0f2a0e21f11645f63ec58ec7e05343158
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:02.2402062Z 5432/tcp -> 0.0.0.0:5432
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:02.2413248Z 5432/tcp -> [::]:5432
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:02.2443583Z ##[endgroup]
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:02.2450444Z ##[group]Waiting for all services to be ready
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:02.2463386Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 9758206d313cfd084527d669411c77b0f2a0e21f11645f63ec58ec7e05343158
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:02.2597205Z starting
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:02.2616771Z postgres service is starting, waiting 2 seconds before checking again.
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:04.2618006Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 9758206d313cfd084527d669411c77b0f2a0e21f11645f63ec58ec7e05343158
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:04.2741357Z starting
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:04.2754871Z postgres service is starting, waiting 4 seconds before checking again.
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:08.5117959Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 9758206d313cfd084527d669411c77b0f2a0e21f11645f63ec58ec7e05343158
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:08.5240294Z starting
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:08.5256937Z postgres service is starting, waiting 8 seconds before checking again.
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:16.9704181Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 9758206d313cfd084527d669411c77b0f2a0e21f11645f63ec58ec7e05343158
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:16.9829287Z healthy
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:16.9846636Z postgres service is healthy.
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:16.9847289Z ##[endgroup]
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.0064776Z ##[group]Run actions/checkout@v4
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.0065173Z with:
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.0065369Z   repository: bycait27/incident-desk
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.0067674Z   token: ***
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.0067856Z   ssh-strict: true
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.0068028Z   ssh-user: git
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.0068204Z   persist-credentials: true
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.0068395Z   clean: true
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.0068572Z   sparse-checkout-cone-mode: true
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.0068776Z   fetch-depth: 1
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.0068941Z   fetch-tags: false
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.0069110Z   show-progress: true
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.0069276Z   lfs: false
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.0069433Z   submodules: false
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.0069604Z   set-safe-directory: true
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.0069832Z   allow-unsafe-pr-checkout: false
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.0070158Z env:
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.0070319Z   CI_BUILD_ID: 45459625861-1
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.0070505Z ##[endgroup]
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2060826Z Syncing repository: bycait27/incident-desk
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2062194Z ##[group]Getting Git version info
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2062775Z Working directory is '/home/runner/work/incident-desk/incident-desk'
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2063550Z [command]/usr/bin/git version
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2063848Z git version 2.56.1
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2073444Z ##[endgroup]
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2087727Z Temporarily overriding HOME='/home/runner/work/_temp/a6793df2-6107-4b2b-a4a6-edc6030b9d8c' before making global git config changes
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2088624Z Adding repository directory to the temporary git global config as a safe directory
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2092137Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/incident-desk/incident-desk
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2155402Z Deleting the contents of '/home/runner/work/incident-desk/incident-desk'
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2157707Z ##[group]Initializing the repository
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2161642Z [command]/usr/bin/git init /home/runner/work/incident-desk/incident-desk
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2233358Z hint: Using 'master' as the name for the initial branch. This default branch name
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2234150Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2235055Z hint: to use in all of your new repositories, which will suppress this warning,
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2235750Z hint: call:
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2236191Z hint:
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2236462Z hint: 	git config --global init.defaultBranch <name>
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2236744Z hint:
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2236993Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2237479Z hint: 'development'. The just-created branch can be renamed via this command:
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2237886Z hint:
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2238055Z hint: 	git branch -m <name>
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2238258Z hint:
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2238529Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2241600Z Initialized empty Git repository in /home/runner/work/incident-desk/incident-desk/.git/
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2251792Z [command]/usr/bin/git remote add origin https://github.com/bycait27/incident-desk
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2296469Z ##[endgroup]
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2296807Z ##[group]Disabling automatic garbage collection
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2300595Z [command]/usr/bin/git config --local gc.auto 0
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2329234Z ##[endgroup]
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2329665Z ##[group]Setting up auth
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2335675Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2364834Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2712659Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2746120Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.2985265Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.3013791Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.3244756Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.3277583Z ##[endgroup]
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.3278055Z ##[group]Fetching the repository
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.3284607Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +ac9b84d7f7f32b5f7ee910630b5e1ae76e06c1fb:refs/remotes/origin/main
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.8540933Z From https://github.com/bycait27/incident-desk
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.8541539Z  * [new ref]         ac9b84d7f7f32b5f7ee910630b5e1ae76e06c1fb -> origin/main
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.8545486Z ##[endgroup]
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.8545935Z ##[group]Determining the checkout info
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.8548136Z ##[endgroup]
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.8553118Z [command]/usr/bin/git sparse-checkout disable
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.8595307Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.8620225Z ##[group]Checking out the ref
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.8624078Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.8742917Z Switched to a new branch 'main'
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.8748253Z branch 'main' set up to track 'origin/main'.
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.8753226Z ##[endgroup]
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.8791624Z [command]/usr/bin/git log -1 --format=%H
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.8813563Z ac9b84d7f7f32b5f7ee910630b5e1ae76e06c1fb
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.9059292Z ##[group]Run actions/setup-java@v4
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.9059512Z with:
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.9059678Z   java-version: 21
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.9059853Z   distribution: temurin
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.9060028Z   cache: maven
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.9060196Z   java-package: jdk
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.9060369Z   check-latest: false
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.9060542Z   server-id: github
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.9060729Z   server-username: GITHUB_ACTOR
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.9060940Z   server-password: GITHUB_TOKEN
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.9061142Z   overwrite-settings: true
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.9061332Z   job-status: success
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.9063727Z   token: ***
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.9063894Z env:
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.9064053Z   CI_BUILD_ID: 45459625861-1
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:17.9064250Z ##[endgroup]
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:18.0380354Z ##[warning]setup-java v4 is deprecated and will no longer receive updates. Please migrate to actions/setup-java@v5.
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:18.0386285Z ##[group]Installed distributions
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:18.0508279Z Resolved Java 21.0.13+9 from tool-cache
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:18.0508674Z Setting Java 21.0.13+9 as the default
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:18.0516355Z (node:2572) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:18.0517086Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:18.0519120Z Creating toolchains.xml for JDK version 21 from temurin
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:18.0573807Z Writing to /home/runner/.m2/toolchains.xml
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:18.0574108Z 
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:18.0574230Z Java configuration:
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:18.0574504Z   Distribution: temurin
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:18.0574784Z   Version: 21.0.13+9
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:18.0575183Z   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.13-9/x64
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:18.0575553Z 
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:18.0575973Z ##[endgroup]
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:18.0589492Z Creating settings.xml with server-id: github
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:18.0610270Z Writing to /home/runner/.m2/settings.xml
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:18.3059833Z Cache hit for: setup-java-Linux-x64-maven-e843bb27a6b902768faf3efb8bd9e5a04dc89640ebeb7d54b0917426259c7d7f
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:18.3137252Z (node:2572) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:19.5149573Z Received 62914560 of 70209924 (89.6%), 60.0 MBs/sec
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:19.5630270Z Received 70209924 of 70209924 (100.0%), 63.9 MBs/sec
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:19.5630883Z Cache Size: ~67 MB (70209924 B)
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:19.5655715Z [command]/usr/bin/tar -xf /home/runner/work/_temp/bf50a281-2d3c-49b6-9e6a-121021945662/cache.tzst -P -C /home/runner/work/incident-desk/incident-desk --use-compress-program unzstd
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:19.7290571Z Cache restored successfully
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:19.7321307Z Cache restored from key: setup-java-Linux-x64-maven-e843bb27a6b902768faf3efb8bd9e5a04dc89640ebeb7d54b0917426259c7d7f
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:19.7580547Z ##[group]Run mvn -B verify
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:19.7580837Z ^[[36;1mmvn -B verify^[[0m
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:19.7616047Z shell: /usr/bin/bash -e {0}
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:19.7616279Z env:
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:19.7616453Z   CI_BUILD_ID: 45459625861-1
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:19.7616759Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.13-9/x64
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:19.7617168Z   JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.13-9/x64
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:19.7617596Z   SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/incident_desk
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:19.7617908Z   SPRING_DATASOURCE_USERNAME: postgres
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:19.7618142Z   SPRING_DATASOURCE_PASSWORD: postgres
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:19.7618351Z ##[endgroup]
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:24.2587165Z [INFO] Scanning for projects...
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:24.4735281Z [INFO] 
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:24.4735821Z [INFO] ---------------< com.incidentdesk:incident-desk-backend >---------------
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:24.4736491Z [INFO] Building incident-desk-backend 0.0.1-SNAPSHOT
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:24.4736955Z [INFO]   from pom.xml
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:24.4737628Z [INFO] --------------------------------[ jar ]---------------------------------
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:24.8910949Z [INFO] 
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:24.8915375Z [INFO] --- resources:3.3.1:resources (default-resources) @ incident-desk-backend ---
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:25.0164121Z [INFO] Copying 1 resource from src/main/resources to target/classes
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:25.0299661Z [INFO] Copying 6 resources from src/main/resources to target/classes
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:25.0411339Z [INFO] 
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:25.0412095Z [INFO] --- compiler:3.11.0:compile (default-compile) @ incident-desk-backend ---
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:25.3147644Z [INFO] Changes detected - recompiling the module! :source
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:25.3167608Z [INFO] Compiling 37 source files with javac [debug release 17] to target/classes
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:27.8123731Z [INFO] 
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:27.8133548Z [INFO] --- resources:3.3.1:testResources (default-testResources) @ incident-desk-backend ---
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:27.8166964Z [INFO] skip non existing resourceDirectory /home/runner/work/incident-desk/incident-desk/backend/src/test/resources
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:27.8170939Z [INFO] 
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:27.8182514Z [INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ incident-desk-backend ---
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:27.8233023Z [INFO] Changes detected - recompiling the module! :dependency
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:27.8241838Z [INFO] Compiling 14 source files with javac [debug release 17] to target/test-classes
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:28.4387304Z [INFO] 
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:28.4388120Z [INFO] --- surefire:3.1.2:test (default-test) @ incident-desk-backend ---
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:28.6188519Z [INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:28.6572041Z [INFO] 
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:28.6572834Z [INFO] -------------------------------------------------------
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:28.6573596Z [INFO]  T E S T S
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:28.6574213Z [INFO] -------------------------------------------------------
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:29.2892423Z [INFO] Running com.incidentdesk.migrations.MigrationReversibilityTest
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:29.8816610Z 18:27:29.858 [main] INFO org.flywaydb.core.internal.license.VersionPrinter -- Flyway Community Edition 9.22.3 by Redgate
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:29.8818267Z 18:27:29.864 [main] INFO org.flywaydb.core.internal.license.VersionPrinter -- See release notes here: https://rd.gt/416ObMi
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:29.8819503Z 18:27:29.864 [main] INFO org.flywaydb.core.internal.license.VersionPrinter -- 
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:29.9824960Z 18:27:29.895 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:5432/incident_desk (PostgreSQL 15.20)
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:29.9863961Z 18:27:29.922 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Schema history table "migration_test_93cdfe8f46b54978a02b7b7d0283927c"."flyway_schema_history" does not exist yet
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:29.9893680Z 18:27:29.925 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 5 migrations (execution time 00:00.014s)
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:29.9923515Z 18:27:29.937 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "migration_test_93cdfe8f46b54978a02b7b7d0283927c"."flyway_schema_history" ...
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.0821830Z 18:27:30.032 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "migration_test_93cdfe8f46b54978a02b7b7d0283927c": << Empty Schema >>
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.0823916Z 18:27:30.041 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "migration_test_93cdfe8f46b54978a02b7b7d0283927c" to version "1 - init schema"
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.1801792Z 18:27:30.108 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "migration_test_93cdfe8f46b54978a02b7b7d0283927c" to version "2 - seed data"
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.1805821Z 18:27:30.110 [main] INFO org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor -- +--------+
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.1806523Z | setval |
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.1807066Z +--------+
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.1807310Z | 4      |
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.1807529Z +--------+
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.1807649Z 
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.1818421Z 18:27:30.113 [main] INFO org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor -- +--------+
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.1819096Z | setval |
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.1819343Z +--------+
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.1819572Z | 4      |
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.1819796Z +--------+
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.1819940Z 
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.1820656Z 18:27:30.122 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "migration_test_93cdfe8f46b54978a02b7b7d0283927c" to version "3 - incident event stream"
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.1822425Z 18:27:30.138 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "migration_test_93cdfe8f46b54978a02b7b7d0283927c" to version "4 - incident submission visibility"
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.1824082Z 18:27:30.149 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "migration_test_93cdfe8f46b54978a02b7b7d0283927c" to version "5 - audit log resource history index"
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.1825820Z 18:27:30.157 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 5 migrations to schema "migration_test_93cdfe8f46b54978a02b7b7d0283927c", now at version v5 (execution time 00:00.078s)
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.2811723Z 18:27:30.216 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:5432/incident_desk (PostgreSQL 15.20)
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.2813816Z 18:27:30.230 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 5 migrations (execution time 00:00.008s)
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.2815133Z 18:27:30.242 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "migration_test_93cdfe8f46b54978a02b7b7d0283927c": 4
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.2817416Z 18:27:30.242 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Schema "migration_test_93cdfe8f46b54978a02b7b7d0283927c" is up to date. No migration necessary.
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.2820540Z 18:27:30.254 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:5432/incident_desk (PostgreSQL 15.20)
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.2822345Z 18:27:30.265 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 5 migrations (execution time 00:00.006s)
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.3294015Z 18:27:30.279 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "migration_test_93cdfe8f46b54978a02b7b7d0283927c": 4
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.3313758Z 18:27:30.282 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "migration_test_93cdfe8f46b54978a02b7b7d0283927c" to version "5 - audit log resource history index"
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.3336528Z 18:27:30.291 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 1 migration to schema "migration_test_93cdfe8f46b54978a02b7b7d0283927c", now at version v5 (execution time 00:00.005s)
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.3734010Z [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.043 s -- in com.incidentdesk.migrations.MigrationReversibilityTest
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.3743270Z [INFO] Running com.incidentdesk.config.RateLimitFilterTest
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.5134161Z [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.168 s -- in com.incidentdesk.config.RateLimitFilterTest
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.5171054Z [INFO] Running com.incidentdesk.config.SecurityConfigTest
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.5403681Z [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.008 s -- in com.incidentdesk.config.SecurityConfigTest
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.5413187Z [INFO] Running com.incidentdesk.config.FixedWindowRateLimiterTest
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.5455379Z [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 s -- in com.incidentdesk.config.FixedWindowRateLimiterTest
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.5472416Z [INFO] Running com.incidentdesk.config.McpOAuthAuthorizationServerConfigTest
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.5525455Z [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.013 s -- in com.incidentdesk.config.McpOAuthAuthorizationServerConfigTest
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:30.5533043Z [INFO] Running com.incidentdesk.config.GoogleTokenValidationTest
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:31.0641283Z [INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.526 s -- in com.incidentdesk.config.GoogleTokenValidationTest
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:31.0650677Z [INFO] Running com.incidentdesk.config.GoogleOAuth2ClientConfigTest
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:31.0835558Z [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.020 s -- in com.incidentdesk.config.GoogleOAuth2ClientConfigTest
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:31.0836844Z [INFO] Running com.incidentdesk.config.GoogleRoleAuthoritiesMapperTest
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:31.0974897Z [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.013 s -- in com.incidentdesk.config.GoogleRoleAuthoritiesMapperTest
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:31.0976321Z [INFO] Running com.incidentdesk.controllers.McpApiControllerTest
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:31.4129958Z OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:31.4826417Z WARNING: A Java agent has been loaded dynamically (/home/runner/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.13/byte-buddy-agent-1.14.13.jar)
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:31.4828829Z WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:31.4829875Z WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:31.4830746Z WARNING: Dynamic loading of agents will be disallowed by default in a future release
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:31.9661893Z [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.857 s -- in com.incidentdesk.controllers.McpApiControllerTest
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:31.9781868Z [INFO] Running com.incidentdesk.controllers.IncidentAuthorizationTest
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:32.0944536Z 18:27:32.041 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.incidentdesk.controllers.IncidentAuthorizationTest]: IncidentAuthorizationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:32.2974640Z 18:27:32.241 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.incidentdesk.IncidentDeskApplication for test class com.incidentdesk.controllers.IncidentAuthorizationTest
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:32.5954259Z 
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:32.5955300Z   .   ____          _            __ _ _
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:32.5964129Z  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:32.5964605Z ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:32.5965217Z  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:32.5966180Z   '  |____| .__|_| |_|_| |_\__, | / / / /
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:32.5985175Z  =========|_|==============|___/=/_/_/_/
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:32.6963542Z  :: Spring Boot ::                (v3.2.5)
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:32.7002827Z 
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:32.7008815Z 2026-11-24T18:27:32.644Z  INFO 2686 --- [incidentdesk] [           main] c.i.c.IncidentAuthorizationTest          : Starting IncidentAuthorizationTest using Java 21.0.13 with PID 2686 (started by runner in /home/runner/work/incident-desk/incident-desk/backend)
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:32.7013560Z 2026-11-24T18:27:32.647Z  INFO 2686 --- [incidentdesk] [           main] c.i.c.IncidentAuthorizationTest          : No active profile set, falling back to 1 default profile: "default"
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:33.7988638Z 2026-11-24T18:27:33.720Z  INFO 2686 --- [incidentdesk] [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@22d47f09, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@28100232, org.springframework.security.web.context.SecurityContextHolderFilter@152dbf8e, org.springframework.security.web.header.HeaderWriterFilter@554e9509, org.springframework.web.filter.CorsFilter@26728255, org.springframework.security.web.csrf.CsrfFilter@325e03b, org.springframework.security.web.authentication.logout.LogoutFilter@56820446, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@74ee97cb, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@af007d6, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4bcf08ae, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@626b9092, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@32c8d67, com.incidentdesk.config.RateLimitFilter@7c5c2b17, org.springframework.security.web.access.ExceptionTranslationFilter@42a7e7e1, org.springframework.security.web.access.intercept.AuthorizationFilter@1791396b]
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:33.8867318Z 2026-11-24T18:27:33.859Z  INFO 2686 --- [incidentdesk] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:33.8883508Z 2026-11-24T18:27:33.859Z  INFO 2686 --- [incidentdesk] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:33.8894296Z 2026-11-24T18:27:33.860Z  INFO 2686 --- [incidentdesk] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:33.8896015Z 2026-11-24T18:27:33.879Z  INFO 2686 --- [incidentdesk] [           main] c.i.c.IncidentAuthorizationTest          : Started IncidentAuthorizationTest in 1.57 seconds (process running for 5.118)
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:34.2446998Z [INFO] Tests run: 21, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.254 s -- in com.incidentdesk.controllers.IncidentAuthorizationTest
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:34.2473162Z [INFO] Running com.incidentdesk.controllers.CurrentUserControllerTest
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:34.3268787Z [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.087 s -- in com.incidentdesk.controllers.CurrentUserControllerTest
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:34.3283544Z [INFO] Running com.incidentdesk.services.IncidentEventStreamServiceTest
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:34.4153556Z [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.082 s -- in com.incidentdesk.services.IncidentEventStreamServiceTest
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:34.4154502Z [INFO] Running com.incidentdesk.services.IncidentServiceTest
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:34.5973786Z [INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.185 s -- in com.incidentdesk.services.IncidentServiceTest
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:34.6013056Z [INFO] Running com.incidentdesk.services.BetterStackMonitorServiceTest
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:34.7114153Z 2026-11-24T18:27:34.709Z  WARN 2686 --- [incidentdesk] [           main] c.i.services.BetterStackMonitorService   : Better Stack returned HTTP 503 after 2 attempts.
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:34.8150155Z 2026-11-24T18:27:34.813Z  WARN 2686 --- [incidentdesk] [           main] c.i.services.BetterStackMonitorService   : Better Stack returned HTTP 503 after 2 attempts.
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:34.9189319Z 2026-11-24T18:27:34.917Z  WARN 2686 --- [incidentdesk] [           main] c.i.services.BetterStackMonitorService   : Better Stack request timed out or failed after 2 attempts.
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:34.9229251Z 2026-11-24T18:27:34.921Z  WARN 2686 --- [incidentdesk] [           main] c.i.services.BetterStackMonitorService   : Better Stack returned a response that did not match the expected monitor schema.
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:34.9254867Z [INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.331 s -- in com.incidentdesk.services.BetterStackMonitorServiceTest
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:34.9639014Z [INFO] 
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:34.9639566Z [INFO] Results:
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:34.9642630Z [INFO] 
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:34.9643118Z [INFO] Tests run: 57, Failures: 0, Errors: 0, Skipped: 0
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:34.9643761Z [INFO] 
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:34.9664803Z [INFO] 
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:34.9665197Z [INFO] --- jar:3.3.0:jar (default-jar) @ incident-desk-backend ---
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.0927023Z [INFO] Building jar: /home/runner/work/incident-desk/incident-desk/backend/target/incident-desk-backend-0.0.1-SNAPSHOT.jar
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.1360259Z [INFO] 
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.1383230Z [INFO] --- spring-boot:3.2.5:repackage (repackage) @ incident-desk-backend ---
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.3951197Z [INFO] Replacing main artifact /home/runner/work/incident-desk/incident-desk/backend/target/incident-desk-backend-0.0.1-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.3973442Z [INFO] The original artifact has been renamed to /home/runner/work/incident-desk/incident-desk/backend/target/incident-desk-backend-0.0.1-SNAPSHOT.jar.original
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.3978121Z [INFO] ------------------------------------------------------------------------
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.3987007Z [INFO] BUILD SUCCESS
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.3987443Z [INFO] ------------------------------------------------------------------------
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.3987893Z [INFO] Total time:  11.170 s
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.3988129Z [INFO] Finished at: 2026-11-24T18:27:35Z
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.3988410Z [INFO] ------------------------------------------------------------------------
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.4433681Z Post job cleanup.
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.5546185Z (node:2779) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.5546784Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.5550624Z Cache hit occurred on the primary key setup-java-Linux-x64-maven-e843bb27a6b902768faf3efb8bd9e5a04dc89640ebeb7d54b0917426259c7d7f, not saving cache.
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.5739218Z Post job cleanup.
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.6488805Z [command]/usr/bin/git version
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.6530818Z git version 2.56.1
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.6564726Z Temporarily overriding HOME='/home/runner/work/_temp/ecd971f4-c125-476c-8f0d-624390e3598e' before making global git config changes
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.6566171Z Adding repository directory to the temporary git global config as a safe directory
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.6568914Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/incident-desk/incident-desk
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.6627794Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.6657189Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.6925147Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.6953490Z http.https://github.com/.extraheader
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.6965048Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7003737Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7350031Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7379717Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7726530Z Print service container logs: 515f03f2e7d449618b9bc62d81a0e65a_postgres15alpine_4b2e3e
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7729886Z ##[command]/usr/bin/docker logs --details 9758206d313cfd084527d669411c77b0f2a0e21f11645f63ec58ec7e05343158
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7850445Z  The files belonging to this database system will be owned by user "postgres".
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7851197Z  This user must also own the server process.
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7852794Z  sh: locale: not found
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7853083Z  
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7853453Z  2026-11-24 18:27:02.563 UTC [35] WARNING:  no usable system locales were found
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7854050Z  initdb: warning: enabling "trust" authentication for local connections
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7854926Z  initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7855679Z  2026-11-24 18:27:03.639 UTC [1] LOG:  starting PostgreSQL 15.20 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7856178Z  2026-11-24 18:27:03.639 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7856543Z  2026-11-24 18:27:03.639 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7856963Z  2026-11-24 18:27:03.639 UTC [1] LOG:  listening on Unix socket "/run/postgresql/.s.PGSQL.5432"
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7857418Z  2026-11-24 18:27:03.642 UTC [57] LOG:  database system was shut down at 2026-11-24 18:27:03 UTC
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7857812Z  2026-11-24 18:27:03.646 UTC [1] LOG:  database system is ready to accept connections
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7858173Z  2026-11-24 18:27:12.228 UTC [67] FATAL:  role "root" does not exist
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7858477Z  2026-11-24 18:27:22.262 UTC [74] FATAL:  role "root" does not exist
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7858766Z  2026-11-24 18:27:32.316 UTC [87] FATAL:  role "root" does not exist
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7859113Z  The database cluster will be initialized with locale "en_US.utf8".
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7859458Z  The default database encoding has accordingly been set to "UTF8".
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7859802Z  The default text search configuration will be set to "english".
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7860063Z  
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7860229Z  Data page checksums are disabled.
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7860433Z  
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7860682Z  fixing permissions on existing directory /var/lib/postgresql/data ... ok
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7860990Z  creating subdirectories ... ok
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7861249Z  selecting dynamic shared memory implementation ... posix
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7861847Z  selecting default max_connections ... 100
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7862093Z  selecting default shared_buffers ... 128MB
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7862532Z  selecting default time zone ... UTC
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7862888Z  creating configuration files ... ok
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7863225Z  running bootstrap script ... ok
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7863601Z  performing post-bootstrap initialization ... ok
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7863996Z  syncing data to disk ... ok
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7864292Z  
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7864505Z  
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7864788Z  Success. You can now start the database server using:
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7865182Z  
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7865469Z      pg_ctl -D /var/lib/postgresql/data -l logfile start
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7865839Z  
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7866534Z  waiting for server to start....2026-11-24 18:27:03.364 UTC [41] LOG:  starting PostgreSQL 15.20 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7867532Z  2026-11-24 18:27:03.364 UTC [41] LOG:  listening on Unix socket "/run/postgresql/.s.PGSQL.5432"
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7868222Z  2026-11-24 18:27:03.366 UTC [44] LOG:  database system was shut down at 2026-11-24 18:27:02 UTC
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7868863Z  2026-11-24 18:27:03.369 UTC [41] LOG:  database system is ready to accept connections
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7869420Z   done
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7887529Z  server started
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7887827Z  CREATE DATABASE
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7888379Z  
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7888602Z  
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7888998Z  /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7889483Z  
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7889849Z  waiting for server to shut down....2026-11-24 18:27:03.519 UTC [41] LOG:  received fast shutdown request
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7890277Z  2026-11-24 18:27:03.520 UTC [41] LOG:  aborting any active transactions
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7890736Z  2026-11-24 18:27:03.522 UTC [41] LOG:  background worker "logical replication launcher" (PID 47) exited with exit code 1
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7891166Z  2026-11-24 18:27:03.524 UTC [42] LOG:  shutting down
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7891473Z  2026-11-24 18:27:03.524 UTC [42] LOG:  checkpoint starting: shutdown immediate
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7892391Z  2026-11-24 18:27:03.611 UTC [42] LOG:  checkpoint complete: wrote 931 buffers (5.7%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.081 s, sync=0.005 s, total=0.088 s; sync files=301, longest=0.004 s, average=0.001 s; distance=4320 kB, estimate=4320 kB
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7893184Z  2026-11-24 18:27:03.618 UTC [41] LOG:  database system is shut down
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7893453Z   done
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7893623Z  server stopped
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7893791Z  
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7893994Z  PostgreSQL init process complete; ready for start up.
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7894252Z  
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7898114Z Stop and remove container: 515f03f2e7d449618b9bc62d81a0e65a_postgres15alpine_4b2e3e
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:35.7902041Z ##[command]/usr/bin/docker rm --force 9758206d313cfd084527d669411c77b0f2a0e21f11645f63ec58ec7e05343158
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:36.8384552Z 9758206d313cfd084527d669411c77b0f2a0e21f11645f63ec58ec7e05343158
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:36.8412671Z Remove container network: github_network_65484a2c43384260a849fb53b714fdac
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:36.8416113Z ##[command]/usr/bin/docker network rm github_network_65484a2c43384260a849fb53b714fdac
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:36.8923456Z github_network_65484a2c43384260a849fb53b714fdac
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:36.8987211Z Cleaning up orphan processes
+Backend (Java 21 / Spring Boot)	UNKNOWN STEP	2026-11-24T18:27:36.9334235Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-java@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

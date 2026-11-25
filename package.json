@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "check:railway": "tsc --noEmit --target ES2022 --module NodeNext --moduleResolution NodeNext .railway/railway.ts"
+    "check:railway": "tsc --noEmit --target ES2022 --module NodeNext --moduleResolution NodeNext .railway/railway.ts",
+    "test:all": "mvn -B -f backend/pom.xml verify && npm --prefix frontend test && npm --prefix mcp test && node --test .github/scripts/certificate-monitor.test.cjs"
   },
   "devDependencies": {
     "railway": "^3.12.0",
