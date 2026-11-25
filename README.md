@@ -26,19 +26,44 @@ this revision and production have not been verified to match.
 
 ## Known limits
 
-The staging database role can modify or delete audit rows, so the audit trail
-is not enforced as append-only. The MCP host recording shows a read, but its
-submission confirmation failed; a successful confirmed write and a live
-read-token denial remain unproven. The performance measurements do not
-establish an improvement or real-user INP. OpenTelemetry logs, metrics, and
-a two-component trace have not been demonstrated. The Railway account is on
-a temporary trial, with no configured budget alert.
+The following are known gaps, not a claim that every other requirement has
+been proven:
 
-The clean-clone deployment and complete evidence for every remote-call state,
-route, accessibility state, and rate-limited endpoint have not been
-demonstrated. The evidence notes distinguish local tests, staging checks,
-and production observations. The checks performed are not an exhaustive
-secret or personal-data audit.
+- **Audit and MCP:** The staging database role can modify or delete audit
+  rows, so the audit trail is not enforced as append-only. The MCP host
+  recording shows a read, but confirmation failed; a successful confirmed
+  write, live write audit, and live read-token denial remain unproven. MCP
+  token verification checks expiry when present but does not require an
+  `exp` claim; insufficient-scope denials are audited only when the token
+  has `mcp:audit`.
+- **Live updates and interface:** The SSE exercise did not independently
+  confirm the browser's replayed event ID. The screenshots and tests do not
+  establish loading, empty, and error states for every remote call, and the
+  accessibility checks do not cover every application state.
+- **Deployment evidence:** The DNS zone export is private and TTL rationale
+  does not cover every zone record. A clean-clone deployment, a change
+  stopped at staging, complete raw route and public-edge security-header
+  transcripts, and live `429` evidence for each endpoint class have not
+  been demonstrated. The staging CDN checks do not include an authenticated
+  response or a purge screenshot. The rollback exercise selected two
+  deployments with the same image digest, so it did not demonstrate a
+  binary change. The certificate alert used a test threshold, not an actual
+  14-day expiry.
+- **Performance, observability, and cost:** Measurements do not establish a
+  performance improvement or real-user INP, and the scaling assumptions
+  are not load-test results. OpenTelemetry logs, metrics, a two-component
+  trace, and a measured 30-day SLI/SLO dashboard have not been demonstrated.
+  The Cloudflare Free screenshot does not establish free Railway hosting;
+  Railway is on a temporary trial and has no configured budget alert. The
+  cost estimate is illustrative, not a measured bill.
+- **Evidence and defense:** Not every claim has all required raw output,
+  predictions, deliberate failures, deployment identifiers, and redaction
+  attestations. A live demo and individual oral defense still need to be
+  demonstrated. Checks performed are not an exhaustive secret or
+  personal-data audit.
+
+The evidence notes distinguish local tests, staging checks, and production
+observations.
 
 ## Local setup
 
